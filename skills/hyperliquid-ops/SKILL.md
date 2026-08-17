@@ -934,3 +934,46 @@ and a downstream Move 2 don't read as contradicting some other open call at a di
 **Self-check addition:** before sending a "next 2 moves" read, ask — is Move 2 something that can
 only happen AFTER Move 1 resolves (sequential, correct), or is it something that could happen instead
 of Move 1 right now (a fork, wrong structure)? If it's the latter, restructure before sending.
+
+## Amendment — "ON THE LINE" DISCIPLINE: mandatory exhaustion-vs-continuation check near any live level (2026-08-17, Olivier)
+
+**Trigger condition:** price sits within ~0.3-0.5% of ANY of the following for a live/OPEN call:
+- the tripwire level
+- a named Move 1 / Move 2 target or shelf (e.g. the 62,499-62,730 confluence zone)
+- the stated invalidation price
+
+When any of these is true, this is "on the line" — the moment that actually decides the read, not
+just another status update.
+
+**Mandatory action when on the line:** before restating the standing call or answering a status
+question, run the live discriminator check:
+```bash
+python3 scripts/pulse.py <COIN>
+python3 scripts/oi_flow.py --coins <COIN>
+```
+and explicitly classify the moment as one of:
+- **EXHAUSTION** (favors reversal / the level holds): volume fading or decelerating on the timeframe(s)
+  pushing into the level, CVD diverging from price, no fresh positioning crowd (OI flat/falling,
+  funding/premium inside fair-value band).
+- **CONTINUATION / GENUINE PUSH** (favors the level breaking): volume expanding AND accelerating,
+  CVD moving WITH price, and/or OI building in the direction of the push (a real crowd forming, not
+  just price drifting).
+- **AMBIGUOUS** (say so plainly, do not force a verdict): signals disagree across timeframes or data
+  is too thin to call — state this rather than picking a side to sound decisive.
+
+**Why this is separate from the ordinary pulse call:** THE READ step 4 already uses pulse.py to
+adjudicate R-vs-C when BUILDING a fresh call. This amendment is about RE-RUNNING that same
+discriminator specifically at the moment an EXISTING call's own level is actually being approached —
+so the check happens at the highest-information instant, not just once at commit time and then
+never again until resolution.
+
+**Output requirement:** when reporting on a call that is on the line, lead with the
+EXHAUSTION/CONTINUATION/AMBIGUOUS verdict and the specific evidence (vol %, accel, CVD slope, OI/funding
+state) — not just a restatement of the price level and probability. This is what makes "is X becoming
+a real move or a fake" answerable in the moment, not only after the fact via calibration.py.
+
+**Interaction with existing automation:** `hlops-call-evolve` (15min cron) already tracks distance-to-target
+and flags CONTESTED_INTERNAL when mechanical distance and pulse.py flow disagree. This amendment makes
+the SAME discriminator discipline mandatory in live chat/manual reads too, not just the automated
+tracker — so a human asking "is it exhaustion or the opposite" always gets the mechanical check, not
+a narrative guess.
