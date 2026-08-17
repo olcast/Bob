@@ -1,0 +1,54 @@
+{
+  "wallets": [
+    {
+      "name": "Main",
+      "address": "0x496c84Ae4C963048063F63F1Ac572Af399579Ef2"
+    }
+  ],
+  "watchlist": [
+    {
+      "name": "S&P 500",
+      "coin": "xyz:SP500"
+    },
+    {
+      "name": "XYZ 100",
+      "coin": "xyz:XYZ100"
+    },
+    {
+      "name": "Bitcoin",
+      "coin": "BTC"
+    },
+    {
+      "name": "Ethereum",
+      "coin": "ETH"
+    },
+    {
+      "name": "Hyperliquid",
+      "coin": "HYPE"
+    },
+    {
+      "name": "Tesla",
+      "coin": "xyz:TSLA"
+    },
+    {
+      "name": "Apple",
+      "coin": "xyz:AAPL"
+    },
+    {
+      "name": "Zcash",
+      "coin": "ZEC"
+    },
+    {
+      "name": "Gold",
+      "coin": "xyz:GOLD"
+    },
+    {
+      "name": "SpaceX",
+      "coin": "xyz:SPCX"
+    },
+    {
+      "name": "WTI crude",
+      "coin": "xyz:CL"
+    }
+  ]
+}
