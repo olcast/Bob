@@ -884,3 +884,53 @@ Standing macro count (challenge every session, never assume): equities in a topp
       Both wired into `hlops-contested-flag` alongside the existing Grok-4.6 blind audit — three distinct checks per fresh call (blind statistical audit / adversarial game-theory / doctrinal memory), pinging Olivier only on an actual finding from any of the three, silent otherwise. **REJECTED:** Claude Fable 5 ($10/$50/M, "Mythos-class" general knowledge-work model) — no distinguishing capability for this stack over the existing tier, would be a fourth expensive vote = consensus theater by another name.
     - **CALL EVOLUTION TRACKING (`scripts/call_evolve.py`, cron `hlops-call-evolve`, every 15min) — operationalizes #7 (continuity: assess how scenarios evolved) and #30 (an EW count's invalidation price IS the update rule) as a PERSISTED, append-only log instead of a one-off read.** For every OPEN call in `calls.json`, mechanically tracks: elapsed time vs. horizon, price's position within the call's own up/dn range (never a new level pick), and the live `pulse.py` flow verdict at the nearest timeframe. Classifies `conviction_delta` as STRENGTHENED / WEAKENED / UNCHANGED / RESOLVED / EXPIRED / **CONTESTED_INTERNAL** (the new, most important state: mechanical distance says the call is winning while live flow is FADING/DIVERGING — the fake-move signature, #4 pulse.py's own verdict — surfaced explicitly rather than let a closing distance alone read as rising conviction). **Never overwrites the original committed `p_up`/`up`/`dn`** — calibration.py still grades the frozen original commit; this is a diagnostic overlay, not a re-forecast. First live run caught exactly this: both open calls (2026-08-17) sat 84–97% of the way to their up-targets by distance while 1h flow read FADING/DIVERGING — flagged CONTESTED_INTERNAL rather than reported as growing confidence.
     - **Cost-unconstrained mandate (2026-08-17, standing) stays governed by capability-fit, not blanket spend.** Olivier's "use as many models as needed, cost is not the constraint" (carried from the CO-CALL session) does not mean maximize model count — it means do not let cost block a model that earns its place. #8's anti-consensus-theater rule is the actual gate on HOW MANY, not budget.
+
+## Amendment — "2 next most probable moves" is a PATH, not a FORK (2026-08-17, Olivier correction)
+
+THE READ step 6 says: "Commit the 2 next most probable moves." This has been getting delivered as
+two competing alternatives for the SAME instant (a fork: "either it fades down, or it holds and
+goes up"). That is wrong. Olivier's correction, verbatim in spirit: "the next 2 moves means for
+example 'goes to X and reject toward Y', not [two] alternate[s]. Then those 2 scenarios can have
+alternates."
+
+**Correct structure: a SEQUENTIAL PATH.**
+- **Move 1** = where price goes FIRST (the nearer-term leg).
+- **Move 2** = what happens AFTER Move 1 plays out (conditional on Move 1 resolving) — the next leg,
+  not a parallel possibility for right now.
+- Example: "Move 1: pushes into 63,860 resistance. Move 2: rejects there, toward 62,600." Move 2 is
+  downstream of Move 1, not a competing bet against it.
+
+**Each move in that path may still carry its own primary/alternate sub-case** — e.g. Move 1's
+primary is "pushes into 63,860 and rejects" with an alternate "stalls earlier at 63,400 and rejects
+from there"; Move 2 can likewise branch depending on which Move-1 sub-case actually fired. This is
+where probability and alternates belong — WITHIN each sequential leg, not as two competing readings
+of the current instant.
+
+**Format going forward, every BTC (and other coin) read:**
+```
+Move 1 (near-term, prob%): [level/zone] → [what happens there: rejects/breaks/holds]
+   invalidation: [price]
+   (alt, if warranted): [alternate sub-case for this same leg]
+Move 2 (conditional on Move 1, prob%): [level/zone] → [what happens there]
+   invalidation: [price]
+   (alt, if warranted): [alternate sub-case for this same leg]
+Tripwire: [the one or two prices that actually decide which path is live]
+```
+
+**Why this matters mechanically:** a fork framing ("Move 1: down. Move 2 (alternate): up.") hides
+the fact that these are usually NOT symmetric probability bets on the same instant — real market
+structure moves in sequence (sweep → reclaim → continuation, or break → retest → next leg). Framing
+the deliverable as sequential forces the read to state the MECHANISM connecting the two legs (what
+has to happen at Move 1 for Move 2 to even become live), which is more honest and more falsifiable
+than two disconnected alternatives.
+
+**Interaction with SCORE tagging (THE READ step 6's ledger tag):** the silent SCORE tag still grades
+a single up/dn/p_up pair per horizon — that discipline is unchanged. This amendment is about how the
+human-facing narrative is STRUCTURED (sequential path with sub-alternates), not about adding more
+SCORE tags. If Move 1 and Move 2 sit on genuinely different horizons, tag each with its own
+horizon/call-family in the ledger per doctrine #085 (horizon-scope discipline) so a near-term Move 1
+and a downstream Move 2 don't read as contradicting some other open call at a different horizon.
+
+**Self-check addition:** before sending a "next 2 moves" read, ask — is Move 2 something that can
+only happen AFTER Move 1 resolves (sequential, correct), or is it something that could happen instead
+of Move 1 right now (a fork, wrong structure)? If it's the latter, restructure before sending.
