@@ -1,0 +1,35 @@
+{
+  "schema": "hlops-lessons-v1",
+  "note": "Discovery-loop lab notebook = the CANDIDATE REGISTRY. This file is the SEED (holds L1). New candidates are added by firings as SEPARATE files named lesson-YYYYMMDD-HHMM.json in THIS folder (create-new-file / never-modify, like the tick-*.jsonl and call-*.json records) — Drive content here is not edited in place. The Sunday retro MERGES this seed's lessons[] with every lesson-*.json, then runs discovery_loop.py. A candidate is promoted to SKILL.md doctrine only after >= promotion_bar forward supporting calls, and only when Olivier SAVES the skill; once promoted or retired, that lesson's truth lives in SKILL.md doctrine, not here. SCOPE: METHOD / STANCE / bias-control only — never resurrect the frozen alpha thesis (#53/#54).",
+  "promotion_bar_default": 5,
+  "candidate_schema": {
+    "id": "L#  (next free id)",
+    "status": "candidate",
+    "statement": "one-line testable claim about the METHOD",
+    "spawned_by_call": "call number or firing ts that revealed it",
+    "spawned_utc": "YYYY-MM-DD HH:MM UTC",
+    "metric": "swept_then_right_rate | (add evaluators to discovery_loop.py as needed)",
+    "bar": {"min_wrong": 5, "rate_gte": 0.4},
+    "retire_if": {"metric": "swept_then_right_rate", "min_wrong": 10, "rate_lt": 0.15},
+    "test": "how the metric proves/refutes it, and where to read it",
+    "proposed_doctrine": "the exact doctrine line to paste into SKILL.md on promotion"
+  },
+  "lessons": [
+    {
+      "id": "L1",
+      "status": "candidate",
+      "statement": "In discovery the scenario invalidation is a SCORING line, not a stop — commit it BELOW the liquidity pool (recent swing-low / liq-cluster / round number), not above it. Placing it above the pool lets a stop-hunt sweep score a correct reversal call as wrong.",
+      "spawned_by_call": 1,
+      "spawned_utc": "2026-08-15 18:31 UTC",
+      "metric": "swept_then_right_rate",
+      "bar": {"min_wrong": 5, "rate_gte": 0.4},
+      "retire_if": {"metric": "swept_then_right_rate", "min_wrong": 10, "rate_lt": 0.15},
+      "test": "Among calls scored WRONG, the fraction swept-then-right (dn tagged, up reached anyway within h). >=40% over >=5 wrong calls => break-lines wrong-sided => promote. calibration.py prints this as the SWEEP DIAGNOSTIC.",
+      "evidence": {
+        "supporting_calls": [],
+        "seed_note": "Collector liq-map 2026-08-15 (tick-20260815-1818) showed a BTC long-liq cluster ~62,430 BELOW call #1's dn=62,600 — the wrong-sided break that motivated L1."
+      },
+      "proposed_doctrine": "In discovery, the invalidation is a SCORING line (no stops in discovery): commit it BELOW the liquidity pool. A hunt that wicks the pool and reverses to target scores as the correct call it was."
+    }
+  ]
+}

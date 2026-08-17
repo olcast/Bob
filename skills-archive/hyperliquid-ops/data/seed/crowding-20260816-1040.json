@@ -1,0 +1,22 @@
+{
+  "kind": "crowding",
+  "ts_madrid": "2026-08-16 10:40",
+  "by": "Grok/Crowd",
+  "coin": "BTC",
+  "state": "no crowd",
+  "p_up_action": "abstain",
+  "open_call_p_up": 0.52,
+  "weekend_haircut": true,
+  "hl": {
+    "mark": 63051,
+    "oracle": 63072,
+    "premium_bp": -3.33,
+    "funding": 0.0000125,
+    "funding_excess": 0,
+    "oi_btc": 44391.11,
+    "range_24h": [62890, 63144]
+  },
+  "fng": 34,
+  "tripwire": "FOMC minutes Wed 19 Aug 2026 14:00 ET / 20:00 Madrid",
+  "disclaimer": "Data-driven observations, not financial advice."
+}

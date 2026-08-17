@@ -1,0 +1,12 @@
+{
+  "id": "L2",
+  "status": "candidate",
+  "statement": "Grade PRECISION, not just direction: score how close the committed levels/timing were to the actual turn, and reward the call that TIGHTENED as the move approached (continuity). Binary up-before-dn loses the precision signal that IS the objective.",
+  "source": "OLIVIER-INPUT (objective clarified 2026-08-15: 'get the next 2 moves right, as precisely as possible as we get closer')",
+  "spawned_by_call": 1,
+  "spawned_utc": "2026-08-15 20:55 UTC",
+  "metric": "manual",
+  "bar": {"note": "no auto-evaluator yet — retro reviews by hand once >=10 calls carry committed level/timing + the realized turn; promote if a precision-weighted score separates good vs bad calls better than binary Brier AND precision demonstrably tightens across successive firings on the same move."},
+  "test": "Does precision-weighted grading (committed-level distance + timing error + tightening-over-firings) beat binary Brier at separating good calls from bad? Requires each call logged WITH its committed levels and the realized turn level/time. Until then: track by hand at the Sunday retro.",
+  "proposed_doctrine": "Grade the 2-move calls on PRECISION (committed-level distance, timing error, and tightening as the move nears), not just direction — the objective is precise moves that sharpen as we get closer, so the score must measure precision, not a coin-flip up/dn."
+}

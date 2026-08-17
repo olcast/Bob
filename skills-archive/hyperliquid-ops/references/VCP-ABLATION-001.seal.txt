@@ -1,0 +1,5 @@
+VCP-ABLATION-001 — SEAL
+Sealed at (UTC): 2026-08-15T08:26:29Z
+SHA-256 of VCP-ABLATION-001.md: 344cbad66e55481e56cb31e83e697c22cd1ae5334405a1b5e669dabd4ff60ce0
+Rule: if the .md hash does not match this value, the pre-registration is void.
+No experiment results were computed before this seal.

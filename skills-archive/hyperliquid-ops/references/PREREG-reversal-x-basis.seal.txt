@@ -1,0 +1,5 @@
+PREREG-reversal-x-basis.md
+sha256: d5a4a599af4327a6ca8b7213a552b83b1966dafc1303018955048e9ab5426984
+FROZEN: 2026-08-15 (doctrine #46/#47). Tamper-evident. Any edit to the spec voids this
+pre-registration and starts a NEW one with a fresh trial count. The forward verdict is judged
+against THIS frozen text only.

@@ -1,0 +1,6 @@
+{
+  "schema": "hlops-doctrine-v1",
+  "note": "PROMOTED-DOCTRINE channel for the co-desks (especially the Grok desk, which does not read the Claude skill's SKILL.md). Each desk's CORE doctrine lives in its own system prompt; this file carries lessons that have GRADUATED the discovery loop (held up across >= the promotion bar of forward calls) AND been approved by Olivier at the Sunday retro. Any desk reads every entry here as BINDING doctrine. APPEND-ONLY; entries are added only on human-approved promotion, never by an agent on its own. Currently empty: L1 (invalidation below the pool) and L2 (grade precision not just direction) are still on trial - n too low to promote.",
+  "promotion_bar": 5,
+  "promoted": []
+}

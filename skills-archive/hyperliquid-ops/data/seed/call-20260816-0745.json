@@ -1,0 +1,20 @@
+{
+  "call": 2,
+  "ts": 1786866352316,
+  "committed_utc": "2026-08-16 07:45 UTC",
+  "coin": "BTC",
+  "px_at_call": 63039.5,
+  "h": 48,
+  "up": 63500,
+  "dn": 62150,
+  "p_up": 0.58,
+  "p_base": 0.5,
+  "scenario": "Bullish coil, higher lows 62,523->62,890->62,977; complex risk-on (HYPE & xyz:SP500 near range highs); no long crowd (funding at ~10.95% baseline, premium slightly negative). MOVE1 = defend the base: a shallow higher-low ~62,900, OR a spring wick to 62,680/62,400 that RECLAIMS (weak-hands shakeout / short-trap). MOVE2 = up through the range to the 63,500 decider; accept & hold >63,474 -> launch the fib-extension / volume-shelf ladder 63,900(1.272) -> 64,290(1.618, fattest shelf = primary target) -> 65,475(2.618). A 63,500 tag that rejects while longs chase (OI spikes) = FAKE -> rotate back toward 62,400.",
+  "make_or_break": 62523,
+  "invalidation": "Thesis lives while the Friday base 62,523 holds. Real break = 1h close / acceptance below 62,150 (drawn BELOW the fresh 62,400 pool, per lesson L1); hard death on acceptance <62,000. A wick to 62,400/62,680 that RECLAIMS is the spring, NOT invalidation.",
+  "up_ladder": [63500, 63900, 64290, 65475],
+  "decider": 63474,
+  "by": "Claude+Olivier",
+  "thesis": "defend-then-up / spring; reversal-at-levels (unproven per audit #53) - on trial; dn drawn below the pool per L1",
+  "lineage": "evolves call #1 (2026-08-15 reversal-poke); converged via 2026-08-16 brainstorm"
+}

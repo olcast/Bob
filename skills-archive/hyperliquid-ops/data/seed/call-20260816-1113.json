@@ -1,0 +1,22 @@
+{
+  "call": "084",
+  "ts": 1786871688457,
+  "committed_utc": "2026-08-16 09:14 UTC",
+  "coin": "BTC",
+  "px_at_call": 63051,
+  "h": 30,
+  "up": 63474,
+  "dn": 61900,
+  "p_up": 0.55,
+  "p_base": 0.5,
+  "by": "Claude",
+  "scenario": "Sunday weekend coil ~16h pinned on the make-or-break 63,001-63,013 (.786 on both 1h+4h of the retrace off B=65,475). Positioning NEUTRAL (premium -2.4bp, turnover 0.09 dead book, no crowd). Analog leg-1 UP 60%/DOWN 40%; breadth 5/5 aligned; ATR-compression 0.11 (tightest yet), 1h Fib-time overdue. MOVE1 = hold >63,001-63,013 -> down-poke bought / coil-up -> bounce to the 63,474/63,500 magnet (4h .618 + liq pool). BREAK/hourly-accept <63,000 -> price seeks the downside long-liq pool 62,400 -> 62,090/62,000 (magnets, not the death). MOVE2 = tag 63,474/63,500 -> first impulse often a FAKE -> reject/perp-premium reject-short unless ACCEPT >63,474 -> 4h wave resumes 65,475; OR break into 62,400/62,000 pool -> down-poke bought -> reclaim toward 62,800-63,000, not a trend start absent catalyst.",
+  "make_or_break": 63001,
+  "invalidation": "Immediate resolver = 63,001-63,013 (hold = up-bounce alive; hourly-accept below = down-seek to the pool). SCORING invalidation (candidate L1 applied): acceptance BELOW ~61,900, drawn UNDER the 62,000/62,090 long-liq pool. A wick into 62,000-62,400 that RECLAIMS is the spring, NOT invalidation. Hard down-death: acceptance <62,000 with no washing-machine reclaim.",
+  "up_ladder": [63474, 63500, 65475],
+  "dn_pool": [62400, 62090, 62000],
+  "decider": 63474,
+  "thesis": "reversal-poke / defend-then-up (FROZEN, unproven per audit #53) - on trial; dn drawn BELOW the pool per candidate L1",
+  "lineage": "evolves #083 (2026-08-16 05:47 UTC coil-held-13h up-tilt); ~3.4h later coil held ~16h total, hold/up sharpened (analog 60%, breadth 5/5 aligned); dn moved from 62,800 (above pool) to 61,900 (below pool) applying L1",
+  "tail": "thinnest book (turn 0.09) + tightest coil (ATR-compress 0.11) + Fib-time overdue + FOMC minutes Wed Aug 19 -> fast outsized impulse can overshoot either way (weekend decoupling)"
+}

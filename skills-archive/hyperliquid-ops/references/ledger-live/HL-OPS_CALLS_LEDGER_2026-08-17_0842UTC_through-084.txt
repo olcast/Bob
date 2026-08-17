@@ -1,0 +1,268 @@
+﻿HL-OPS CALLS LEDGER — machine-updated, do not send
+
+HL-OPS CALLS LEDGER v3.2.20 (PRIMARY living copy — append-only). Drive backup v3.1.1. Lineage: … #071 TRIAL LOG T-002/T-003; #072 LATENT-FUEL doctrine; #073 INTERACTIVE + COVERAGE-GAP; #074 TRIAL LOG T-004/T-004b; #075 D7-LOG; #076 GROUND-TRUTH LIQ DATA + FORWARD COLLECTOR + T-004c line-excursion; #077 COMBINER (VCP-COMBINER-001 sealed) + DISCOVERY SWEEP 30 BTC-only trials NULL + PER-ASSET no-pooling rule + shallow-reclaim admission gate; #078 WASHING-MACHINE model confirmed + NO-RULES discovery + 2 ROBUST decorrelated reversal edges (E2 resTL-reject, E4 poke-reclaim; N_eff 3) + MM/PATH lens; #079 SWING-DESK FIRING (weekend) grade #29/#49 + evolve + next 2 moves; #080 SWING-DESK FIRING (weekend) evolve #079 → grade + next 2 moves (down-lean flips to marginal hold/up on 5m reconcile + analog flip); #081 SWING-DESK RE-FIRE (weekend) ~5 min after #080 — NO CHANGE, #080 call restated live; #082 D7-LOG (collector) mark 63,088, make-or-break zone holding, no armed level broke; #083 SWING-DESK FIRING (Sunday weekend) evolve #080/#081 → coil HELD ~13h intact on the make-or-break, call still live, marginally UP-tilted (analog leg-1 60%), positioning NEUTRAL, 1h Fib-time turn DUE; #084 SWING-DESK FIRING (Sunday) + SUNDAY RETRO — evolve #083 → coil HELD ~16h, hold/up sharpened (analog 60%, breadth 5/5 aligned), dn moved BELOW the 62k pool per candidate L1; retro 0/4 resolved (accumulating), leaderboard no standing; skills v3.13–v3.20.
+
+
+[NOTE 2026-08-15 #078: this is the live working copy; the byte-perfect authoritative v3.2.14 (full prior content #062–#077 verbatim + #078) was delivered to the trader as a file this session. Entries #062–#076 unchanged from prior versions; the full historical body is preserved in that file and in prior draft revisions.]
+
+
+---
+#077 — COMBINER LAYER SEALED + DISCOVERY SWEEP (30 BTC-ONLY TRIALS, NULL) + PER-ASSET RULE + ADMISSION GATE — 2026-08-15 ~13:20 UTC. Version v3.2.12 → v3.2.13. Interactive Opus session (OLIVIER-INPUT). Read-only; account untouched.
+
+
+COMBINER / ENSEMBLE LAYER (VCP-COMBINER-001 SEALED, sha256 14a75ca3…; doctrine #36). RenTec/Numerai METHOD not a magic signal: many weak decorrelated cost-surviving edges, blind-validated, regime-tested, ensembled; combined IR ≈ IR_single×√(N_independent). Frozen rules: admission gate (only ADMITTED, cost-surviving, continuous-calibrated signals weight); decorrelation is the point (|ρ|≥0.7=one bet; orthogonalise; report effective independent-bet count); weighting ladder equal→risk-parity→shrunk-IR→meta-learner (promote only on OOS evidence); cost on AGGREGATE turnover; fractional-Kelly (≤¼) under read⊥holdability; scheduled re-fit + decay. STATE: 0 admitted → equal-weight-of-one until a 2nd decorrelated admitted edge.
+
+
+PER-ASSET / NO-POOLING RULE (OLIVIER-INPUT, binding; #37a): BTC trades differently — never pool coins; a BTC signal is a BTC signal. Pooling manufactures fake edges. RETRO-FLAG: T-002/T-003 (#071) pooled BTC/ETH/SOL — the pooled-positive (depth→reclaim) superseded by the BTC-only reconfirm; pooled-negatives stay null. Both collectors already per-asset.
+
+
+DISCOVERY SWEEP = 30 BTC-ONLY TRIALS, 0 SURVIVORS (T-005 price + T-006 positioning; scripts/discovery_sweep.py, funding_sweep.py; excursion-graded +0.5%/−0.3%/5bp vs matched random control, OOS split). T-005 (27 cells, 1h/2h/4h): mean-reversion, momentum (NR7/Donchian), large-range, vol-spike, inside-bar — all net-negative after cost, none beats random OOS. T-006 (3 cells, 180d fundingHistory): funding/premium-extreme fade + funding-follow — null on BTC (funding pinned). Median MFE fine but only 37–59% reach +0.5% before the −0.3% stop vs the reclaim's 85%. Harness lesson: cost 5bp=0.0005 not 0.05 (factor-100 bug, caught; the random control cancels it).
+
+
+SHALLOW-RECLAIM reconfirmed BTC-only + ADMISSION GATE written (references/ADMISSION-shallow-reclaim.md). n=93, med MFE +1.09%, reach +0.5% 85% (OOS-stable train=test=85%), med MAE −1.42%; +0.5/−0.3 bracket ≈breakeven-neg — the −0.3% stop is INSIDE the −1.42% noise. Edge=excursion not chase. Gate pre-registers a tradeable spec + A7/A5/A4/A6/R5/A2/decorrelation.
+
+
+OLIVIER-INPUT TALLY: prior 2 HIT (#072,#074) + 1 framing-HIT (#076) / 1 MISS (#071) / 1 MISS-as-edge (#074); +1 HIT (#37a no-pooling). Hunt executed: honest 30-trial null, 0 false admits.
+
+
+ENFORCEMENT (this session): trials T-005 (27) + T-006 (3) = 30 DISCOVERY; rules ADOPTED 2 (#36 combiner, #37a no-pooling); sealed specs 1 (VCP-COMBINER-001) + admission gate; CONTESTED 0; ADMITTED 0.
+
+
+---
+#078 — WASHING-MACHINE MODEL + NO-RULES DISCOVERY + FIRST ROBUST EDGES + ENSEMBLE/DECORRELATION + MM/PATH LENS — 2026-08-15 ~13:55 UTC (15:55 CEST). Version v3.2.13 → v3.2.14. Interactive Opus session (OLIVIER-INPUT deep research block). Read-only; account untouched. Skills v3.13–v3.20 delivered for save.
+
+
+ARC (trials T-007…T-011; doctrine #38–#43):
+- T-007 ADMISSION (shallow-reclaim, #38): NOT admitted. 1h reclaim FAILS the microstructure null (just a bounce off a swept low; adds no calibrated info); 4h dip-entry@level→+1.0% marginal (regime-concentrated, dies at 25bp, n=62). The −0.3% stop is refuted (inside the −1.42% MAE noise).
+- OLIVIER METHOD CORRECTIONS (all adopted, binding): grade by MAX excursion not fixed time; strip COST in discovery (trader's biz); and DISCOVERY MUST NOT BE STOPPED/INVALIDATED BY TRADING RULES — a stop is exactly what invalidates a pattern that would have worked.
+- T-008 NO-RULES DISCOVERY (#39, discovery_excursion.py): removing stop/cost/bracket surfaced REAL predictive content the bracket had hidden. vol-spike-FADE (5m/15m/1h), shallow-reclaim (15m/4h, NOT 1h) — all reversal-shaped; momentum/breakout null. Patterns are TIMEFRAME-SPECIFIC (don't pool TFs, cf. #37a). Reconciles the earlier '30 trials 0 survivors' (that was under trading rules).
+- T-009 THESIS (#40, thesis_test.py): OLIVIER thesis (no stops · reversals off pokes · trendline reject-for-continuation) SUPPORTED, 2 refinements — reversal is LONG-BIASED (buy the down-poke; up-poke short does NOT reverse, BTC up-drift); continuation is the REJECT not the rebreak (breaks tend to FAIL = traps).
+- #41 WASHING-MACHINE MODEL (market_structure.py) CONFIRMED: BTC mean-reverts (VR<1 falling with horizon, 0.99→0.90); trend legs retrace 20–37% ('comes back for it'); funding bleeds the counter-trend crowd during trends (slow, small). EXPLAINS why every edge is reversal-shaped.
+- T-010 ENSEMBLE (#42, edge_ensemble.py): bootstrap-CI + 4-fold walk-forward CULLED 2 of 4 candidates → 2 ROBUST survivors: E2 resTL-REJECT short (1h, walk-forward 4/4 positive) + E4 poke-low→reclaim (15m, CI90 [+0.040,+0.218] EXCLUDES 0). Decorrelation EXCELLENT (avg −0.12, N_eff 3.0). KEY: equal-weighting the nulls HURT (ensemble Sharpe +0.04 < best-single +0.10) — WEIGHT ONLY ADMITTED EDGES; the COMBINER §2 admission gate proven with data.
+- T-011 MM/WHALE LENS (#43, mm_regime.py): the market engineers PATH not DIRECTION; reversals are liquidity-grab footprints (SFP = whale filling size). Empirically the edges are STRONGER after a trailing move than in a dead range — the move BUILDS the offside leverage/stops, the reversal HARVESTS it (corrects 'fade noise in quiet range'). Forward edge = SFP × true liq-map = whale-fill detector (collector-accruing).
+
+
+STATE: 2 robust in-sample-OOS reversal edges (E2 + E4), decorrelated (N_eff 3); 0 ADMITTED (owe a pre-registered FORWARD/blind run + E2×E4 cross-clock decorrelation before weight). Combiner idle until the pair blind-validates. OLIVIER-INPUT this block = 5 HITs (max-excursion · no-rules-discovery · thesis · washing-machine · MM/path); the reframing moved the desk 0 → 2 robust candidate edges.
+
+
+NEXT BLOCK (OLIVIER-scoped, not yet built): add HL SPOT BTC + CVD (orderflow.py) — spot↔perp lead/lag & divergence; trader-PROFILING by address/size via HL's per-address transparency to isolate the CONTRARIAN/loser cohort (buy-highs/sell-lows) to FADE. The decorrelated positioning family; the deepest use of the 'mine Renaissance never had'.
+
+
+ENFORCEMENT (this block): trials T-007…T-011 (5); doctrine #38–#43 (6, all DISCOVERY/method); process rules ADOPTED 3 (no-rules discovery · grade path-not-direction · weight-only-admitted); candidates ADMITTED 0; robust survivors 2; blind audits 0 (mechanical).
+
+
+---
+#079 — SWING-DESK FIRING (weekend, on-demand) — GRADE #29/#49 → EVOLVE → NEXT 2 MOVES — 2026-08-15 16:00 UTC (18:00 CEST, Sat; weekend thin-book decoupling binding). Version v3.2.14 → v3.2.15. Scheduled Fable/Opus firing. Read-only; account untouched. CONTINUOUS read — evolves the 14:00 UTC read (#29/#49), does not restart.
+
+
+PRICE: BTC 63,074 @ 15:58 UTC (was ~63,015 @ 14:00 → essentially FLAT over ~2h; the coil held).
+
+
+MACRO GATE: CLEAR-for-BTC. macro_preflight VOID on HYPE +2.02% ONLY — semi-independent alt (#51), no dated macro story (search = price-prediction spam), and an UP move does not contradict a BTC-flat/coil thesis → logged as idiosyncratic ambiguity (#6), not thesis-breaking. BTC +0.17%, ETH +0.17%, SOL/majors flat; energy/gold/indices quiet. Catalyst calendar: NO tier-1 inside 72h; tripwires = FOMC minutes ~Wed Aug 19–20 + Jackson Hole Aug 27–29 (Warsh's first as Fed Chair). Weekend = scenario, not a sized call.
+
+
+GRADE (baseline = #29/#49 @ 14:00 UTC):
+- LEG-1 #29 up-leg-then-SFP-down ('push into 63.29–63.65k short-liq shelf → SFP reversal down 62.4k/62.0k'): NOT TRIGGERED, WEAKENED→near-dead. Price never reached the 63,290 shelf; it drifted DOWN toward the make-or-break instead. The required push-up first leg is out of time (4h Fib-time now 34 bars = a turn is DUE). Unresolved; the up-leg premise is fading.
+- MAKE-OR-BREAK ~63,000 (0.786 on BOTH 1h+4h): STILL LIVE, now being TESTED — px 63,075 sitting ON it; neither broken <62.8k nor accepted >63.65k.
+- #48 14:00 analog ('leg-1 coin flip, modal poke→rotate, real move waits on catalyst'): HOLDING / partial-HIT — ~2h in, no $300 leg fired, coil intact (analog median 3h to leg-1). No fake conviction paid.
+RUNNING: last gradeable directional call (#29/#49) still OPEN; leg-1 untriggered; no new resolution to bank this firing.
+
+
+THE READ (16:00 UTC):
+- WAVE (wave_scenarios): 4h retrace DEEPENED to 74% — PAST the .618 magnet (63,474) and now AT the .786 (63,001). 1h .786 = 63,013. Both TFs CONVERGE ~63,000 = make-or-break, price ON it. 4h Fib-time 34 bars → turn DUE. The 63,474/63,500 magnet (4h .618 + liq pool) is now ABOVE price — a push there is now COUNTER-TREND, no longer the base case.
+- POSITIONS (oi_flow): NEUTRAL vs oracle (prem −4.1bp, excAPR 0.0%, turnover 0.21 = dead weekend book; no prior snapshot on this box → no ΔOI this run, said out loud). state_view 1h: basis +7bp / 75th pctile [PERP PREMIUM] + funding pctile 1.0 → MILD perp-long lean = an offside crowd to HARVEST on a break (#45). 4h CVD-slope −441 (selling into the zone). basis↔funding +0.41 (one bet — not double-counted).
+- ANALOG (n=166; fingerprint coil eff 0.07 / range-pos 19% / ATR-compress 0.24): LEG-1 UP 52% / DOWN 48% = coin flip (median 3h); LEG-2 REVERSE 57% (after a down-leg 59% reverse). Range-pos LOW.
+
+
+EVOLUTION vs 14:00: up-path (push to shelf) WEAKENED→near-dead (driver: down-drift + Fib-time due); down-path STRENGTHENED mildly (driver: 4h CVD−, mild perp-long lean to harvest, retrace deepened past .618); make-or-break LEVEL-SHIFTED from 'watch, price above it' to 'price testing ON it now.'
+
+
+NEXT 2 MOVES (DELTA):
+- MOVE 1 — make-or-break resolution (~coin flip; direction NOT faked). Discriminator level = ~62,800 (.786 floor / direct-break trigger). HOLD 62,800–63,000 → down-poke bought (#40 long-bias) → counter-trend bounce to the 63,474/63,500 magnet (4h .618 + liq pool). BREAK / hourly-accept <62,800 → mild perp-longs harvested + 4h CVD− → 62,400 then 62,000 (long-liq pool). Marginal lean DOWN-resolve ~52% (4h CVD−, perp-long lean, deepened retrace) vs ~48% hold — a thin, honest coin flip; the LEVEL, not the direction, carries the conviction.
+- MOVE 2 — leg-2 (washing-machine 57% reverse, #41). If MOVE 1 breaks DOWN to 62,400/62,000 → expect a BOUNCE (down-poke bought; 59% reverse) back toward 62,800–63,000, NOT a trend start, ABSENT a catalyst. If MOVE 1 holds & bounces UP to 63,474/63,500 → first impulse is often a FAKE (#49) → reject / perp-premium reject-short fade (#44/#45) back down, UNLESS it reclaims + accepts >63,474 → 4h wave RESUMES toward 65,475.
+- MAKE-OR-BREAK (the ONE level): ~62,800. Hourly acceptance below = down leg confirmed (62,400→62,000); holding it keeps the coil / up-bounce alive.
+- TAIL (low-prob / high-significance): weekend thin book (turnover 0.21) + extreme coil (ATR-compress 0.24) + Fib-time turn DUE + FOMC-minutes / Jackson-Hole regime approaching → a fast, OUTSIZED impulse on little volume can overshoot either target (weekend decoupling). The DOWN-death (names the down per #25): a real break that ACCEPTS <62,000 with no washing-machine bounce kills the up-bias and opens a larger down leg. Low prob this weekend, high significance.
+
+
+ENFORCEMENT (this firing): scripts run — macro_preflight, wave_scenarios, oi_flow, state_view, analog (all read-only /info; account/positions untouched per house rules). 0 new trials; 0 new doctrine; blind audit 0 (firing, not research); CONTESTED 0; ADMITTED 0.
+
+
+---
+#080 — SWING-DESK FIRING (weekend, on-demand) — GRADE #079 → EVOLVE → NEXT 2 MOVES — 2026-08-15 16:22 UTC (18:22 CEST, Sat; weekend thin-book decoupling binding). Version v3.2.15 → v3.2.16. Scheduled Fable/Opus firing. Read-only; account untouched. CONTINUOUS read — evolves the 16:00 UTC read (#079), ~22 min elapsed, does not restart.
+
+
+PRICE: BTC 63,055 @ 16:22 UTC (was 63,074 @ 15:58 → FLAT, −19; the coil held another ~22 min).
+
+
+MACRO GATE: CLEAR. macro_preflight no VOID (HYPE +1.93%, back UNDER the 2% gate; semi-independent alt #51, an up-move does not contradict BTC-flat/coil). BTC −0.06%, ETH −0.01%, SOL −0.20%; energy/gold/indices quiet; DXY/VIX stubs. Catalyst: NO tier-1 <72h; tripwires = FOMC minutes Wed Aug 19–20, Jackson Hole Aug 27–29 (Warsh). Weekend = scenario, not a sized call.
+
+
+GRADE (baseline = #079 @ 16:00 UTC):
+- #079 MOVE-1 marginal DOWN-resolve (~52%): NOT TRIGGERED, now WEAKENED / CONTRADICTED. Price did NOT break <62,800; it HELD ~63,000 and the 5m turned to HIGHER HIGHS + HIGHER LOWS above the make-or-break (highs 63034/63035/63112, lows 63002/62967/63006). The #52 5m-reconcile rule fires: #079's down-lean was micro-blind and is fading.
+- MAKE-OR-BREAK ~63,000 (0.786 both TFs): STILL LIVE, HOLDING. px 63,055 just above it; neither <62,800 nor >63,650 accepted.
+- ANALOG leg-1 FLIPPED to UP 55% (was DOWN 52% @ #079) — the coin flip tilted marginally UP.
+RUNNING: #29/#49→#079 directional call still OPEN; nothing resolved to bank (~22 min, coil intact). No fake conviction paid.
+
+
+THE READ (16:22 UTC):
+- WAVE (wave_scenarios): 4h retrace +75% (was 74%); Fib-time 35 bars → turn DUE; .618 magnet 63,474 (+ liq pool 63,500), .786 break 63,001. 1h retrace 71%, .786 63,013. Both TFs CONVERGE make-or-break ~63,000–63,013; px ON/just above it. 5m MICRO = HIGHER HIGHS + HIGHER LOWS → up-micro, make-or-break holding (the #52 fix; do NOT call the up-path dead against the live 5m).
+- POSITIONS (oi_flow): NEUTRAL — prem −4.3bp, 3d −2.4bp, inside ±4bp for 65/72h, excAPR 0.0%, turnover 0.20 (dead weekend book, positioning venue). No prior snapshot → no ΔOI this run (said out loud). state_view 1h: basis +6.2bp / 0.64 pctile [FLAT] — WEAKENED from #079's +7bp/75th; the mild perp-long lean has NEUTRALIZED (less down-fuel to harvest). funding pctile 1.0 aligned −1.3e-5; CVD-slope −193 (mild sell, weak). D6 no armed trigger. basis↔funding +0.41 (one bet).
+- ANALOG (n=143; eff 0.04 / range-pos 18% / ATR-compress 0.22): LEG-1 UP 55% / DOWN 45% (median 3h); LEG-2 REVERSE 55% (after UP 51% / after DOWN 60%).
+- BREADTH (cross_asset): 2/5 confirm (ETH,SOL confirm; HYPE +1.98%,SPX,NDX diverge) → DIVERGENT (warning) → lowers directional conviction, keep the lean thin.
+
+
+EVOLUTION vs #079: down-path WEAKENED (driver: price HELD the make-or-break + 5m up-micro + perp-long lean neutralized to flat + oi_flow now NEUTRAL); up-path (bounce to 63,474/63,500 magnet) STRENGTHENED mildly (driver: 5m HH/HL, analog leg-1 flip to UP 55%, hold confirmed); make-or-break UNCHANGED level, state-shifted from 'testing-down' to 'HELD.' NET: #079's marginal down-lean FLIPS to a marginal hold/up-lean — override justified by the #49/#52 5m-reconcile (higher highs above the make-or-break) + the analog leg-1 flip, NOT a story; and held thin because breadth is divergent + positioning neutral (no strong fuel).
+
+
+NEXT 2 MOVES (DELTA):
+- MOVE 1 — make-or-break resolution, now marginally favoring the HOLD (~53% hold/up vs ~47% break-down). HOLD >63,000–63,013 (5m says it is) → down-poke-bought (#40 long-bias) / coil-up → bounce to the 63,474/63,500 magnet (4h .618 + liq pool). BREAK / hourly-accept <62,800 → 62,400 then 62,000 (long-liq pool). A thin coin flip tilted UP by the micro + analog flip; conviction on the LEVEL, not direction. Breadth-divergent + neutral positioning → keep it low-conviction.
+- MOVE 2 — leg-2 (washing-machine 55% reverse, #41). If MOVE 1 bounces UP and tags 63,474/63,500 → first impulse often a FAKE (#49) → reject / perp-premium reject-short fade (#44/#45) back down, UNLESS it reclaims + accepts >63,474 → 4h wave RESUMES toward 65,475. If MOVE 1 breaks DOWN to 62,400/62,000 → down-poke bought (60% reverse after a down-leg) → bounce back toward 62,800–63,000, NOT a trend start, ABSENT a catalyst.
+- MAKE-OR-BREAK (the ONE level): ~62,800. Hourly acceptance below = down leg confirmed (62,400→62,000); holding it keeps the coil / up-bounce alive. Upside trigger: acceptance >63,474 = up-trend resumes toward 65,475.
+- TAIL (low-prob / high-significance): weekend thin book (turnover 0.20) + extreme coil (ATR-compress 0.22) + Fib-time turn DUE + FOMC-minutes Wed approaching → a fast, OUTSIZED impulse on little volume can overshoot either target (weekend decoupling). DOWN-death (names the down per #25): a real break that ACCEPTS <62,000 with no washing-machine bounce kills the up-bias and opens a larger down leg. Low prob this weekend, high significance.
+
+
+ENFORCEMENT (this firing): scripts run — macro_preflight, wave_scenarios, oi_flow, state_view, analog, cross_asset (all read-only /info; account/positions untouched per house rules). 0 new trials; 0 new doctrine; blind audit 0 (firing, not research); CONTESTED 0; ADMITTED 0.
+
+
+---
+#081 — SWING-DESK RE-FIRE (weekend, on-demand, manual) — NO CHANGE — 2026-08-15 16:27 UTC (18:27 CEST, Sat; weekend thin-book decoupling binding). Version v3.2.16 → v3.2.17. Manual re-fire ~5 min after #080. Read-only; account untouched. CONTINUOUS read — evolves #080, ~5 min elapsed.
+
+
+PRICE: BTC 63,084 @ 16:27 UTC (was 63,055 @ 16:22 → FLAT, +29; coil intact).
+
+
+GATE: CLEAR (HYPE +1.85%, under the 2% line; BTC −0.02%). No tier-1 <72h; tripwires unchanged (FOMC minutes Wed Aug 19–20, Jackson Hole Aug 27–29).
+
+
+GRADE (baseline = #080 @ 16:22 UTC): NOTHING RESOLVED in ~5 min. Make-or-break ~63,000–63,013 STILL LIVE, HOLDING (px 63,084 just above; neither <62,800 nor >63,474 accepted). Fresh signals essentially unchanged: 4h retrace 74% (was 75%, price ticked +$29), Fib-time 35 bars → turn still DUE; 1h CVD-slope ticked +177 (was −193 → marginally supportive of the hold, not material); 5m softened HH/HL → mixed/coiling but price STILL above the make-or-break (up-path not dead, #52 reconcile). #080's marginal hold/up call is INTACT.
+
+
+EVOLUTION vs #080: NONE material — coil held another 5 min; 5m micro softened from up to neutral, 1h CVD flipped mildly positive (both trivial); no path strengthened or weakened enough to move the lean. This is a same-minute manual re-fire; token discipline (#10) → no full re-run, deltas only.
+
+
+CALL (restated live, unchanged from #080): MOVE 1 = make-or-break resolution, marginal HOLD/up ~53% vs ~47% break; HOLD >63,000–63,013 → bounce to 63,474/63,500 magnet; BREAK/hourly-accept <62,800 → 62,400 then 62,000. MOVE 2 = leg-2 washing-machine 55% reverse (tag 63,474/63,500 → likely FAKE/reject-short unless accept >63,474 → 65,475; break 62,400/62,000 → down-poke bought → bounce to 62,800–63,000). MAKE-OR-BREAK = ~62,800. TAIL = thin weekend book + extreme coil + Fib-time turn DUE + FOMC Wed → fast outsized impulse can overshoot either way; down-death = acceptance <62,000 with no bounce.
+
+
+ENFORCEMENT (this re-fire): scripts run — macro_preflight, wave_scenarios (read-only /info; account/positions untouched). 0 new trials; 0 new doctrine; 0 resolution banked; CONTESTED 0; ADMITTED 0. No-change firing logged per append-only (a no-trade is a call).
+
+
+---
+#082 — D7-LOG (forward depth/positioning collector, BTC) — 2026-08-15 20:06 UTC. Version v3.2.17 → v3.2.18. Scheduled Fable D7 collector firing. Read-only; account untouched. Data-accrual only — no narrative, no call.
+
+
+MARK: BTC 63,088 (allMids 63,087.5; oi_flow mark 63,088). Sits IN the make-or-break zone 63,000–63,013, above the 62,800 break-floor.
+
+
+DEPTH (resting depth ±0.3% of level, $M; HL l2Book returns ~20 lvl/side → visible window 63,068–63,107):
+- 63,500 magnet-hi | bid — | ask — (outside window)
+- 63,474 magnet / upside-accept | bid — | ask — (outside window)
+- 63,006 make-or-break | bid $10.76M | ask $5.39M (±0.3% band overlaps near-touch book ≈ whole visible book)
+- 62,800 break-floor | bid — | ask — (outside window)
+- 62,400 dn-target | bid — | ask — (outside window)
+- 62,000 dn-death | bid — | ask — (outside window)
+(— = no queryable resting depth: the level's ±0.3% band lies outside the ~20-level l2Book window; NOT a confirmed void.)
+
+
+POSITIONING (oi_flow BTC): excess funding APR 0.0% (baseline 10.95 = funding APR), premium −4.34 bp, turnover 0.13, OI 44,214u / $2.79B → NEUTRAL (premium inside ±4bp 64/72h; no crowd to squeeze). dOI n/a (no in-tool prior snapshot this box).
+
+
+LIQ-MAP (latest collector tick 19:17 UTC): fuelSkew +0.998 (upFuel $5.19M vs downFuel $5.3k), nAddrScanned 10 (thin scan; extreme up-skew on tiny absolute down-fuel).
+
+
+ARMED-LEVEL BREAKS since last D7-LOG: NONE — px holds the make-or-break zone; 62,800 floor intact, 63,474/63,500 magnet untagged, 62,000 down-death not hit.
+
+
+OBSERVED: near-touch book ~2:1 bid-heavy ($10.8M bid vs $5.4M ask) with mark pinned on the make-or-break; no resting depth queryable at the outer armed levels. No interpretation beyond the tape.
+
+
+ENFORCEMENT (this firing): reads — l2Book, allMids, oi_flow, Drive collector tick (all read-only /info; account/positions untouched). 0 trials; 0 doctrine; 0 resolution banked; CONTESTED 0; ADMITTED 0. Collector log only.
+
+
+---
+#083 — SWING-DESK FIRING (weekend, on-demand) — GRADE #080/#081 → EVOLVE → NEXT 2 MOVES — 2026-08-16 05:47 UTC (07:47 CEST, Sun; weekend thin-book decoupling binding). Version v3.2.18 → v3.2.19. Scheduled Fable/Opus firing. Read-only; account untouched. CONTINUOUS read — evolves the 16:22–16:27 UTC read (#080/#081) across a ~13h session gap (macro sweep widened to cover it), does not restart.
+
+
+PRICE: BTC 63,021 @ 05:47 UTC (was 63,084 @ #081 16:27, 63,088 @ #082 20:06 → essentially FLAT over ~13h, −$63/−67; the coil HELD through the whole US-evening + Asia session).
+
+
+MACRO GATE: CLEAR-for-BTC. macro_preflight no VOID (nothing ≥2% 24h; BTC −0.06%, ETH −0.04%, SOL −0.04%, HYPE +1.69% under the 2% line #51; Brent −0.5%, WTI −0.5%, gold +0.06%, SPX +0.07%, NDX +0.22% all quiet; DXY/VIX stubs). Session-gap sweep (#0d, ~13h): disconfirming/neutral search returned NO weekend BTC-moving catalyst — background is 'BTC ended the week lower after failing ~65k, focus shifts to FOMC minutes' (matches the wave: retrace off the 65,475 leg-B). Catalyst calendar: NO tier-1 inside 72h; tripwires = FOMC minutes Wed Aug 19–20 (4h Fib-time next window 55b = Aug 19 00:00 aligns), Jackson Hole Aug 27–29 (Warsh's first as Chair). Weekend = scenario, not a sized call.
+
+
+GRADE (baseline = #080/#081 @ 16:22–16:27 UTC; #082 collector mark 63,088 @ 20:06):
+- #080/#081 MOVE-1 marginal HOLD/up (~53%): HOLD SIDE WEAKLY VINDICATED, up-target UNTRIGGERED. ~13h elapsed and price NEVER accepted <62,800 (hold thesis survived a full session) AND never tagged the 63,474/63,500 magnet — the coil just extended. The directional bounce did not fire; neither leg fully resolved.
+- MAKE-OR-BREAK ~62,800: INTACT — never breached in 13h. Price pinned the 63,000–63,013 make-or-break the entire window (high-side 63,088 @ 20:06, now 63,021).
+- MOVE-2 (leg-2 reverse): UNTRIGGERED — leg-1's $300 move to the magnet or to 62,400 never came.
+RUNNING: the #29/#49→#079→#080→#081 directional call remains OPEN, unresolved ~13h; no armed level broke (confirms #082); no fake conviction paid; nothing banked. Hit-rate unchanged — no new resolution to grade.
+
+
+THE READ (05:47 UTC):
+- WAVE (wave_scenarios): 4h retrace +76% (was 75% @ #080); .618 magnet 63,474 (+ liq pool 63,500) ABOVE, .786 break 63,001 = make-or-break; 4h Fib-time 38 bars, next window 55b = Aug 19 00:00 (FOMC-minutes-aligned). 1h retrace +75%, .786 63,013, AT Fib-time 55 bars → a turn is DUE/overdue. Both TFs CONVERGE make-or-break ~63,001–63,013; px 63,021 sitting ON it. 5m MICRO = mixed / coiling (recent highs ~63,128 / lows ~63,041; no clean HH or LL) → neither path dead (#52 reconcile).
+- POSITIONS (oi_flow): NEUTRAL — BTC premium inside ±4bp for 63/72h, excAPR 0.0%, turnover 0.10 (even thinner than #080's 0.20; dead weekend book). No crowd to harvest either way. state_view 1h: D3 basis +3.3bp / pctile 0.24 [mild PERP-DISCOUNT — shifted from #080's +6.2bp premium; a marginal tilt from perp-longs to a slight short lean, immaterial]; D4 funding +1.25e-5/hr; D1 trend −0.08% flat; D2 regime eff 0.05 [RANGING/coil]; D5 CVD-slope −67 (mild sell, weak); D6 no armed trigger. basis↔funding +0.41 (one bet, not double-counted). SOL shows crowded shorts — NOT BTC, not pooled (#37a). No fresh liq-map/HLP tick this firing (collector is a separate schedule; #082's 19:17 tick fuelSkew +0.998 up on tiny abs down-fuel, thin 10-addr scan, low confidence).
+- ANALOG (n=89; fingerprint coil eff 0.05 / range-pos 17% / ATR-compress 0.14 = tighter compression than #080's 0.22): LEG-1 UP 60% / DOWN 40% (median 4h) — tilted FURTHER UP (was 55% @ #080); LEG-2 after UP-leg continue 58% / reverse 42%, after DOWN-leg reverse 56%.
+- BREADTH (cross_asset): 0/5 confirm, but TRIVIALLY — every asset is flat (ETH +0.01%, SOL +0.03%, SPX +0.01%) against BTC's −0.07%, so 'divergence' here is dead-tape noise, low-information; only HYPE (+1.28%) actually moved. Keep the lean thin (no cross-asset confirmation to lean on).
+
+
+EVOLUTION vs #080/#081: HOLD/up-path STRENGTHENED modestly — drivers: price HELD the make-or-break a full ~13h without accepting <62,800 (the hold survived time, the strongest tell here), + analog leg-1 tilted further UP (60% vs 55%). Down-path WEAKENED slightly — 13h, no break, positioning still NEUTRAL (no down-fuel; the tiny shift to mild perp-discount if anything removes down-fuel). Make-or-break UNCHANGED level; state = HELD LONGER → coil MORE COMPRESSED (ATR-compress 0.14 vs 0.22) and the 1h Fib-time turn now DUE/overdue (55 bars) → resolution is nearer. NET: #080's marginal hold/up call has AGED ~13h intact and marginally SHARPENED up (analog + the completed hold), but the bounce still hasn't fired — a coil refusing to resolve, now compressed tighter and drifting toward the Wed FOMC-minutes tripwire. Held thin: positioning neutral (no fuel) + breadth trivially-divergent + dead weekend book.
+
+
+NEXT 2 MOVES (DELTA):
+- MOVE 1 — make-or-break resolution (still the pending event), marginal HOLD/up ~54% vs ~46% break. HOLD >63,000–63,013 (px on it) → down-poke bought (#40 long-bias) / coil-up → bounce to the 63,474/63,500 magnet (4h .618 + liq pool). BREAK / hourly-accept <62,800 → 62,400 then 62,000 (long-liq pool). A thin coin flip tilted UP by analog leg-1 60% + the 13h hold; conviction on the LEVEL, not the direction. Neutral positioning + trivially-divergent breadth + dead book (turnover 0.10) → LOW conviction. The tighter coil + 1h Fib-time turn DUE means the resolution is likely NEARER than the level implies.
+- MOVE 2 — leg-2 (washing-machine; analog after-UP continue 58% / reverse 42%, after-DOWN reverse 56%, #41). If MOVE 1 bounces UP and tags 63,474/63,500 → first impulse often a FAKE (#49) → reject / perp-premium reject-short fade (#44/#45) back down, UNLESS it reclaims + ACCEPTS >63,474 → 4h wave RESUMES toward 65,475. If MOVE 1 breaks DOWN to 62,400/62,000 → down-poke bought (56% reverse after a down-leg) → bounce back toward 62,800–63,000, NOT a trend start, ABSENT a catalyst.
+- MAKE-OR-BREAK (the ONE level): ~62,800. Hourly acceptance below = down leg confirmed (62,400→62,000); holding it keeps the coil / up-bounce alive. Upside trigger: acceptance >63,474 = up-trend resumes toward 65,475.
+- TAIL (low-prob / high-significance): thinnest book yet (turnover 0.10) + tightest coil yet (ATR-compress 0.14) + 1h Fib-time turn DUE/overdue + FOMC minutes Wed Aug 19 approaching → a fast, OUTSIZED impulse on little weekend volume can overshoot either target (weekend decoupling); the tighter the coil, the bigger the release. DOWN-death (names the down per #25): a real break that ACCEPTS <62,000 with no washing-machine bounce kills the up-bias and opens a larger down leg. Low prob this weekend, high significance.
+
+
+SCORE {"ts":1786859373553,"h":36,"up":63474,"dn":62800,"p_up":0.54,"p_base":0.5}
+
+
+ENFORCEMENT (this firing): scripts run — macro_preflight, wave_scenarios, oi_flow, state_view, analog, cross_asset (all read-only /info; account/positions untouched per house rules). Session-gap macro sweep widened per #0d. 0 new trials; 0 new doctrine; blind audit 0 (firing, not research); CONTESTED 0; ADMITTED 0. THE READ step 8 capture: honest NULL this firing — nothing new to log; the coil-held-13h + analog-up-tilt is continuity, not a testable method improvement (default null, #54).
+
+
+---
+#084 — SWING-DESK FIRING (weekend, Sunday) + SUNDAY RETRO (discovery-loop + leaderboard) — GRADE #083 → EVOLVE → NEXT 2 MOVES — 2026-08-16 09:14 UTC (11:14 CEST, Sun; weekend thin-book decoupling binding). Version v3.2.19 → v3.2.20. Scheduled Fable/Opus firing. Read-only; account untouched. CONTINUOUS read — evolves the 05:47 UTC read (#083), ~3.4h elapsed, does not restart.
+
+
+PRICE: BTC 63,051 @ 09:11 UTC (was 63,021 @ #083 05:47 → +$30, FLAT; the coil HELD another ~3.4h through the EU morning — now ~16h+ pinned on the make-or-break since #080/#081 Sat 16:22).
+
+
+MACRO GATE: CLEAR-for-BTC. macro_preflight VOID on HYPE +2.53% ONLY — semi-independent alt (#51), no dated macro story (search = HYPE price-prediction spam), and an UP move does not contradict a BTC-flat/coil thesis → logged as idiosyncratic ambiguity (#6), not thesis-breaking. BTC +0.18%, ETH +0.19%, SOL +0.42%, majors quiet; Brent +0.77%/WTI +0.68% (<2%, calm), gold flat, SPX +0.08%/NDX +0.18% quiet; DXY/VIX stubs. Disconfirming sweep (#0b, newer_than:2d neutral) + inbox pass (#0c, Bloomberg/FT newer_than:2d): NO fresh weekend BTC catalyst — the week's ~$2.5k slide off the ~65k failure + SEC/CLARITY-Act delay-to-fall + Strategy/Saylor ~Aug-10 BTC sale are all ALREADY-PRICED background (match the wave: retrace off the 65,475 leg); Bloomberg 'Iran war spiral' (Aug 14) is the recurring geopolitics watch but the oil tape is calm (<1%) so no thesis break (2026-07-26 fossil respected — checked the price, not just the headline). Catalyst calendar: NO tier-1 inside 72h; tripwires = FOMC minutes Wed Aug 19–20 (4h Fib-time 55b = Aug 19 00:00 aligns), Jackson Hole Aug 27–29 (Warsh's first as Chair). Weekend = scenario, not a sized call.
+
+
+SUNDAY RETRO (calibration + discovery_loop + leaderboard over the union of ledger SCORE tags + Drive call-*.json; /tmp/calls.json n=4 deduped by ts, /tmp/lessons.json = seed L1 + L2–L5):
+- CALIBRATION: 0 resolved of 4 logged calls — too few to score (need ~30). Accumulating, n=0/30. up-rate n/a, Brier n/a, SWEEP DIAGNOSTIC n/a. Honest null.
+- DISCOVERY LOOP: nothing promoted or retired. All 5 candidates GATHERING — L1 (invalidation below the pool) 0/5 wrong-calls of evidence; L2 (grade precision, manual metric); L3/L4/L5 (Grok: analog-fingerprint-lock, spring_delta, dead-tape-abstain) have no auto-evaluator yet → hand-tracked. Contribution scoreboard: call#1 → 2 candidates gathering; call-20260816-1016 → 2; lab-2B → 1; all promote-ready 0. PROPOSES ONLY — nothing for Olivier to approve/SAVE this cycle; doctrine.json promoted[] stays empty (L1/L2 still sub-bar).
+- LEADERBOARD (by:Claude vs by:Grok, regime-conditioned): 0 resolved of 4 (4 unmatured) — NO STANDING yet (needs n≥~20/desk/regime). On file: Claude/Claude+Olivier ×3, Grok ×1. Blind-commit discipline held (this #084 call committed WITHOUT reading Grok's OPEN 08:16 direction; #57). CONTESTED 0 so far (co-desk calls all up-biased, dn below pool — aligned, not contested).
+
+
+GRADE (baseline = #083 @ 05:47 UTC; SCORE up63474/dn62800/p_up0.54):
+- #083 MOVE-1 hold/up (~54%): HOLD SIDE STILL VINDICATED, up-target UNTRIGGERED. ~3.4h more elapsed; price never accepted <62,800 (hold now survived ~16h total) AND never tagged 63,474/63,500 — the coil just extended tighter. Neither leg resolved; call remains OPEN.
+- MAKE-OR-BREAK ~63,001–63,013: INTACT — never breached. Px pinned it the whole window (63,021 → 63,051).
+- MOVE-2 (leg-2): UNTRIGGERED — no $300 leg fired.
+RUNNING: the #29→#079→#080→#081→#083 directional call is still OPEN, unresolved; no armed level broke; no fake conviction paid; nothing banked. Hit-rate unchanged (0 resolved).
+
+
+THE READ (09:11 UTC):
+- WAVE (wave_scenarios): 4h retrace +75%; .618 magnet 63,474 (+63,500 pool) ABOVE, .786 break 63,001 = make-or-break; 4h Fib-time 39 bars, next 55b = Aug 19 00:00 (FOMC-aligned). 1h retrace +72%, .786 63,013; 1h Fib-time 59 bars (turn OVERDUE), next 89b = Aug 17 15:00. Both TFs CONVERGE make-or-break ~63,001–63,013; px 63,051 ON it. 5m MICRO mixed/coiling (highs≈lows ~63,051) → neither path dead (#52 reconcile).
+- POSITIONS (oi_flow): NEUTRAL — BTC premium −2.4bp inside ±4bp 65/72h, excAPR 0.0%, turnover 0.09 (thinnest yet; dead weekend book, positioning venue). No prior snapshot → no ΔOI this run (said out loud). state_view 1h: D3 basis +6.0bp/pctile 0.63 [flat], D4 funding +1.25e-5/hr aligned, D1 trend +0.07% flat, D2 regime eff 0.07 [RANGING/coil], D5 CVD-slope −176 (mild sell, weak), D6 no armed trigger. basis↔funding +0.41 (one bet). No fresh liq-map/HLP tick this firing (last #082 19:17: fuelSkew +0.998 up on tiny abs down-fuel, thin 10-addr scan, low confidence). LIQUIDITY LENS (#55): downside pools = 62,400 / 62,090 / 62,000 long-liq clusters (price SEEKS these on a break = magnets, NOT the invalidation); upside pool = 63,474/63,500; round number 63,000 = the make-or-break coordinator.
+- ANALOG (n=86; fingerprint coil eff 0.07 / range-pos 18% / ATR-compress 0.11 = tightest yet): LEG-1 UP 60% / DOWN 40% (median 4h) — up-tilt HELD; LEG-2 after UP-leg CONTINUE 56% / reverse 44%, after DOWN 50/50 (note: leg-2 now leans CONTINUE-after-up, softening the washing-machine reverse framing of #083).
+- BREADTH (cross_asset): 5/5 CONFIRM (ETH/SOL/HYPE/SPX/NDX all mild-green vs BTC +0.07%) → ALIGNED (flipped from #083's 0/5 trivially-divergent) — a marginal positive, though all near-flat so low-information.
+- CO-DESK RECONCILE (#57, FACTS only, blind to direction): Grok OPEN (08:16, up63500/dn62000/p_up0.52) + Claude+Olivier (07:45, up63500/dn62150/p_up0.58) both draw dn BELOW the 62k pool and cite higher-lows 62523→62890→62977, 4h lower-highs 65475→64487→63224→63144, the 62,890–62,980 volume shelf, Fri base 62,523, long-liq 62,406/62,090. FACTS taken (levels align with my wave/liq read); directions NOT borrowed (my up-tilt is independent from analog + hold + breadth).
+
+
+EVOLUTION vs #083: HOLD/up-path STRENGTHENED marginally — drivers: coil HELD another ~3.4h (~16h total) without accepting <62,800 (time is the strongest tell here) + breadth flipped to 5/5 ALIGNED + analog leg-1 up-tilt held 60%. Down-path WEAKENED slightly — no break, positioning still NEUTRAL (turnover 0.09, thinnest; no down-fuel). Make-or-break UNCHANGED level; coil MORE compressed (ATR 0.11 vs 0.14) + 1h Fib-time now OVERDUE (59 bars) → resolution NEARER. METHOD EVOLUTION (candidate L1 applied): my prior ledger dn=62,800 sat ABOVE the 62,000/62,090 long-liq pool — the wrong-sided scoring line L1 warns of; the co-desks already draw dn below the pool. This firing MOVES the invalidation BELOW the pool (~61,900) so a stop-hunt wick into 62,000–62,400 that reclaims scores as the correct up-call it was, not a loss. NET: #083's hold/up call AGED intact and marginally SHARPENED up; the coil is tighter and nearer resolution; the scoring line is now correctly below the pool.
+
+
+NEXT 2 MOVES (DELTA):
+- MOVE 1 — make-or-break resolution (the pending event), marginal HOLD/up ~55% vs ~45% break. HOLD >63,001–63,013 (px on it) → down-poke bought (#40 long-bias) / coil-up → bounce to the 63,474/63,500 magnet (4h .618 + liq pool). BREAK / hourly-accept <63,000 → price SEEKS the downside pool 62,400 → 62,090/62,000 (long-liq clusters, #55 — magnets, NOT the death). Thin coin flip tilted UP by analog leg-1 60% + the ~16h hold + 5/5 breadth; conviction on the LEVEL not direction. Neutral positioning + dead book (turn 0.09) → LOW conviction; tighter coil + Fib-time overdue → resolution likely NEARER than the level implies.
+- MOVE 2 — leg-2 (analog after-UP CONTINUE 56% this run; #41 washing-machine softened). If MOVE 1 bounces UP and tags 63,474/63,500 → first impulse often a FAKE (#49) → reject / perp-premium reject-short fade (#44/#45) back down, UNLESS it reclaims + ACCEPTS >63,474 → 4h wave RESUMES toward 65,475. If MOVE 1 breaks DOWN into the 62,400/62,000 pool → down-poke bought (#40; analog after-down 50/50) → reclaim back toward 62,800–63,000, NOT a trend start ABSENT a catalyst.
+- MAKE-OR-BREAK (the ONE level): ~63,001–63,013 = the immediate resolver (hold = up-bounce alive; hourly-accept below = down-seek to the pool). The SCORING invalidation (L1 applied) = acceptance BELOW ~61,900 (under the 62,000/62,090 pool); a wick into 62,000–62,400 that RECLAIMS is the spring, not the death.
+- TAIL (low-prob / high-significance): thinnest book yet (turn 0.09) + tightest coil yet (ATR-compress 0.11) + 1h Fib-time OVERDUE + FOMC minutes Wed Aug 19 approaching → a fast, OUTSIZED impulse on little weekend volume can overshoot either target (weekend decoupling); the tighter the coil, the bigger the release. DOWN-death (names the down, #25): a real break that ACCEPTS <62,000 with NO washing-machine reclaim kills the up-bias and opens a larger down leg. Low prob this weekend, high significance.
+
+
+SCORE {"ts":1786871688457,"h":30,"up":63474,"dn":61900,"p_up":0.55,"p_base":0.5,"by":"Claude"}
+
+
+ENFORCEMENT (this firing): scripts run — macro_preflight, wave_scenarios, oi_flow, state_view, analog, cross_asset (all read-only /info; account/positions untouched per house rules). Sunday retro: calibration.py + discovery_loop.py + leaderboard.py over /tmp/calls.json (n=4) + /tmp/lessons.json (L1–L5). 0 new trials; 0 new doctrine; blind audit 0 (firing, not research); CONTESTED 0; ADMITTED 0. THE READ step 8 capture: candidate L1 was APPLIED this firing (dn moved below the pool) — the existing candidate in action, not a NEW lesson; honest NULL on new lessons (default #54).
+
+
+(next ID: #085)

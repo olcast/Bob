@@ -1,0 +1,7 @@
+VCP-COMBINER-001 — SEAL
+sealed_utc: 2026-08-15T13:06:06Z
+sha256: 14a75ca33241024845c40892ac8cb46110b016dfdef8a6c7c54e7f65476034a4
+file: VCP-COMBINER-001.md
+note: Frozen decision rules for the ensemble/combiner layer. Any edit to the .md changes the
+      hash and voids this seal. Method pre-registered BEFORE the signals exist, so weights can
+      never be reverse-fit to a favoured signal. Companion to VCP-ABLATION-001 (feature layers).
