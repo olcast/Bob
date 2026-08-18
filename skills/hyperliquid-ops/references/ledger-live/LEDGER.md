@@ -256,3 +256,24 @@ Olivier asked how to attach an entry price to the 2-move scenarios using the sam
    - Invalidation bug fixed: "expanding OI" conjunct removed — acceptance kills, OI only explains (both models caught independently).
    - Coupling: move 1 and move 2 are ANTI-CORRELATED, not independent bets; move-1 success = move-2 failure.
 5. **Candidate lessons surfaced:** range-high breaks 76% fake (already base rate n=189); "no entry when target floor < entry = fee generator, use as info."
+
+---
+#099 — SYMMETRIC ROUND-ROBIN ENSEMBLE — FIRST LIVE FIRING (DeepSeek + Qwen + Grok blind) — 2026-08-18 12:35-12:45 UTC. Read-only.
+
+FIRST live firing of the symmetric originator round-robin (SOP §4b "confluence not consensus"). Three blind co-originators, identical neutral brief, before any cross-review:
+
+1. **DeepSeek** (deepseek-v4-pro) → short, p_up 0.41, death >64,580. Committed clean (20s).
+2. **Qwen** (qwen3.8-max) → short, p_up 0.42, death >64,580. Committed clean (1m22s). Key nuance: "stand aside on 15m close <63,930 — low-break-trap 66% (n=189) says the break fails ~2/3 of the time."
+3. **Grok** (grok-4.20-beta-latest-reasoning) → FIRST run crashed on sessions_yield mid-reasoning (0 out-tokens, reasoning trace showed a LONG lean ~0.55-0.6). RETRY (two-stage, unrestricted) committed short p_up 0.42 death >64,580 after 4m55s.
+
+**VERDICT: CONFLUENT short (0.41/0.42/0.42, all die >64,580) — but discounted for family correlation.** DeepSeek+Qwen are the SAME Chinese family (finding #2), so their pair agreement is a near-ECHO. Grok (US/xAI) independently converging to short is the ONE genuine independent vote. Honest read: ~1.5 independent confirmations, not 3.
+
+**Cross-family FINDING (the durable signal):** all three agree the "85% reclaim" is DEAD (doctrine #53 demoted) and the low-break-trap 66% (n=189) argues against shorting 63,930 outright. Ensemble's one robust conclusion: fade the poke (64,300-64,550), ~41%, do NOT chase the 63,930 flush break.
+
+**RELIABILITY NOTES (Grok first live firing):**
+- Grok (reasoning variant) hung 4m55s and its reasoning-trace output is NOT counted in token stats (0 in/0 out reported despite a valid final JSON). Throughput cost, not correctness.
+- DECISION (Olivier): KEEP Grok in reasoning mode — depth over speed. Fix = TWO-STAGE brief (reason freely → then "commit"), never clamp him to bare one-shot JSON (turns him into a faster dumber echo).
+
+**PROCESS GAP FOUND + FIXED:** all three inherited the reconciler's RESOLVED macro conclusion ("risk-off short") rather than re-deriving from raw cross-asset. Added data/cross_asset_snapshot.md (raw 24h breadth: BTC+1.09% SOL+1.09% HYPE+0.32% CONFIRM, ETH-0.02% SPX-0.94% NDX-1.72% DIVERGE → breadth 2/5 DIVERGENT) and rewrote brief_facts.md §3 to "RE-DERIVE breadth/divergence, do not inherit the label." This is the single biggest signal-integrity fix.
+
+**GRADING:** all three committed short ~0.41-0.42. Forward grade against 24h outcome (Brier vs 0.5 baseline). Grok's long-lean (trace) vs committed short = note the reasoning-vs-commit divergence as a Grok reliability signal.

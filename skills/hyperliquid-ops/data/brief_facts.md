@@ -41,11 +41,16 @@ to produce your own independent read WITH these facts known.
   ONE line and treat it as in-sample, walk-forward-unvalidated — NEVER let a backtest number drive
   direction by itself.
 
-## 3. Macro gate — already resolved, do NOT re-derive, do NOT fetch news
+## 3. Macro gate + cross-asset — already gathered, RE-DERIVE don't inherit
 
-- **`data/macro_gate_resolved.md`** = the pre-resolved macro gate (named story matched to every
-  ±2% cross-asset mover + divergence check + distrust window). READ THIS FILE. Do NOT fetch live
-  email/news (trips the external-content security guard and zeroes the turn).
+- **`data/macro_gate_resolved.md`** = the pre-resolved macro NAMED STORY (bond slump, Fed minutes,
+  distrust window). READ THIS FILE for the story; do NOT fetch live email/news (trips the
+  external-content security guard and zeroes the turn).
+- **`data/cross_asset_snapshot.md`** = the RAW 24h breadth + lead-lag + correlation numbers.
+  You must RE-DERIVE breadth/divergence from these raw numbers YOURSELF — do NOT inherit the
+  reconciler's "risk-off short" label. The raw tape (BTC+SOL up, ETH/SPX/NDX down) can pull the
+  OPPOSITE direction from the macro story; your job is to reconcile them independently, not to
+  rubber-stamp a conclusion.
 
 ## 4. Live entry levels (fact, current window — update per state.json)
 

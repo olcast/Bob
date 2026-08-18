@@ -138,7 +138,12 @@ The desk runs a direct-pay **symmetric ensemble**. Every text model is a FULL co
 **The three co-originators (identical neutral brief, blind to each other):**
 1. **DeepSeek `deepseek-v4-pro`** — producer family A (Chinese).
 2. **Qwen `qwen3.8-max`** — producer family B (Chinese).
-3. **Grok `grok-4.20-beta-latest-reasoning`** — producer family C (US/xAI).
+3. **Grok `grok-4.20-beta-latest-reasoning`** — producer family C (US/xAI). **KEEP him in
+reasoning mode** (Olivier 2026-08-18: "keep him in reasoning"). The reasoning variant is the whole
+point of the third family — depth over speed. Firing protocol for Grok is TWO-STAGE: first let him
+reason out loud freely, THEN instruct "now commit the JSON call". Do NOT clamp him to a bare
+one-shot JSON (that turns him into a faster, dumber echo of the other two and defeats the
+ensemble). Accept the 4-5 min latency; full firings are 2/day.
 
 Each lays down its OWN full call **first** (levels, direction, p_up, named death-price) on the SAME neutral data set, BEFORE seeing any other read. Three independent theses. Then each cross-reviews the other two (adversarial pass) — DeepSeek reviews Qwen+Grok, Qwen reviews DeepSeek+Grok, Grok reviews DeepSeek+Qwen. Every output is tagged `by:"<family>"` and `SUGGESTED` (advisory, never auto-trusted) — graded forward through the same `calibration.py`/`leaderboard.py` machinery (the `by:` field already maps each family name). Promote/retire/weight is **human-gated**, never auto.
 
