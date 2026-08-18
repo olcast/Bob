@@ -1,0 +1,50 @@
+{
+  "schema": "hlops-backtest-rates-v1",
+  "generated_ts": 1787047343797,
+  "generated_utc": "2026-08-18 10:02 UTC",
+  "note": "Walk-forward, own-lines, cost-aware base rates captured from the desk's backtesters. READ THESE (not memory) for any empirical claim. DISCOVERY/in-sample \u2014 needs blind/OOS before live weight (R4/A5/A6).",
+  "battery": {
+    "reclaim": {
+      "ok": true,
+      "findings": [
+        {
+          "name": "EARLY",
+          "n": 73,
+          "hit_pct": 45,
+          "fwd_pct": 0.02,
+          "reached_pct": 51,
+          "med_reach_pct": 0.81,
+          "raw": "EARLY  n= 73  hit= 45%  false-start= 55%  medFwd=-0.11%  meanFwd(raw)=+0.02%  reached+0.8%= 51%  medReach=+0.81%"
+        },
+        {
+          "name": "STRICT",
+          "n": 97,
+          "hit_pct": 52,
+          "fwd_pct": 0.05,
+          "reached_pct": 52,
+          "med_reach_pct": 0.82,
+          "raw": "STRICT n= 97  hit= 52%  false-start= 48%  medFwd=+0.06%  meanFwd(raw)=+0.05%  reached+0.8%= 52%  medReach=+0.82%"
+        },
+        {
+          "name": "EARLY",
+          "n": 76,
+          "hit_pct": 42,
+          "fwd_pct": -0.21,
+          "reached_pct": 50,
+          "med_reach_pct": 0.79,
+          "raw": "EARLY  n= 76  hit= 42%  false-start= 58%  medFwd=-0.43%  meanFwd(raw)=-0.21%  reached+0.8%= 50%  medReach=+0.79%"
+        },
+        {
+          "name": "STRICT",
+          "n": 97,
+          "hit_pct": 57,
+          "fwd_pct": -0.41,
+          "reached_pct": 64,
+          "med_reach_pct": 0.9,
+          "raw": "STRICT n= 97  hit= 57%  false-start= 43%  medFwd=-0.27%  meanFwd(raw)=-0.41%  reached+0.8%= 64%  medReach=+0.90%"
+        }
+      ],
+      "summary": "[BTC 1h 208d ~4993bars H=24]  DISCOVERY/in-sample\n  BASELINE unconditional 24-bar drift: mean -0.14%  median -0.02%\n  EARLY  n= 73  hit= 45%  false-start= 55%  medFwd=-0.11%  meanFwd(raw)=+0.02%  reached+0.8%= 51%  medReach=+0.81%\n  STRICT n= 97  hit= 52%  false-start= 48%  medFwd=+0.06%  meanFwd(raw)=+0.05%  reached+0.8%= 52%  medReach=+0.82%\n\n[BTC 4h 800d ~4801bars H=18]  DISCOVERY/in-sample\n  BASELINE unconditional 18-bar drift: mean +0.06%  median +0.17%\n  EARLY  n= 76  hit= 42%  false-start= 58%  medFwd=-0.43%  meanFwd(raw)=-0.21%  reached+0.8%= 50%  medReach=+0.79%\n  STRICT n= 97  hit= 57%  false-start= 43%  medFwd=-0.27%  meanFwd(raw)=-0.41%  reached+0.8%= 64%  medReach=+0.90%"
+    }
+  }
+}

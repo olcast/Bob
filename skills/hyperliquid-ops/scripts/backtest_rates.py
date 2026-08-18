@@ -45,9 +45,8 @@ def run_one(script, timeout=180):
         return (False, f"(timeout after {timeout}s)")
 
 def parse(stdout):
-    """Extract the key rate lines: n=, hit=, meanFwd/expectancy, and any OOS/test split."""
+    """Extract the key rate lines: n=, hit=, meanFwd/expectancy, plus the reach/timing columns."""
     findings = []
-    # n=NNN  hit=NN%  ... meanFwd(...)=+X.XX% style lines
     for line in stdout.splitlines():
         m = re.search(r'n\s*=\s*(\d+)', line)
         if not m:
@@ -61,9 +60,22 @@ def parse(stdout):
         fm = re.search(r'(?:meanFwd|expectancy|net|exp)\s*[=(].*?([+-]\d+\.\d+)\s*%', line)
         if fm:
             fwd = float(fm.group(1))
+        # TIMING / reach metric (Olivier 2026-08-18): reached+X% within window, medReach
+        reach_pct = None
+        rm = re.search(r'reached\+[\d.]*%\s*=\s*(\d+)\s*%', line)
+        if rm:
+            reach_pct = int(rm.group(1))
+        med_reach = None
+        mm = re.search(r'medReach\s*=\s*([+-]\d+\.\d+)\s*%', line)
+        if mm:
+            med_reach = float(mm.group(1))
         nm = re.match(r'\s*(\w[\w\s/-]{0,40}?)\s+n\s*=', line)
         name = nm.group(1).strip() if nm else "line"
-        findings.append({"name": name, "n": n, "hit_pct": hit, "fwd_pct": fwd, "raw": line.strip()[:160]})
+        findings.append({
+            "name": name, "n": n, "hit_pct": hit, "fwd_pct": fwd,
+            "reached_pct": reach_pct, "med_reach_pct": med_reach,
+            "raw": line.strip()[:160],
+        })
     return findings
 
 def main():
