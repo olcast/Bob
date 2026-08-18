@@ -277,3 +277,22 @@ FIRST live firing of the symmetric originator round-robin (SOP §4b "confluence 
 **PROCESS GAP FOUND + FIXED:** all three inherited the reconciler's RESOLVED macro conclusion ("risk-off short") rather than re-deriving from raw cross-asset. Added data/cross_asset_snapshot.md (raw 24h breadth: BTC+1.09% SOL+1.09% HYPE+0.32% CONFIRM, ETH-0.02% SPX-0.94% NDX-1.72% DIVERGE → breadth 2/5 DIVERGENT) and rewrote brief_facts.md §3 to "RE-DERIVE breadth/divergence, do not inherit the label." This is the single biggest signal-integrity fix.
 
 **GRADING:** all three committed short ~0.41-0.42. Forward grade against 24h outcome (Brier vs 0.5 baseline). Grok's long-lean (trace) vs committed short = note the reasoning-vs-commit divergence as a Grok reliability signal.
+
+#100 — RECONCILED 3-WAY ENSEMBLE (DeepSeek + Qwen + Grok-4.6) — 2026-08-18 18:13 UTC. UP-first-then-fade.
+
+Full-run A/B firing with Grok 4.6 as the newly-switched flagship reasoning originator (replaces grok-4.20-beta-latest-reasoning). Identical blind context, no cross-talk, no inherited verdict (§5e past-as-prior).
+
+1. **DeepSeek** (deepseek-v4-pro) → DOWN first, straight short <64,550 → 63,930/61,600, death 30m close >65,018.
+2. **Qwen** (qwen3.8-max) → UP first (15m >65,050 → 65,550) then fade (<64,550 → 63,650), p_up .55.
+3. **Grok 4.6** (xai/grok-4.6, reasoning) → UP first (15m >64,861 → 65,018/65,094) then fade (<64,636 → 64,065/63,651), p_up .57.
+
+**CONFLUENCE: 2/3 UP-first-then-fade, 0/3 straight-down-first.** DeepSeek re-ran the magnet-vs-destination error Qwen already called out (ledger #099).
+
+**GROK 4.6 ADDED DURABLE VALUE (first empirical A/B):**
+- CAUGHT THE STALE LEVEL: 12:00 4h already accepted 64,820 through old 64,550/64,580 → the desk's registered "re-short <64,550" is a SUPERSEDED trigger. Real coil floor = 64,636.
+- ATTACHED A CLOCK: first fib-time window 19:00 UTC, then 22:00. Emitted a machine-readable SCORE block (ts/up/dn/p_up/p_base).
+- REASONING TRACE showed a longer oscillation than the committed text (the "64,850/64,550" repetition) — note as reliability signal, but final commit was coherent.
+
+**RECONCILED DESK CALL:** cover the dead short NOW (wrong-side into a live up-poke), re-short on CORRECTED 15m close <64,636 (not 64,550), target 64,065 → 63,651. 61,600 max-pain terminus is LATER, not this leg. Up-poke death = 15m close <64,636 before >64,861; fade death = 1h close >65,180.
+
+**GRADING:** forward-grade against 24h outcome (Brier vs 0.5). Grok4.6 first full-fire = clean, no crash (unlike 4.20 snapshot's mid-reasoning hang in #099).

@@ -1,9 +1,9 @@
-━━━ DESK CALL — 17:52 UTC ━━━
+━━━ DESK CALL — 18:13 UTC ━━━
 DIRECTION: SHORT
 (65,018 squeeze: OI fell + funding = exhaustion, not sponsorship)
 
 ▶ RE-SHORT (primary)
-   15m close < 64,550 = SHORT
+   {'level': 64636, 'note': 'CORRECTED coil floor (Grok4.6) — supersedes stale 64,550; 12:00 4h already accepted 64,820'} = SHORT
    64550 → 63,650 → 62,500 → 61,600
    DEATH: 15m close > 65,020
 
@@ -16,6 +16,6 @@ DIRECTION: SHORT
 ⇒ TERMINUS: 61,600 (max pain)
 
 ───────────────
-mark 64658 | OI 41914 | funding -0.0002%/h
-17:52 UTC
+mark 64690 | OI 41461 | funding -0.0002%/h
+18:13 UTC
 ━━━━━━━━━━━━━━━━

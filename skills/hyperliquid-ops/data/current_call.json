@@ -1,26 +1,32 @@
 {
-  "ts": 1787045655466,
-  "h": 24,
-  "up": 64550,
-  "dn": 63950,
-  "p_up": 0.3,
+  "ts": 1787076810398,
+  "h": 8,
+  "up": 64861,
+  "dn": 64636,
+  "p_up": 0.52,
   "p_base": 0.5,
-  "by": "Charly (rebuilt 2026-08-18 09:50 UTC after reasoning-audit \u2014 see ledger #097)",
-  "thesis": "REBUILT on corrected desk base rates (supersedes the 09:2x draft whose pillars were misattributed \u2014 see Qwen reasoning-audit C1/C2). PRIMARY (structural-only, ~30%): poke into 64,300-64,550 then fade. The fade pivot rests on leg-2-reverse 55% (repro #48, n=191) and low-break-trap 66% (n=189) \u2014 NOT a continuation edge. ALTERNATIVE (down-poke, ~28%): lose 63,950 -> scan 63,380-63,130 -> flush 62,500-62,700 (decayed pool R-044, second approach) \u2014 reclaim probability lower than first approach, no 85% 'reclaim' conviction (that figure is doctrine #53 DEMOTED). PATH C (~15%): 4h close >64,550 ON EXPANDING OI -> squeeze 65,475. Residual (~27%): chop/range 63,950-64,300, no directional leg. Death-price (rule 22b): PRIMARY FADE DIES on a 30m close ABOVE 64,300 after the poke without OI expansion (acceptance, not a wick) \u2014 that's direction-up, not a fade. Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). These are mutually exclusive with the fade target.",
+  "by": "Charly (reconciled 3-way blind ensemble, 2026-08-18 18:13 UTC) \u2014 DeepSeek/Qwen/Grok-4.6",
+  "thesis": "RECONCILED (confluence not consensus, \u00a74b): 2/3 UP-first-then-fade, 0/3 straight-down-first. Grok4.6 + Qwen independently read 3h absorption above the old 64,550 trigger with shorts paying (-0.0018%/h) + OI building (41,614->41,963) = SQUEEZE FUEL, not breakdown. DeepSeek alone re-ran the magnet-vs-destination error. GROK4.6 CAUGHT THE STALE LEVEL: 12:00 4h already accepted 64,820 through old 64,550/64,580 \u2014 so 64,550 is a superseded trigger; the real coil floor is 64,636. Desk short waiting on <64,550 is LATE to a flag and EARLY to the fade. ",
   "entry_spec": {
-    "note": "Entry = close-confirmed TRIGGER (SOP \u00a73c.8). Move 1 and Move 2 are NESTED at different scales, NOT mutually exclusive (SOP \u00a73c.7). Reconciled 2026-08-18 10:40 UTC from producer(Bob/DeepSeek) + challenger(Qwen) memos.",
+    "note": "Reconciled UP-first-then-fade. Cover the dead short now (wrong-side into a live up-poke). Re-short on the CORRECTED coil floor, not the stale 64,550.",
     "move1": {
-      "action": "no entry \u2014 observe only",
-      "reason": "fresh 1,136-trade rejection wick at 64,418 (distribution not shelf); desk base rate range-high breaks 76% fake (n=189); target floor 64,300 below any meaningful entry => negative EV; macro (oil/spike Iran risk-off) counter-current.",
-      "use": "fuel gauge only \u2014 a FAILED poke at 64.40-64.55 CONFIRMS move 2 (the flush)"
+      "action": "UP poke (nested/small)",
+      "trigger": "15m close > 64,861",
+      "target": "65,018 (stretch 65,094)",
+      "invalidation": "15m close < 64,636",
+      "p_up": 0.57,
+      "source": "Grok4.6 primary, Qwen agrees (65,050)"
     },
     "move2": {
-      "entry": "15m close below 63,930",
-      "reason": "sits below BOTH the 63,938 prior low AND the 64,000 round-number magnet \u2014 converts the sweep zone into confirmation instead of entry. (Bob proposed 1h close <62,678 = cleaner but too late; gives up the easy first ~100pts of the flush.)",
-      "soft_inval": "1h close back above 64,050 (reclaim of magnet zone = sweep, not flush)",
-      "hard_inval": "4h close above 64,580 (actual 72h high, not mid-cluster 64,550) \u2014 acceptance ALONE kills; OI only explains, NOT a condition"
+      "action": "DOWN fade (larger)",
+      "trigger": "15m close < 64,636 OR (if 65,018 tagged) 15m close < 64,778",
+      "target": "64,065 -> 63,651 (61,600 is LATER, not this leg)",
+      "invalidation": "1h close > 65,180",
+      "p_up": 0.34,
+      "source": "Grok4.6; Qwen target 63,650, wont commit 61,600"
     },
-    "coupling": "MOVE 1 AND MOVE 2 ARE ANTI-CORRELATED, NOT INDEPENDENT BETS \u2014 move 1 succeeding is move 2 failing. Addressed after Qwen flagged the pairing as double-counted EV."
+    "death_price": "15m close < 64,636 before 15m close > 64,861 (up-first dead -> straight down). Secondary: 1h close > 65,180 (fade half dead -> squeeze continuation).",
+    "clock": "first fib-time window 19:00 UTC, then 22:00 (Grok4.6)"
   },
   "move1_dir": "up",
   "move1_zone": [
@@ -82,5 +88,15 @@
     62500
   ],
   "move2_confirm_blowthrough_62000": true,
-  "move2_deathprice": 65020
+  "move2_deathprice": 65020,
+  "reshort_trigger": {
+    "level": 64636,
+    "note": "CORRECTED coil floor (Grok4.6) \u2014 supersedes stale 64,550; 12:00 4h already accepted 64,820"
+  },
+  "reconciled_upfirst": true,
+  "ensemble_scores": {
+    "deepseek": "DOWN-first",
+    "qwen": "UP-first-then-fade (p_up .55)",
+    "grok4.6": "UP-first-then-fade (p_up .57)"
+  }
 }
