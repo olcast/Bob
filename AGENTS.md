@@ -129,3 +129,118 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - [Default AGENTS.md](/reference/AGENTS.default)
 - [Scheduled tasks vs heartbeat](/automation#scheduled-tasks-cron-vs-heartbeat)
 - [Heartbeat](/gateway/heartbeat)
+
+<!-- KG-AUTONOMOUS-START -->
+## Knowledge Graph (Autonomous)
+
+Structured knowledge store — **always available, use proactively without being asked.**
+
+### Every Session
+Read `skills/knowledge-graph/data/kg-summary.md` to see what's in the graph.
+
+### When to ADD (do this automatically):
+- New **person, project, device, org, service, concept** mentioned
+- **Decision** made or **credential/API key** shared (use vault for secrets)
+- **Preferences/opinions** → entity + `likes`/`dislikes` relation
+- **People relationships** → `human` + `knows` relation
+- **Places, events, habits, milestones** → matching entity type
+- **Knowledge** (articles, papers) → `knowledge` entity — **run depth-check first, follow its output**
+- **Know-how/procedures** → `knowledge` + tags `#howto`/`#procedure`
+- **After any change: ALWAYS run** `node skills/knowledge-graph/scripts/summarize.mjs`
+
+### 📊 Extracting Knowledge from Articles (Script-Driven)
+
+When saving an article/paper/report, follow this exact workflow:
+
+**Step 1: Save article text** to `/tmp/article.txt` (fetch → save)
+
+**Step 2: Run depth-check** to get score + extraction template:
+```bash
+node skills/knowledge-graph/scripts/depth-check.mjs --file /tmp/article.txt
+```
+
+**Step 3: Write a bash script** following the template from depth-check output.
+The script MUST include all 5 phases. Structure:
+
+```bash
+#!/bin/bash
+set -e
+S=skills/knowledge-graph/scripts  # shorthand for scripts path
+
+# ── PHASE 1: Root + Domain nodes ──
+node $S/add.mjs entity --id "ROOT_ID" --type "knowledge" --label "Title" --attrs '{"url":"...","date":"..."}'
+node $S/add.mjs entity --id "domain_X" --type "concept" --label "Domain" --parent "ROOT_ID"
+
+# ── PHASE 2: Mechanism/concept nodes UNDER domains ──
+node $S/add.mjs entity --id "mech_X" --type "concept" --label "Mechanism" --parent "domain_X" --attrs '{"description":"..."}'
+
+# ── PHASE 3: Orgs, People, Events UNDER mechanisms (depth ≥3!) ──
+# ⚠️ Orgs/events go under MECHANISMS, not directly under domains!
+#    root → domain → mechanism → org/event (this gives depth 3+)
+# ⚠️ EVERY org MUST have --attrs with role/stats. No empty shells!
+# ⚠️ EVERY event MUST have --attrs with date. No dateless events!
+# ⚠️ EVERY named org/person = SEPARATE entity. Do NOT merge!
+node $S/add.mjs entity --id "org_X" --type "org" --label "Org" --parent "mech_X" --attrs '{"role":"...","stats":"..."}'
+node $S/add.mjs entity --id "event_X" --type "event" --label "Event" --parent "mech_X" --attrs '{"date":"Q1 2027","details":"..."}'
+node $S/add.mjs entity --id "human_X" --type "human" --label "Person" --attrs '{"role":"..."}'
+
+# ── PHASE 4: Relations (≥1 per 2 entities) ──
+# Types: owns, depends_on, related_to, part_of, created, manages, uses, has
+node $S/add.mjs rel --from "org_X" --to "org_Y" --rel "owns"
+node $S/add.mjs rel --from "event_X" --to "org_X" --rel "related_to"
+
+# ── PHASE 5: Validate (MANDATORY — do NOT skip!) ──
+node $S/summarize.mjs
+echo ""
+echo "=== VALIDATION ==="
+node $S/validate-kg.mjs --file /tmp/article.txt --root "ROOT_ID" --fix
+```
+
+**Step 4: Run the script.** Check the validation output at the end.
+
+**Step 5: If validation says ❌ FAIL** — read the missing items, write ANOTHER script to fix gaps, run it. Repeat until ✅ PASS.
+
+### Key Rules
+- **Every named org** in the article = separate `org` entity with attrs (role, stats). No empty shells.
+- **Every dated event** = separate `event` entity with date in attrs.
+- **Stats** (%, $) go in the SPECIFIC entity's attrs, not the root node.
+- **Hierarchy**: root → domains → mechanisms → orgs/events (depth ≥ 3). Not flat.
+- **Relations**: ≥1 per 2 entities. Cross-link between branches.
+- **Anti-pattern "Attr stuffing"**: NEVER put a named org only inside another entity's attrs JSON. It MUST be its own node.
+
+### API Reference
+```bash
+# Add entity:
+node skills/knowledge-graph/scripts/add.mjs entity --id <id> --type <type> --label "Name" [--parent <pid>] [--category <cat>] [--tags "t1,t2"] [--attrs '{"k":"v"}']
+# Add relation:
+node skills/knowledge-graph/scripts/add.mjs rel --from <id> --to <id> --rel <reltype>
+# Quick add (auto id/tags):
+node skills/knowledge-graph/scripts/add.mjs quick "Label:type" [--parent <id>] [--category <cat>]
+# Remove:
+node skills/knowledge-graph/scripts/remove.mjs entity --id <id>
+node skills/knowledge-graph/scripts/remove.mjs rel --from <id> --to <id> --rel <reltype>
+# Validate extraction:
+node skills/knowledge-graph/scripts/validate-kg.mjs --file /tmp/article.txt --root <id> --fix
+# Search:
+node skills/knowledge-graph/scripts/query.mjs find <text>
+node skills/knowledge-graph/scripts/query.mjs traverse <id> --depth 3
+# Other: vault.mjs, visualize.mjs, consolidate.mjs, summarize.mjs
+```
+
+**Entity types:** `human` `ai` `device` `platform` `project` `decision` `concept` `skill` `network` `credential` `org` `service` `place` `event` `media` `product` `account` `routine` `knowledge`
+**Relations:** `owns` `uses` `runs_on` `runs` `created` `related_to` `part_of` `instance_of` `decided` `depends_on` `connected` `manages` `likes` `dislikes` `located_in` `knows` `member_of` `has`
+
+### Configuration
+```bash
+node skills/knowledge-graph/scripts/config.mjs                  # list all settings
+node skills/knowledge-graph/scripts/config.mjs get <key>         # get value (e.g. summary.tokenBudget)
+node skills/knowledge-graph/scripts/config.mjs set <key> <value> # set value
+node skills/knowledge-graph/scripts/config.mjs reset <key>       # reset to default
+```
+
+### Rules
+- **Always add tags** — synonyms, translations, abbreviations for cross-language search
+- Ephemeral notes → `memory/` daily files, not KG
+- Rapidly changing data (weather, prices) → not KG
+- Confidence: `1.0` = confirmed, `0.5` = inferred
+<!-- KG-AUTONOMOUS-END -->

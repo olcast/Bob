@@ -70,6 +70,33 @@ def get_pulse_line(coin):
     lines = [l.strip() for l in out.stdout.splitlines() if "->" in l]
     return lines
 
+def check_zone_touched_since(coin, start_ms, end_ms, direction, lo, hi):
+    """Path-dependent check: has price touched [lo,hi] at any point between start_ms and end_ms,
+    using Hyperliquid's own candleSnapshot history (works cold, with zero prior cron runs on record
+    — the whole point per Olivier's 2026-08-17 16:33 UTC "start in the past instead of relying on
+    previous runs" request). Returns True/False, or None if the fetch itself failed (caller should
+    fall back rather than silently assume either way)."""
+    import urllib.request
+    try:
+        req = urllib.request.Request(
+            "https://api.hyperliquid.xyz/info",
+            data=json.dumps({
+                "type": "candleSnapshot",
+                "req": {"coin": coin, "interval": "15m", "startTime": start_ms, "endTime": end_ms},
+            }).encode(),
+            headers={"Content-Type": "application/json"},
+        )
+        candles = json.loads(urllib.request.urlopen(req, timeout=15).read())
+    except Exception:
+        return None
+    for c in candles:
+        low, high = float(c["l"]), float(c["h"])
+        if direction == "down" and low <= hi:
+            return True
+        if direction == "up" and high >= lo:
+            return True
+    return False
+
 def evolve_one(call, coin, now_ms, mark, pulse_lines):
     ts = call["ts"]
     h = call["h"]
@@ -113,6 +140,38 @@ def evolve_one(call, coin, now_ms, mark, pulse_lines):
         else:
             conviction = "UNCHANGED"
             reason = f"price sits mid-range ({pos_in_range:.0%}) between the call's own up/dn targets — still undecided"
+
+    # --- Sequential-path awareness (ledger #092 fix) --------------------------------------------
+    # A call's up/dn pair is NOT always a direct primary path (doctrine's sequential-path amendment,
+    # 2026-08-17): the call may carry an explicit move1_dir/move1_zone (the move that must happen
+    # FIRST) with the up/dn distance covering an up-side target that's only a legitimate "Move 2
+    # confirmed" read if Move 1 already fired. Raw pos_in_range alone cannot tell these apart — it
+    # scored 72% toward the up target on 2026-08-17 16:00 UTC and called it plain STRENGTHENED even
+    # though the call's own Move 1 (down-poke) had NOT happened, meaning that progress could only be
+    # explained by the ALTERNATE/squeeze path (#090), not confirmation of the primary sequence.
+    move1_dir = call.get("move1_dir")
+    move1_zone = call.get("move1_zone")  # [lo, hi]
+    move1_fired = None
+    if move1_dir and move1_zone and len(move1_zone) == 2:
+        lo, hi = move1_zone
+        # Path-dependent check via live candleSnapshot (start=call ts, end=now) rather than depending
+        # on this script's own accrued evolution-log history — this is what lets the check work
+        # correctly even when running fully on-demand/cold, with no prior cron runs on record
+        # (Olivier 2026-08-17: "worker can start in the past instead of relying on previous runs").
+        move1_fired = check_zone_touched_since(coin, ts, now_ms, move1_dir, lo, hi)
+        if move1_fired is None and mark is not None:
+            # candleSnapshot fetch failed — fall back to current-mark-only check (weaker: misses a
+            # wick-and-reclaim that happened between ticks) rather than silently guessing.
+            move1_fired = (move1_dir == "down" and mark <= hi) or (move1_dir == "up" and mark >= lo)
+
+    if conviction == "STRENGTHENED" and move1_fired is False:
+        conviction = "STRENGTHENED_ALT_PATH"
+        reason = (
+            f"price has moved {pos_in_range:.0%} toward the up target, but Move 1 "
+            f"({move1_dir}-poke into {move1_zone}) has NOT fired yet — this progress confirms the "
+            f"CO-EQUAL ALTERNATE/squeeze path, not the primary sequenced thesis. Do not report this as "
+            f"plain bullish strengthening; the primary Move 1 leg remains untested."
+        )
 
     # Distance-vs-flow contradiction check: price closing on a target while live flow FADES/DIVERGES
     # is the fake-move signature (pulse.py's own verdict) — surface it explicitly, don't let a rising

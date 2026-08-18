@@ -138,4 +138,63 @@ STANDING PATH (revised): Path A (~50%, was primary): down-poke 62,499-62,730 →
 
 ---
 
-_(next entry will be #091, appended below this line and committed)_
+---
+#091 — SKILL_WORKSHOP "update" APPLY OVERWRITES FULL SKILL.md INSTEAD OF APPENDING — confirmed TWICE, standing verification check now mandatory — 2026-08-17 15:47 UTC. Read-only re: trading; tooling process fix.
+
+SECOND occurrence today of the same bug: `skill_workshop(action="apply")` on an "update" proposal replaces SKILL.md's entire content with just the new `proposal_content`, rather than merging/appending it into the existing doctrine. First occurrence: the "2 next moves" sequential-path amendment this morning wiped doctrine #1-59 down to 54 lines (caught ~15:20 UTC while investigating an unrelated cron bug, fixed via git rollback.json + manual append, committed 1315a44). Second occurrence: the "ON THE LINE" exhaustion/continuation-check amendment (15:45 UTC) wiped the just-restored 936-line doctrine down to 47 lines/0 rules again — caught immediately this time (verified via `wc -l` + doctrine-rule grep BEFORE trusting the apply result), fixed the same way, committed 808b251.
+
+Olivier confirmed ("yes"): this must become a standing, permanent check — not something relied on being remembered case-by-case.
+
+STANDING RULE (binding, applies to every future skill_workshop apply on this skill, logged here AND in TOOLS.md):
+1. BEFORE any skill_workshop apply on hyperliquid-ops: record `wc -l SKILL.md` and doctrine-rule count (`grep -c "^[0-9]\+\. \*\*" SKILL.md`).
+2. AFTER apply: re-run both checks. If line count or rule count dropped sharply (not just the expected small addition), the apply overwrote instead of merging — treat as a live incident, not a maybe.
+3. If overwritten: pull `/root/.openclaw/skill-workshop/proposals/<id>/rollback.json`'s `previousContent`, combine with the new proposal's body (strip its own frontmatter), write back, verify counts again, commit to git with a clear message naming this as a recurrence.
+4. Never assume a clean apply just because the tool call itself returned success — the tool's success response does not mean the merge was correct.
+
+This is a tooling-safety gap in `skill_workshop`, not a doctrine issue — raised here for the record; the actual root-cause fix (upstream tool behavior) is outside this skill's scope, so the verification habit is the mitigation until/unless that's addressed.
+
+---
+
+---
+#092 — call_evolve.py reports MOVE 2 PROGRESS AS IF PRIMARY — script has no sequential-path awareness (real bug, not just orchestrator quality) — 2026-08-17 16:02 UTC. Read-only; account untouched.
+
+Olivier caught: the 16:00 UTC call-evolve report said "price has moved 72% of the way toward the up target" and framed this as STRENGTHENED/bullish-leaning, while the live call's Move 1 (per doctrine, must happen FIRST) is a DOWN-poke to 62,499-62,730. The script put "the second move ahead" of the first — exactly the fork-vs-path error the morning's amendment was supposed to kill, but reintroduced by the SCRIPT itself, not just by narrative framing.
+
+ROOT CAUSE (verified in scripts/call_evolve.py): `pos_in_range` is computed purely from the raw up/dn pair stored in calls.json (64,579/63,001) with NO knowledge of the sequential Move1(down)/Move2(up-conditional) structure this call actually carries. It cannot distinguish "price approaching the up-target directly (bullish)" from "price approaching the up-target by SKIPPING Move 1's down-leg entirely (the alternate/squeeze path, #090)" — both currently look identical to this script's math. It just reports raw distance-to-up as "STRENGTHENED" regardless of which path produced it.
+
+SEPARATE FROM (but surfaced alongside) the Haiku orchestration-quality issue: same job's 16:00 UTC run also sent a message despite its own text concluding "No messaging required per doctrine #10" — a distinct reliability failure. Olivier's call: revert BOTH hlops-call-evolve and hlops-contested-flag orchestration from Haiku 4.5 back to Sonnet-5 ("i prefer the orchestrator is the best") — cost savings not worth it if judgment quality suffers on a job whose entire point is deciding when to interrupt Olivier. Applied immediately.
+
+STANDING FOLLOW-UP (not yet fixed): call_evolve.py itself needs a structural update to carry the call's Move1/Move2 sequence (not just up/dn/p_up) so its `reason` string can correctly say something like "66% toward Move 2's target, but this requires Move 1 (62,499-62,730 down-poke) to have fired first — it has NOT, so this progress is via the ALTERNATE squeeze path (#090), not confirmation of the primary sequence" instead of reporting raw distance as unqualified STRENGTHENED. Flagging as an open script-level gap, separate from the orchestration-model choice.
+
+---
+
+---
+#093 — On-demand 3-model cross-check (post-cron-disable), squeeze-alternate lean downgraded on short-conviction evidence — 2026-08-17 16:52 UTC. Read-only; account untouched.
+
+First on-demand cross-check run after disabling hlops-contested-flag's cron (per Olivier's cost-reduction decision this session): confirms the desk can still get the same 3-model safety net (Grok blind-audit / GPT-5.1 red-team / Gemini coherence) by spawning it manually alongside a "next 2 moves" ask, at zero idle cost between asks. Olivier's explicit call: "we can do the cross check anyways" — now the default going forward.
+
+Results on the standing call (ts=1786963783916, up=64,579/dn=63,001/p_up=0.56, Move1 down-poke 62,494-62,730 -> Move2 reclaim to 65,475-65,987, co-equal alternate squeeze through 64,427-64,746):
+- Grok blind audit: p_up=0.54, up=65,400, dn=62,900 — independently landed inside the same zone, no divergence, not contested.
+- GPT-5.1 red-team: MATERIAL FINDING. Shorts have built for the full 72h drift window with zero positive-funding hours, deepening premium (-3.05bp->-4.23bp), and still-rising OI — a persistent, conviction-funded short book, not weak hands near capitulation. The near-price short-liq clusters at the squeeze zone (~$4.2M combined at 64,757/66,039) are trivial against $2.78B OI / $1.78B daily volume — not enough fuel to force a clean cascade. Read: expect repeated REJECTION near 64,400-64,700 rather than a clean squeeze-through.
+- Gemini coherence check: NO CONTRADICTION vs doctrine (#2 two-scenario format, L1/#089 invalidation placement, #085 frozen-commit discipline) or ledger continuity (#090's standing path).
+
+ACTION: no change to up/dn/p_up (frozen commit stays frozen per #085). But the PRIMARY-vs-ALTERNATE split is adjusted from genuinely co-equal (50/50, set in #090) to A LEAN toward primary: ~55% down-poke-first / ~45% squeeze-alternate, on the specific evidence that the short side funding this squeeze zone looks too well-capitalized to fold easily. This is a probability-lean delta on the ALTERNATE path only, not a reversal of the primary thesis — flagged per #086 discipline since it changes the relative weighting of an already-open call's paths.
+
+---
+
+---
+#094 — On-demand 3-model cross-check (post-call, not blocking) run on the standing call — 2026-08-17 16:49-16:52 UTC. Read-only; account untouched.
+
+Context: earlier today all 4 hlops crons (collector, call-evolve, contested-flag, sunday-retro) were disabled per Olivier's cost directive (~$200/day → ~$200/month target). Olivier asked whether the 3-model cross-check (previously auto-fired by hlops-contested-flag) could still happen "anyways" without the standing cron — confirmed yes: run it manually, on-demand, folded into/after a "next 2 moves" ask, rather than 24/7 background polling. New default going forward: call delivered first, cross-check runs after (non-blocking), only when asked — costs money only on actual asks, not idle.
+
+Results on the standing call (ts=1786963783916, up=64,579/dn=63,001/p_up=0.56, Move1 down-poke 62,494-62,730 → Move2 reclaim 65,475-65,987, co-equal alternate squeeze through 64,427-64,746 skipping Move1):
+
+- **Grok-4.6 blind audit** (raw numbers only, no thesis/narrative given): p_up=0.54, up=65,400, dn=62,900 — independently landed in the same zone as the desk's own call. NOT CONTESTED (divergence well under the 20pp/#57 threshold).
+- **GPT-5.1 red-team** (given the actual call, argued the incentive case against it): MATERIAL FINDING. Shorts have built a persistent, self-funded book for 72h straight — 0 positive-funding hours, premium intensifying -3.05bp→-4.23bp, OI still rising (not capitulating). The near-price short-liq clusters that would fuel a clean squeeze (~$4.2M combined at 64,757/66,039) are trivial against $2.78B OI / $1.78B 24h volume — not a forcing mechanism at this size. Read: expect repeated REJECTION near 64,400-64,700 rather than a clean squeeze-through. This specifically threatens the ALTERNATE/co-equal squeeze leg, NOT the primary down-poke-first thesis.
+- **Gemini-3-Pro coherence check** (full doctrine+ledger review): NO CONTRADICTION. Sequential-path-with-alternate format matches the Aug-17 amendment (rule #2, two-scenarios-max); L1 invalidation placement (#089) respected; up/dn/p_up match the frozen original commit (no #085 violation); faithful continuation of the last standing read (#090), no silent direction flip.
+
+ACTION: no change to up/dn/p_up (frozen commit stays frozen per #085). But the PRIMARY-vs-ALTERNATE split is adjusted from genuinely co-equal (50/50, set in #090) to A LEAN toward primary: ~55% down-poke-first / ~45% squeeze-alternate, on the specific evidence that the short side funding this squeeze zone looks too well-capitalized to fold easily. This is a probability-lean delta on the ALTERNATE path only, not a reversal of the primary thesis — flagged per #086 discipline since it changes the relative weighting of an already-open call's paths.
+
+---
+
+_(next entry will be #095, appended below this line and committed)_

@@ -6,6 +6,8 @@
     "dn": 63001,
     "p_up": 0.56,
     "p_base": 0.5,
-    "by": "Claude"
+    "by": "Claude",
+    "move1_dir": "down",
+    "move1_zone": [62499, 62730]
   }
 ]
