@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """GAME-THEORY RED-TEAM PACKET — builds the structured brief fed to an adversarial red-team model
-(GPT-5.1, a different model family than Claude/Grok) to argue the incentive-structure case AGAINST
+(a DIFFERENT model family than the producer/challenger — e.g. Grok `grok-4.20-beta-latest-reasoning`
+or DeepSeek `deepseek-v4-pro` as the odd family out) to argue the incentive-structure case AGAINST
 a live desk call. This is deliberately NOT another "give me your own p_up" vote — doctrine #8
 (v3.2) explicitly rejected multi-agent debate as default because correlated forecasts on the same
 question just produce consensus theater. This packet asks a different question entirely:

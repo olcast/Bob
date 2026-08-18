@@ -25,6 +25,7 @@ Never trust a hard-coded model id. Proactively re-resolve the **best available m
 | DeepSeek | `api.deepseek.com` | `deepseek-v4-pro` | Was `deepseek-chat`; versioned ids (`-0813`, `-0731`) appear on the DashScope key too |
 | Qwen / DashScope | `dashscope-intl.aliyuncs.com/compatible-mode/v1` | `qwen3.8-max` | Also exposes `deepseek-v4-pro-0813`, `ZHIPU/GLM-5.3`, `qwen3-vl-max` (vision) |
 | Kimi / Moonshot | `api.moonshot.ai/v1` | `kimi-k3` | concurrency=1 org limit; 128k ctx (too small for full review); unreliable under load |
+| xAI / Grok | `api.x.ai/v1` | `grok-4.20-beta-latest-reasoning` | bundled `xai` plugin; flagship is the `grok-4.20-beta-*` branch (raw `/models` also returns `grok-4.6`/`4.5` but those don't map to a selectable plugin model) |
 
 **Hard lessons already paid for:**
 - 2026-08-18: assumed `kimi-k2` (didn't exist) → fixed to `kimi-k3` only after a 404/empty test.
@@ -105,7 +106,12 @@ Each model, in addition to producing/challenging the call, MUST inspect **how th
 - **Reconciler — me (Charly):** judges where they GENUINELY diverge vs echo. Divergence = signal → captured as a candidate lesson (§3b). Agreement = lower info (bounded-independence caveat).
 - Run the pair **in parallel for independent generation, reconcile after both land** (not sequential — that was only a Kimi-concurrency workaround; DeepSeek+Qwen on different accounts can run concurrently).
 
-**Availability fallback (Olivier, 2026-08-18):** if either model in the pair errors/429s/times-out, fall back to the OTHER model to cover its role — DeepSeek fails → Qwen produces AND challenges (single-model self-challenge, flag as degraded independence); Qwen fails → DeepSeek produces AND challenges (same degraded flag). Never let one provider's outage stall a call-generation. If BOTH fail, fall back to Kimi `kimi-k3` (RPM=3 cap — expect slow/serialized, but it keeps the desk live). Record any fallback in the ledger so the bounded-independence caveat stays honest.
+**Availability fallback (Olivier, 2026-08-18 — expanded for any-one-missing resilience):** the desk must keep working when ANY single model is absent/429s/times-out. Fallback order: **DeepSeek → Qwen → Grok → Kimi**, applying the highest-available model to whichever role is unstaffed.
+- Producer (DeepSeek `deepseek-v4-pro`) down → next-highest (Qwen) produces AND its own challenger role degrades to a same-model self-challenge (flag `DEGRADED-INDEPENDENCE`).
+- Challenger (Qwen `qwen3.8-max`) down → DeepSeek produces AND self-challenges (same degraded flag), or Grok steps in as challenger (preferred — preserves two-family independence).
+- DeepSeek + Qwen BOTH down → **Grok `grok-4.20-beta-latest-reasoning`** produces AND challenges (it is a different family, so independence is preserved even at this rung — better than the old Kimi-only tail).
+- Grok also down / only Kimi left → Kimi `kimi-k3` (RPM=3 cap — expect slow/serialized, but it keeps the desk live).
+- **Never stall a call-generation on a single provider outage.** Record every fallback in the ledger (`fallback:` field) so the bounded-independence caveat stays honest. A run that degraded is still logged and graded — degradation is a state, not a reason to skip the loop.
 
 **When the cross-check fires (automatic, no human signal):**
 - **Full firings (2/day) + any ad-hoc full read** → ALWAYS DeepSeek produces + Qwen challenges.
@@ -125,21 +131,22 @@ Each model, in addition to producing/challenging the call, MUST inspect **how th
 
 **Kimi is worth it iff** the graded `KIMI-SUGGESTED` delta (its flag vs the pair, scored against outcome) is positive and non-trivial over a meaningful N. Until that shows up, treat it as an optional dash of independence, not a core reviewer — and promote/retire it only by human gate (§3b), never auto.
 
-## 4b. Cost-effective specialist roster (Olivier 2026-08-18 — "no Grok/GPT unless a cheap red team is possible")
+## 4b. Specialist roster + Grok as full graded participant (Olivier 2026-08-18 — revised: Grok wired in)
 
-The desk runs a specialist set built ENTIRELY from direct-pay models we already use — NO Grok, NO GPT, no premium spend. Roles:
+The desk runs a direct-pay specialist set. **Grok is now a FULL graded participant** (flagship `xai/grok-4.20-beta-latest-reasoning`), not a premium exception — its output is `GROK-SUGGESTED`, graded forward through the same `calibration.py`/`leaderboard.py` machinery (the `by:` field already maps `"grok"` → `"Grok"`), promoted/retired only by human gate, never auto. Roles:
 
 1. **Producer — DeepSeek `deepseek-v4-pro`** — generates the call/full-stack read.
 2. **Challenger — Qwen `qwen3.8-max`** — adversarial-against-the-call (incentive red-team: argues why the call is wrong).
-3. **Blind-audit (cost-effective Grok-substitute)** — DeepSeek OR Qwen fed the SAME data set but with NO direction verdict (numbers + neutral framing: OI *trend*, funding *history*, session context, liq-map *delta* — never a bare column). Anti-anchoring WITHOUT starving it into noise. NOTE (Olivier 2026-08-18): raw numbers ALONE are under-determined — a bare "OI 41,752" with no baseline produces noise, not insight, and the selection of WHICH numbers to show still leaks the thesis. The useful blind-audit withholds the CONCLUSION, not the CONTEXT.
-4. **Coherence checker (cost-effective Gemini-substitute)** — ME (Charly), inline, zero token cost — checks the call against doctrine/ledger for self-contradiction (no silent direction flips, no #085 violations, L1 invalidation placement).
-5. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
-6. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
-7. **Econ-timing — folded into the brief (§3c), NOT a separate agent** — the Producer's brief REQUIRES scheduled-catalyst + US-open timing.
+3. **Third eye / independence-adder — Grok `grok-4.20-beta-latest-reasoning`** — a DIFFERENT model family than DeepSeek/Qwen (bounded-independence caveat weakens once three families are in the room). Default role: the same narrow adversarial question Kimi gets (stop-integrity / R-fiction check) plus a full challenger pass when Qwen is down. `GROK-SUGGESTED` output is advisory, never overrides Producer/Challenger, and is graded forward alongside them.
+4. **Blind-audit** — DeepSeek OR Qwen OR Grok fed the SAME data set but with NO direction verdict (numbers + neutral framing: OI *trend*, funding *history*, session context, liq-map *delta* — never a bare column). Anti-anchoring WITHOUT starving it into noise. NOTE (Olivier 2026-08-18): raw numbers ALONE are under-determined — a bare "OI 41,752" with no baseline produces noise, not insight, and the selection of WHICH numbers to show still leaks the thesis. The useful blind-audit withholds the CONCLUSION, not the CONTEXT.
+5. **Coherence checker** — ME (Charly), inline, zero token cost — checks the call against doctrine/ledger for self-contradiction (no silent direction flips, no #085 violations, L1 invalidation placement).
+6. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
+7. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
+8. **Econ-timing — folded into the brief (§3c), NOT a separate agent** — the Producer's brief REQUIRES scheduled-catalyst + US-open timing.
 
-**Red-team mapping (cheap)** — the old premium trio reduces to: blind-audit (DeepSeek/Qwen raw-numbers) + incentive-against (Qwen) + coherence (Charly). That IS the cost-effective red team. Bounded-independence caveat stands (both are Chinese frontier families).
+**Red-team mapping (direct-pay, three families)** — producer (DeepSeek) + incentive-against (Qwen) + independence-adder (Grok) + coherence (Charly). Blind-audit can ride on any of the three text models. Bounded-independence caveat WEAKENS now that DeepSeek (Chinese), Qwen (Chinese), and Grok (US/xAI) are in the room — the remaining shared blind spot is only DeepSeek-Qwen, which Grok is positioned to catch.
 
-**Firing policy:** full firings (2/day) + ad-hoc full reads → Producer + Challenger + Vision (3 eyes) + reasoning-audit. Light deltas → DeepSeek only. High-stakes → full set + optional flagship spike ONLY if Olivier approves.
+**Firing policy:** full firings (2/day) + ad-hoc full reads → Producer + Challenger + Grok + Vision (up to 4 eyes) + reasoning-audit. Light deltas → DeepSeek only. High-stakes → full set + optional flagship spike ONLY if Olivier approves. **Resilience: any one of the text models may be absent — degrade via the §4 fallback chain (DeepSeek → Qwen → Grok → Kimi) and log the degradation; the loop and graphs still grade whatever landed.**
 
 ## 5. Anti-burn guardrail
 

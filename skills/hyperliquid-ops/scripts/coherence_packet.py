@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-"""LEDGER-COHERENCE PACKET — builds the brief fed to a long-context model (Gemini 3 Pro, 1M-token
-window) to check a new call against the FULL doctrine + ledger history, not just the last read.
+"""LEDGER-COHERENCE PACKET — builds the brief fed to a long-context model (1M-token window,
+e.g. Qwen `qwen3.8-max` or Grok `grok-4.20-beta-latest-reasoning`) to check a new call against
+the FULL doctrine + ledger history, not just the last read.
 Nobody currently re-reads the entire ledger (#000-#084 + all doctrine deltas + lessons.json) before
 grading or logging a new call — this closes that gap. It is a coherence/memory check, not another
 forecast: "does this call contradict something the desk already learned and wrote down?"
+
+Model selection is RESILIENT: any model in the roster with a >=256k context window can run this
+packet. Prefer the highest-context model available (Qwen 1M, else Grok 1M, else DeepSeek 200k as a
+last resort with truncation). If a preferred model is absent/429s, degrade to the next — the packet
+is model-agnostic JSON; the window size only changes how much ledger gets read.
 
 Usage:
   python3 coherence_packet.py call.json

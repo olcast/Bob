@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""CONTESTED AUTO-FLAG (doctrine #57) — compares two live SCORE records (e.g. Sonnet-5 desk call vs. a blind
-Grok-4.6 audit call, same coin, close in time) and flags CONTESTED when they materially disagree, BEFORE either
+"""CONTESTED AUTO-FLAG (doctrine #57) — compares two live SCORE records (e.g. DeepSeek desk call vs. a blind
+Grok audit call, same coin, close in time) and flags CONTESTED when they materially disagree, BEFORE either
 one resolves. This is the pre-resolution sibling of leaderboard.py's post-hoc CONTESTED detection: leaderboard.py
 scores who-won-the-disagreement AFTER outcomes are known; this script exists to raise the flag the moment a
 firing happens, so Olivier gets pinged in real time instead of finding out on the next Sunday retro.
@@ -15,7 +15,7 @@ does that later). This script is a NOTIFICATION trigger only, read-only, no auto
 
 Usage:
   python3 contested_check.py call_a.json call_b.json [--threshold 0.20]
-  echo '{"p_up":0.55,"up":63474,"dn":61900,"by":"Claude"}' > /tmp/a.json
+  echo '{"p_up":0.55,"up":63474,"dn":61900,"by":"DeepSeek"}' > /tmp/a.json
   echo '{"p_up":0.30,"up":63500,"dn":62000,"by":"Grok"}'   > /tmp/b.json
   python3 contested_check.py /tmp/a.json /tmp/b.json
 Exit code: 0 = not contested, 1 = CONTESTED (so cron/automation can branch on it without parsing text)."""

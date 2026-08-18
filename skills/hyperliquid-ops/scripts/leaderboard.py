@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""LEADERBOARD — the co-desk competition scoreboard (doctrine #57). Ranks the desks (by:Claude vs by:Grok, and
-any other source) on FORWARD calibration — Brier vs the 0.5 baseline — CONDITIONED ON REGIME (trend/range,
-high/low-vol, weekend/weekday), with an independence check (near-identical cross-desk calls = echoes, discounted)
-and CONTESTED detection (material cross-desk disagreements = the high-information moments; who wins them).
+"""LEADERBOARD — the co-desk competition scoreboard (doctrine #57). Ranks the desks (by:DeepSeek vs by:Qwen vs
+by:Grok, and any other source) on FORWARD calibration — Brier vs the 0.5 baseline — CONDITIONED ON REGIME
+(trend/range, high/low-vol, weekend/weekday), with an independence check (near-identical cross-desk calls =
+echoes, discounted) and CONTESTED detection (material cross-desk disagreements = the high-information moments;
+who wins them).
 
 It is a GOVERNANCE READOUT for OLIVIER — 'who to trust, in which regime' — never a reward fed back to a desk
 (#56/#57): statelessness is the safeguard. Same shared resolver and call store as calibration.py; the Sunday
@@ -16,6 +17,9 @@ from calibration import resolve, post          # shared resolver + API poster (o
 def desk(by):
     b=(by or "").lower()
     if "grok" in b: return "Grok"
+    if "qwen" in b: return "Qwen"
+    if "deepseek" in b: return "DeepSeek"
+    if "kimi" in b: return "Kimi"
     if "claude" in b: return "Claude"
     return by or "unknown"
 
