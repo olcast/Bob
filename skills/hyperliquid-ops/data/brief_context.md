@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-18 17:46:14 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-18 19:22:49 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,35 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64688.5",
-  "oi_btc": "41962.71964",
-  "funding": "-0.0000017697",
-  "markPx": "64689.0"
+  "mark": "64695.5",
+  "oi_btc": "41374.92306",
+  "funding": "-0.0000049897",
+  "markPx": "64694.2"
+}
+
+## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
+A timestamped PRICE with no velocity/participation/bandwidth is a point, not a read. Derive direction
+from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
+{
+  "bandwidth": {
+    "bid_btc_5bp": 148.32,
+    "ask_btc_5bp": 72.55,
+    "bid_orders_5bp": 205,
+    "ask_orders_5bp": 115,
+    "bid_weight_pct": 67.2
+  },
+  "velocity_15m_pct": 0.0959,
+  "rate_of_change": {
+    "first_half_pct": 0.1439,
+    "second_half_pct": -0.0479,
+    "accel_pct": -0.1918
+  },
+  "participation": {
+    "vol_last": 13.0,
+    "vol_window_sum": 1319.5,
+    "vol_trend": "contracting"
+  },
+  "funding_pct_h": -0.0005
 }
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
@@ -269,6 +294,16 @@ Relationship to §5b: the graded snapshot (`up,dn,p_up,ts,h`) stays FROZEN for c
 read (including move1/move2/move3 zones + direction) EVOLVES and is freely superseded. Both coexist;
 neither is overwritten; the old live read gets no vote in the new one.
 
+**Why the ledger is APPEND-ONLY (the root principle — Olivier / VCP, 2026-08-18):** "immutability is
+not dynamic — what is true today might not be true tomorrow, yet what happened still affects the
+future; it is discovery." The ledger is never erased, only AMENDED. We will learn that some things we
+believed were incorrect — and we can only *see* that correction because the old belief stays legible
+beside the new truth. **No ledger, no progress.** Immutability ≠ "permanently true"; immutability =
+"permanently discoverable". A record that can be silently rewritten can never teach us we were wrong;
+it bakes the error in and moves on. So: amend, never erase. The wrong call stays visible forever as
+the thing that got corrected — that visibility is the entire learning engine. (MISS→LESSON→RULE,
+§calibration, only functions because the MISS cannot be quietly deleted.)
+
 ## 6. Freshness / verification discipline
 
 - Every price/level quoted carries its pull timestamp. Nothing older than ~30min presented as current — re-run instead.
@@ -289,6 +324,14 @@ reconciler), not re-derived by the models.
 It exists so you calibrate correctly against the venue's real mechanics. Where a finding has
 a *directional* implication, that is Charly's job (the reconcile layer), NOT yours — your job is
 to produce your own independent read WITH these facts known.
+
+**Root principle — immutability is DISCOVERY, not a freeze on truth (Olivier / VCP):** the desk
+ledger is append-only and never erased, only AMENDED. What is true today may not be true tomorrow;
+what happened still shapes the future, and that is discovery. When a prior read turns out wrong, we
+amend it — we never delete it, because the *visible* contradiction between the old belief and the new
+truth is the entire learning engine (MISS→LESSON→RULE only works if the MISS stays legible). No
+ledger, no progress. Your job is NOT to reconcile with a past read — it is to give a clean,
+independent read of TODAY's facts. Divergence from the past is information, not a conflict to smooth.
 
 ---
 

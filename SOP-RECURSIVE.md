@@ -220,6 +220,16 @@ Relationship to §5b: the graded snapshot (`up,dn,p_up,ts,h`) stays FROZEN for c
 read (including move1/move2/move3 zones + direction) EVOLVES and is freely superseded. Both coexist;
 neither is overwritten; the old live read gets no vote in the new one.
 
+**Why the ledger is APPEND-ONLY (the root principle — Olivier / VCP, 2026-08-18):** "immutability is
+not dynamic — what is true today might not be true tomorrow, yet what happened still affects the
+future; it is discovery." The ledger is never erased, only AMENDED. We will learn that some things we
+believed were incorrect — and we can only *see* that correction because the old belief stays legible
+beside the new truth. **No ledger, no progress.** Immutability ≠ "permanently true"; immutability =
+"permanently discoverable". A record that can be silently rewritten can never teach us we were wrong;
+it bakes the error in and moves on. So: amend, never erase. The wrong call stays visible forever as
+the thing that got corrected — that visibility is the entire learning engine. (MISS→LESSON→RULE,
+§calibration, only functions because the MISS cannot be quietly deleted.)
+
 ## 6. Freshness / verification discipline
 
 - Every price/level quoted carries its pull timestamp. Nothing older than ~30min presented as current — re-run instead.

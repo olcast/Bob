@@ -73,6 +73,93 @@ def _live_venue():
     return out
 
 
+def _four_dims():
+    """Derive velocity / rate-of-change / participation / bandwidth from live data.
+
+    Olivier's canonical frame for "what a read must measure" (2026-08-18):
+      - VELOCITY      = signed speed (direction x rate).
+      - RATE-OF-CHANGE = acceleration/deceleration — is the move building or dying.
+      - PARTICIPATION = who's really in it — OI build/fall, volume quality (sponsor vs cover).
+      - BANDWIDTH     = channel capacity — how much can trade before slippage (order-book depth).
+    A timestamped PRICE with no velocity/participation/bandwidth is a point, not a read.
+    """
+    out = {}
+    try:
+        def post(b):
+            r = urllib.request.Request(
+                "https://api.hyperliquid.xyz/info",
+                data=json.dumps(b).encode(),
+                headers={"Content-Type": "application/json"},
+            )
+            return json.load(urllib.request.urlopen(r, timeout=40))
+        now = int(time.time() * 1000)
+
+        # BANDWIDTH — resting size within bps of mid (liquidity depth before slippage)
+        try:
+            ob = post({"type": "l2Book", "coin": "BTC"})
+            lv = ob.get("levels", []) or [[], []]
+            def size_within(side, ref, bps):
+                if not side:
+                    return 0.0, 0
+                tot, n = 0.0, 0
+                for x in side:
+                    if abs(float(x["px"]) - ref) / ref * 10000 > bps:
+                        break
+                    tot += float(x["sz"]); n += int(x["n"])
+                return tot, n
+            bids = lv[0] if len(lv) > 0 else []
+            asks = lv[1] if len(lv) > 1 else []
+            if bids and asks:
+                ref = float(bids[0]["px"])
+                b5, bn5 = size_within(bids, ref, 5)
+                a5, an5 = size_within(asks, ref, 5)
+                out["bandwidth"] = {
+                    "bid_btc_5bp": round(b5, 2), "ask_btc_5bp": round(a5, 2),
+                    "bid_orders_5bp": bn5, "ask_orders_5bp": an5,
+                    "bid_weight_pct": round(b5 / (a5 + b5) * 100, 1) if (a5 + b5) else None,
+                }
+        except Exception as e:
+            out["bandwidth_err"] = str(e)
+
+        # VELOCITY + RATE-OF-CHANGE + PARTICIPATION from 15m candles + funding
+        cand = post({"type": "candleSnapshot", "req": {
+            "coin": "BTC", "interval": "15m",
+            "startTime": now - 6 * 15 * 60 * 1000, "endTime": now,
+        }})
+        if cand:
+            closes = [float(c["c"]) for c in cand]
+            vols = [float(c["v"]) for c in cand]
+            if len(closes) >= 2:
+                # velocity = signed % change over the window
+                vel = (closes[-1] - closes[0]) / closes[0] * 100
+                # rate-of-change = acceleration between the two halves of the window
+                half = len(closes) // 2
+                first = (closes[half] - closes[0]) / closes[0] * 100 if half else 0
+                second = (closes[-1] - closes[half]) / closes[half] * 100 if half else 0
+                out["velocity_15m_pct"] = round(vel, 4)
+                out["rate_of_change"] = {
+                    "first_half_pct": round(first, 4),
+                    "second_half_pct": round(second, 4),
+                    "accel_pct": round(second - first, 4),
+                }
+                # participation = is volume expanding or contracting vs OI direction
+                if len(vols) >= 2:
+                    out["participation"] = {
+                        "vol_last": round(vols[-1], 1),
+                        "vol_window_sum": round(sum(vols), 1),
+                        "vol_trend": "expanding" if vols[-1] > sum(vols[:-1]) / max(1, len(vols) - 1) else "contracting",
+                    }
+        # funding sign/level = velocity of carry (cost of the position, signed)
+        meta = post({"type": "metaAndAssetCtxs"})
+        universe = meta[0].get("universe", [])
+        idx = [i for i, a in enumerate(universe) if a.get("name") == "BTC"]
+        if idx:
+            out["funding_pct_h"] = round(float(meta[1][idx[0]].get("funding", 0)) * 100, 5)
+    except Exception as e:
+        out["_four_dims_err"] = str(e)
+    return out
+
+
 def _rules_section(path):
     """Extract only the RULE prose from SOP-RECURSIVE.md — strip nothing, just cap size."""
     txt = _read(path)
@@ -105,6 +192,7 @@ def _current_call_facts(state):
 
 def build():
     venue = _live_venue()
+    dims = _four_dims()
     state_txt = _read(STATE_PATH)
     call_facts = _current_call_facts(state_txt)
 
@@ -122,6 +210,11 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {json.dumps(venue, indent=2)}
+
+## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
+A timestamped PRICE with no velocity/participation/bandwidth is a point, not a read. Derive direction
+from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
+{json.dumps(dims, indent=2)}
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
 {call_facts}

@@ -3,8 +3,8 @@
   "meta": {
     "created": "2026-08-17",
     "lastConsolidated": null,
-    "entityCount": 9,
-    "edgeCount": 8,
+    "entityCount": 16,
+    "edgeCount": 18,
     "maxDepth": 2
   },
   "nodes": {
@@ -179,6 +179,140 @@
       },
       "created": "2026-08-18",
       "updated": "2026-08-18"
+    },
+    "vcp_protocol": {
+      "id": "vcp_protocol",
+      "alias": "VC",
+      "type": "project",
+      "label": "VCP — Verified Cognitive Protocol",
+      "parent": null,
+      "tags": [
+        "verifiable",
+        "cognitive",
+        "protocol",
+        "vcp",
+        "audit",
+        "zkm",
+        "zk-proof",
+        "sidecar",
+        "trust",
+        "immutability"
+      ],
+      "attrs": {
+        "standard_version": "V1.2",
+        "author": "Olivier Castagne",
+        "license": "open + vendor-neutral",
+        "sector": "AI accountability / trust infrastructure",
+        "business_model": "free standard + certification/managed/compliance/verifier-network",
+        "date": "2026-08-18"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "vcp_immutability": {
+      "id": "vcp_immutability",
+      "alias": "VC",
+      "type": "concept",
+      "label": "immutability ≠ correctness (VCP gap)",
+      "parent": "vcp_protocol",
+      "tags": [
+        "immutability",
+        "correctness",
+        "gap",
+        "audit"
+      ],
+      "attrs": {
+        "severity": "critical",
+        "note": "VCP proves WHAT happened (tamper-evident log), correctly scoped to NOT prove whether the decision was RIGHT"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "vcp_zk": {
+      "id": "vcp_zk",
+      "alias": "VC",
+      "type": "concept",
+      "label": "zero-knowledge proof (prove rules, hide weights)",
+      "parent": "vcp_protocol",
+      "tags": [
+        "zk",
+        "zero-knowledge",
+        "privacy"
+      ],
+      "attrs": {
+        "purpose": "compliance without exposing model edge/patient data"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "vcp_receipt_ledger_notary": {
+      "id": "vcp_receipt_ledger_notary",
+      "alias": "VC",
+      "type": "concept",
+      "label": "receipt→ledger→notary chain",
+      "parent": "vcp_protocol",
+      "tags": [
+        "ledger",
+        "notary",
+        "hash-chain"
+      ],
+      "attrs": {
+        "desc": "3-layer tamper-evident anchoring: timestamp slip -> bound tally -> public anchor"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "knight_capital_2012": {
+      "id": "knight_capital_2012",
+      "alias": "KN",
+      "type": "event",
+      "label": "knight_capital_2012",
+      "parent": "vcp_immutability",
+      "tags": [
+        "knight",
+        "flash",
+        "loss"
+      ],
+      "attrs": {
+        "date": "2012",
+        "loss": "$440M in 45min",
+        "cause": "failed software update"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "flash_crash_2010": {
+      "id": "flash_crash_2010",
+      "alias": "FL",
+      "type": "event",
+      "label": "flash_crash_2010",
+      "parent": "vcp_immutability",
+      "tags": [
+        "flash-crash"
+      ],
+      "attrs": {
+        "date": "2010",
+        "detail": "~$1T value evaporated, 5mo investigation"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "citigroup_2022": {
+      "id": "citigroup_2022",
+      "alias": "CI",
+      "type": "event",
+      "label": "citigroup_2022",
+      "parent": "vcp_immutability",
+      "tags": [
+        "fat-finger",
+        "citi"
+      ],
+      "attrs": {
+        "date": "2022",
+        "detail": "$444B fat-finger, $189B reached market"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
     }
   },
   "edges": [
@@ -234,6 +368,76 @@
     {
       "from": "desk_v264",
       "to": "finding_bounded_independence",
+      "rel": "has",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "human_olive",
+      "to": "vcp_protocol",
+      "rel": "created",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_protocol",
+      "to": "decision_sop_recursive",
+      "rel": "related_to",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_immutability",
+      "to": "knight_capital_2012",
+      "rel": "related_to",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_immutability",
+      "to": "flash_crash_2010",
+      "rel": "related_to",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_immutability",
+      "to": "citigroup_2022",
+      "rel": "related_to",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_zk",
+      "to": "vcp_protocol",
+      "rel": "part_of",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_receipt_ledger_notary",
+      "to": "vcp_protocol",
+      "rel": "part_of",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_immutability",
+      "to": "vcp_receipt_ledger_notary",
+      "rel": "depends_on",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_protocol",
+      "to": "vcp_zk",
+      "rel": "has",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "vcp_protocol",
+      "to": "vcp_receipt_ledger_notary",
       "rel": "has",
       "attrs": {},
       "created": "2026-08-18"
