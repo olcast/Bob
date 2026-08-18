@@ -3,9 +3,9 @@
   "meta": {
     "created": "2026-08-17",
     "lastConsolidated": null,
-    "entityCount": 5,
-    "edgeCount": 5,
-    "maxDepth": 0
+    "entityCount": 9,
+    "edgeCount": 8,
+    "maxDepth": 2
   },
   "nodes": {
     "provider_deepseek": {
@@ -101,6 +101,84 @@
       },
       "created": "2026-08-18",
       "updated": "2026-08-18"
+    },
+    "desk_v264": {
+      "id": "desk_v264",
+      "alias": "DE",
+      "type": "project",
+      "label": "Hyperliquid desk architecture v2.6.4",
+      "parent": "desk_hyperliquid",
+      "tags": [
+        "desk",
+        "v264",
+        "trading",
+        "architecture"
+      ],
+      "attrs": {
+        "frozen_until": "50 graded calls",
+        "sizing": "flat 0.33R",
+        "stop": "80% of liquidation",
+        "breaker": "3 stops / 5 days"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "finding_r_synthetics": {
+      "id": "finding_r_synthetics",
+      "alias": "FI",
+      "type": "knowledge",
+      "label": "R is fictional on xyz synthetics off-hours",
+      "parent": "desk_v264",
+      "tags": [
+        "risk",
+        "synthetics",
+        "oracle",
+        "gap",
+        "howto"
+      ],
+      "attrs": {
+        "severity": "critical",
+        "detail": "0.33R/80%-liq-stop/breaker assume hard stop that breaks when SP500/Brent/Gold underlying closed"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "finding_bounded_independence": {
+      "id": "finding_bounded_independence",
+      "alias": "FI",
+      "type": "knowledge",
+      "label": "Bounded independence in audit layer",
+      "parent": "desk_v264",
+      "tags": [
+        "audit",
+        "cross-check",
+        "model-family"
+      ],
+      "attrs": {
+        "severity": "critical",
+        "detail": "two same-family frontier models = correlated errors; applies to DeepSeek/Qwen cross-check"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "human_olive": {
+      "id": "human_olive",
+      "alias": "HU",
+      "type": "human",
+      "label": "Olivier 'Olive' Castagne",
+      "parent": null,
+      "tags": [
+        "olivier",
+        "olive",
+        "pm"
+      ],
+      "attrs": {
+        "role": "retired global-macro PM, ~30yr, ex-hedge-fund",
+        "email": "ol.castagne@gmail.com",
+        "tz": "Europe/Madrid"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
     }
   },
   "edges": [
@@ -138,6 +216,27 @@
       "rel": "used_with",
       "attrs": {},
       "created": "2026-08-18"
+    },
+    {
+      "from": "human_olive",
+      "to": "desk_hyperliquid",
+      "rel": "owns",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "desk_v264",
+      "to": "finding_r_synthetics",
+      "rel": "has",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "desk_v264",
+      "to": "finding_bounded_independence",
+      "rel": "has",
+      "attrs": {},
+      "created": "2026-08-18"
     }
   ],
   "categories": {
@@ -147,10 +246,14 @@
       "provider_kimi"
     ],
     "trading": [
-      "desk_hyperliquid"
+      "desk_hyperliquid",
+      "desk_v264"
     ],
     "governance": [
       "decision_sop_recursive"
+    ],
+    "person": [
+      "human_olive"
     ]
   }
 }

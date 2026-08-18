@@ -73,6 +73,22 @@ concurrency/overload error string first before judging.
 with one model and independently challenge/verify with a second — do not trust a single model's blind spot
 (the 2026-07-26 confirmation-bias miss is the standing lesson).
 
+## Operating & prompting discipline (from Olivier's Claude export, 2026-08-18)
+
+Distilled from his "How to use Claude" guide. These map onto SOP-RECURSIVE.md; the durable ones
+I should keep applying even without being asked:
+
+- **Be clear & specific up front** — state the task, then give context, then break complex work into steps.
+- **Prefer examples** — show the target output shape if a format/style matters.
+- **Encourage explicit reasoning** — "think step-by-step / explain your reasoning" for complex reads (maps to the adversarial cross-check).
+- **Iterate** — a first pass is rarely final; refine on "close, but adjust X."
+- **Role-play for red-team** — adopt the counterparty/blind reviewer's perspective to stress-test a thesis.
+- **Specify output structure** — headings, bullets, tables, exact metrics when it matters.
+- **Admit uncertainty** — say "unverified / don't know" rather than fabricate (SOP §6).
+- **Include full context each time** — no cross-session memory assumption (drives the KG/memory work).
+
+These are *how to prompt me* AND *how I should operate* — the arrow points both ways.
+
 ## Related
 
 - [Agent workspace](/concepts/agent-workspace)
