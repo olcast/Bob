@@ -3,8 +3,8 @@
   "meta": {
     "created": "2026-08-17",
     "lastConsolidated": null,
-    "entityCount": 17,
-    "edgeCount": 21,
+    "entityCount": 16,
+    "edgeCount": 18,
     "maxDepth": 2
   },
   "nodes": {
@@ -313,30 +313,6 @@
       },
       "created": "2026-08-18",
       "updated": "2026-08-18"
-    },
-    "frame_four_dims": {
-      "id": "frame_four_dims",
-      "alias": "FR",
-      "type": "concept",
-      "label": "Four dimensions (velocity / rate-of-change / participation / bandwidth)",
-      "parent": "decision_sop_recursive",
-      "tags": [
-        "velocity",
-        "rate-of-change",
-        "participation",
-        "bandwidth",
-        "measurement",
-        "read",
-        "frame"
-      ],
-      "attrs": {
-        "author": "Olivier Castagne",
-        "date": "2026-08-18",
-        "principle": "a price with no velocity/participation/bandwidth is a point, not a read",
-        "home": "SOP §5f + assemble_brief.py §0b"
-      },
-      "created": "2026-08-18",
-      "updated": "2026-08-18"
     }
   },
   "edges": [
@@ -463,27 +439,6 @@
       "from": "vcp_protocol",
       "to": "vcp_receipt_ledger_notary",
       "rel": "has",
-      "attrs": {},
-      "created": "2026-08-18"
-    },
-    {
-      "from": "desk_hyperliquid",
-      "to": "frame_four_dims",
-      "rel": "uses",
-      "attrs": {},
-      "created": "2026-08-18"
-    },
-    {
-      "from": "frame_four_dims",
-      "to": "vcp_protocol",
-      "rel": "related_to",
-      "attrs": {},
-      "created": "2026-08-18"
-    },
-    {
-      "from": "frame_four_dims",
-      "to": "vcp_immutability",
-      "rel": "related_to",
       "attrs": {},
       "created": "2026-08-18"
     }

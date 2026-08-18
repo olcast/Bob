@@ -9,13 +9,10 @@ It exists so you calibrate correctly against the venue's real mechanics. Where a
 a *directional* implication, that is Charly's job (the reconcile layer), NOT yours — your job is
 to produce your own independent read WITH these facts known.
 
-**Root principle — immutability is DISCOVERY, not a freeze on truth (Olivier / VCP):** the desk
-ledger is append-only and never erased, only AMENDED. What is true today may not be true tomorrow;
-what happened still shapes the future, and that is discovery. When a prior read turns out wrong, we
-amend it — we never delete it, because the *visible* contradiction between the old belief and the new
-truth is the entire learning engine (MISS→LESSON→RULE only works if the MISS stays legible). No
-ledger, no progress. Your job is NOT to reconcile with a past read — it is to give a clean,
-independent read of TODAY's facts. Divergence from the past is information, not a conflict to smooth.
+**Root principle — the ledger is append-only, never erased, only AMENDED (Olivier / VCP; see SOP §5e).**
+Why this matters to YOU: what was true today may not be true tomorrow — discovery is finding out
+we were wrong. Give a clean, independent read of TODAY's facts. Do NOT reconcile toward a past
+read, and do NOT smooth a divergence — divergence from the past is information, not a conflict.
 
 ---
 
