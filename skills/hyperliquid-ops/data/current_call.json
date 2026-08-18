@@ -74,5 +74,13 @@
   "move3_invalid_up": 63200,
   "move3_invalid_down": 62000,
   "move3_graded": true,
-  "move3_ensemble": "DeepSeek 0.42 / Qwen 0.44 / Grok 0.51 = CONFLUENT stand-aside (second-approach decay, squeeze fuel, +137% 1h ext) \u2014 2026-08-18 13:37 UTC"
+  "move3_ensemble": "DeepSeek 0.42 / Qwen 0.44 / Grok 0.51 = CONFLUENT stand-aside (second-approach decay, squeeze fuel, +137% 1h ext) \u2014 2026-08-18 13:37 UTC",
+  "move2_terminus": "61600",
+  "move2_terminus_label": "max-pain terminus (Olivier); stair-step waypoints 63650, 62500",
+  "move2_waypoints": [
+    63650,
+    62500
+  ],
+  "move2_confirm_blowthrough_62000": true,
+  "move2_deathprice": 65020
 }
