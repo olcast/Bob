@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-18 13:49:10 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-18 14:45:09 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,10 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64152.5",
-  "oi_btc": "41672.99804",
-  "funding": "0.0000019597",
-  "markPx": "64151.0"
+  "mark": "64755.5",
+  "oi_btc": "41496.51386",
+  "funding": "0.0000000692",
+  "markPx": "64749.0"
 }
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
