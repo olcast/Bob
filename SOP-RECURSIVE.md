@@ -73,6 +73,8 @@ Every next-2-moves call MUST include all of these, in this order. Levels alone a
 5. **Elliott Wave scenario** — the impulse-vs-corrective count, and which branch each count implies (countertrend corrective = fade; impulse-5 = continuation).
 6. **The moves** — Move 1 (primary) + branch 1A→1B, Move 2 (alternative) + branch 2A→2B, tripwires close-only, p_up, and the falsifiable bar (e.g. continuation on expanding OI).
 
+7. **Move relationship — scale decides invalidation (Olivier 2026-08-18, corrected).** Two moves are ONLY mutually exclusive when they are ALTERNATIVES at the SAME scale on the SAME leg (either you go up first, or down first — one path). But when one move is SMALL (a local poke) and the other is LARGE (a structural flush), they are NESTED, not exclusive: the small move sits INSIDE the large move's footprint, and the small move completing is COMPATIBLE with the large move still being live (the small poke is often the SETUP for the big flush — e.g. "poke-then-fade"). Invalidation is driven by STRUCTURAL breaks (a close through the larger thesis's invalidation level, e.g. the flush is dead only if price CLOSES above 64,550 on expanding OI), NEVER by the smaller move simply finishing. **Rule: reaching a move's target doesn't auto-invalidate a LARGER-scale scenario; only a structural close beyond the larger invalidation does.**
+
 This template is the brief the Producer is given AND the structure the Reconciler outputs. It is binding.
 
 ### Reasoning audit (Olivier, 2026-08-18) — inspect the REASONING itself, not just the verdict
