@@ -1,7 +1,7 @@
 {
   "schema": "hlops-state-v1",
-  "generated_utc": "2026-08-18 13:46:40 UTC",
-  "generated_ts": 1787060800155,
+  "generated_utc": "2026-08-18 13:48:58 UTC",
+  "generated_ts": 1787060938240,
   "live_call": {
     "ts": 1787045655466,
     "h": 24,
@@ -66,7 +66,19 @@
         "use": "none \u2014 do not use as conviction"
       }
     },
-    "note": "Rebuilt by Charly after the first reasoning-audit pass found the 09:2x draft built on misattributed base rates (66% = trap-rate not leg-2; 85% = demoted). Probabilities now derive (50% poke-first x 55% leg-2-reverse = ~28% fade, plus residual). move2_zone is the FADE leg (64,000-63,650), not a splice of Path B's 62.5k terminus. Falsifiability bar added. See ledger #097."
+    "note": "Rebuilt by Charly after the first reasoning-audit pass found the 09:2x draft built on misattributed base rates (66% = trap-rate not leg-2; 85% = demoted). Probabilities now derive (50% poke-first x 55% leg-2-reverse = ~28% fade, plus residual). move2_zone is the FADE leg (64,000-63,650), not a splice of Path B's 62.5k terminus. Falsifiability bar added. See ledger #097.",
+    "move3_zone": [
+      62500,
+      62700
+    ],
+    "move3_dir": "STAND_ASIDE (Branch C)",
+    "move3_trigger": "15m close inside [62500,62700] activates; action = stand aside (no edge)",
+    "move3_contingent_reload_short": "15m close < 62500 (POOL BREAK, not B-low \u2014 shorting into the pool front-runs the funding squeeze), target 61800/61400",
+    "move3_contingent_reclaim_long": "15m close > 64347 (.618) OR funding flips sharply negative + tag stalls at 62500 (squeeze-long), target 64778",
+    "move3_invalid_up": 63200,
+    "move3_invalid_down": 62000,
+    "move3_graded": true,
+    "move3_ensemble": "DeepSeek 0.42 / Qwen 0.44 / Grok 0.51 = CONFLUENT stand-aside (second-approach decay, squeeze fuel, +137% 1h ext) \u2014 2026-08-18 13:37 UTC"
   },
   "base_rates": {
     "reclaim:EARLY": {
@@ -105,7 +117,7 @@
   "_sources": {
     "current_call": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/current_call.json",
     "backtest_rates": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/backtest_rates.json",
-    "call_mtime": 1787049444,
+    "call_mtime": 1787060931,
     "rates_mtime": 1787047346
   }
 }
