@@ -37,6 +37,32 @@ def main():
     direction = cc.get("direction", "SHORT")
     note = cc.get("thesis_note", "65,018 squeeze: OI fell + funding = exhaustion, not sponsorship")
 
+    # FOUR DIMENSIONS — derive the bandwidth (order-book depth) live so the card
+    # shows a READ, not a bare price point (Olivier: velocity/ROC/participation/bandwidth).
+    four = ""
+    try:
+        ob = post({"type": "l2Book", "coin": "BTC"})
+        lv = ob.get("levels", []) or [[], []]
+        def sz(side, ref, bps):
+            tot, n = 0.0, 0
+            for x in side:
+                try:
+                    if abs(float(x["px"]) - ref) / ref * 10000 > bps:
+                        break
+                    tot += float(x["sz"]); n += int(x["n"])
+                except Exception:
+                    break
+            return tot, n
+        if len(lv) > 1 and lv[0] and lv[1]:
+            ref = float(lv[0][0]["px"])
+            b5, bn5 = sz(lv[0], ref, 5)
+            a5, an5 = sz(lv[1], ref, 5)
+            if (a5 + b5):
+                bw = round(b5 / (a5 + b5) * 100, 1)
+                four = (f"\nBANDWIDTH 5bp: bid {b5:.0f}BTC({bn5}) / ask {a5:.0f}BTC({an5}) → {bw}% bid-weighted")
+    except Exception:
+        pass
+
     # re-short line (move2) from current_call.json
     reshort_trigger = cc.get("reshort_trigger", "15m close < 64,550")
     reshort_entry = cc.get("reshort_entry", 64550)
@@ -61,7 +87,8 @@ def main():
         f"   {longtrap}\n\n"
         f"⇒ TERMINUS: {terminus}\n\n"
         f"───────────────\n"
-        f"mark {mark:.0f} | OI {oi:.0f} | funding {sign}{abs(fund)*100:.4f}%/h\n"
+        f"mark {mark:.0f} | OI {oi:.0f} | funding {sign}{abs(fund)*100:.4f}%/h"
+        f"{four}\n"
         f"{ts}\n"
         f"━━━━━━━━━━━━━━━━"
     )

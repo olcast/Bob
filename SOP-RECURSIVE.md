@@ -230,6 +230,28 @@ it bakes the error in and moves on. So: amend, never erase. The wrong call stays
 the thing that got corrected — that visibility is the entire learning engine. (MISS→LESSON→RULE,
 §calibration, only functions because the MISS cannot be quietly deleted.)
 
+## 5f. The four dimensions — what a read must MEASURE (Olivier 2026-08-18)
+
+"We think in terms of rate of change, velocity, participation, and bandwidth." A timestamped PRICE
+with no velocity/participation/bandwidth is a POINT, not a read. Every read must DERIVE all four,
+never settle for price/funding alone:
+
+1. **VELOCITY** = signed speed (direction x rate). Which way is the fuel pointed. Funding sign +
+   level is velocity-of-carry, not just a number.
+2. **RATE-OF-CHANGE** = acceleration/deceleration. Is the move BUILDING or DYING? (e.g. up-leg
+   +0.14% then −0.05% = decelerating = losing steam, not a fresh impulse.)
+3. **PARTICIPATION** = who is actually IN it. OI build vs fall, volume quality — is the move
+   SPONSORED (new money entering) or EXHAUSTED (old money covering)? This is the difference between
+   "squeeze that continues" and "fake impulse that reverts." The single most dispositive dimension.
+4. **BANDWIDTH** = channel capacity — how much can actually trade before slippage (order-book depth,
+   resting size within N bps). Thin book = a break slips fast once it starts; thick book = absorb.
+
+The assembler (assemble_brief.py §0b) derives all four live each firing. The point of the frame:
+a move's MEANING lives in its rate + participation + bandwidth, NOT its endpoint — which is exactly
+why the append-only ledger must record these four to make "what happened" reconstructable into "why
+it moved." Rate-of-change is the link to the root principle (§5e): what happened still shapes the
+future, and you only see that through the derivative, not the price print.
+
 ## 6. Freshness / verification discipline
 
 - Every price/level quoted carries its pull timestamp. Nothing older than ~30min presented as current — re-run instead.

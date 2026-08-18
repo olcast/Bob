@@ -741,6 +741,16 @@ Standing macro count (challenge every session, never assume): equities in a topp
     - **THE FORWARD EDGE this points to:** condition the SFP/reclaim on a REAL liquidity cluster being grabbed — the collector's true liq-map (exact liqPx) + HLP inventory read directly where the house is exposed and where the fills/liqs sit. That is the whale-fill DETECTOR = the decorrelated positioning edge the collector is accruing from today. OLIVIER-INPUT: **HIT** — reframes the target (path, not direction) and the condition (liquidity-built, not quiet-range).
 
 
+## Doctrine v3.21b — the FOUR DIMENSIONS every read must measure (Olivier 2026-08-18; SOP §5f)
+
+**"We think in terms of rate of change, velocity, participation, and bandwidth."** A timestamped PRICE with no velocity/participation/bandwidth is a POINT, not a read. Every read derives ALL FOUR, never price/funding alone (assembler `assemble_brief.py` §0b does this live each firing):
+1. **VELOCITY** = signed speed (direction × rate). Which way the fuel is pointed.
+2. **RATE-OF-CHANGE** = acceleration/deceleration. Is the move BUILDING or DYING.
+3. **PARTICIPATION** = who is actually IN it — OI build/fall, volume quality (sponsored vs exhausted). The most dispositive single dimension.
+4. **BANDWIDTH** = channel capacity — order-book depth before slippage (thin = fast slip).
+A move's MEANING lives in its rate + participation + bandwidth, NOT its endpoint — which is why the append-only ledger must record all four to reconstruct "what happened" into "why it moved" (ties §5e immutability=discovery).
+
+
 ## Doctrine v3.21 delta — spot vs perp: no lead-lag, but perp-premium-fade is a positioning edge; profiling scoped forward (trial T-012, 2026-08-15; OLIVIER-INPUT)
 
 44. **SPOT vs PERP (HL only, BTC; perp 'BTC' vs spot '@142' UBTC/USDC; scripts/spot_perp.py). Backtestable slice done; CVD + trader-profiling scoped FORWARD.** Over 4801×1h overlap:

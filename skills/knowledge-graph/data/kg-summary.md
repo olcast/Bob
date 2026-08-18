@@ -1,4 +1,4 @@
-#KGML v2 | 16e 18r | depth:2 | 2026-08-18
+#KGML v2 | 17e 21r | depth:2 | 2026-08-18
 
 [🔨 Projects]
 VCP — Verified Cognitive Protocol(VC):project — standard_version:V1.2, author:Olivier Castagne, license:open + vendor-neutral, sector:AI accountability / trust infrastructure, date:2026-08-18
@@ -11,6 +11,7 @@ VCP — Verified Cognitive Protocol(VC):project — standard_version:V1.2, autho
 
 [governance]
 SOP-RECURSIVE.md (recursive learning + model hygiene)(DED):decision — date:2026-08-18, status:active
+  Four dimensions (velocity / rate-of-change / participation / bandwidth)(FR):concept — author:Olivier Castagne, date:2026-08-18, home:SOP §5f + assemble_brief.py §0b
 
 [infra]
 DeepSeek (provider)(PR):platform — baseUrl:https://api.deepseek.com, flagship:deepseek-v4-pro, pricing:direct-pay
@@ -27,14 +28,14 @@ Hyperliquid trading ops desk(DE):project — script:skills/hyperliquid-ops, doct
     R is fictional on xyz synthetics off-hours(FI):knowledge — severity:critical
 
 %rel-summary
-has(5) related_to(4) uses(3) part_of(2) used_with(1) owns(1) created(1) depends_on(1)
+related_to(6) has(5) uses(4) part_of(2) used_with(1) owns(1) created(1) depends_on(1)
 %key-relations
   [Hyperliquid trading ops desk]
     Hyperliquid trading ops desk >uses> DeepSeek (provider)
     Hyperliquid trading ops desk >uses> Qwen / DashScope (provider)
     Hyperliquid trading ops desk >uses> Kimi / Moonshot (provider)
     Hyperliquid trading ops desk >has> SOP-RECURSIVE.md (recursive learning + model hygiene)
-    ... +2 more
+    ... +3 more
   [DeepSeek (provider)]
     DeepSeek (provider) >used_with> Qwen / DashScope (provider)
   [Olivier 'Olive' Castagne]
@@ -46,5 +47,8 @@ has(5) related_to(4) uses(3) part_of(2) used_with(1) owns(1) created(1) depends_
     immutability ≠ correctness (VCP gap) >related_to> flash_crash_2010
     immutability ≠ correctness (VCP gap) >related_to> citigroup_2022
     ... +5 more
+  [SOP-RECURSIVE.md (recursive learning + model hygiene)]
+    Four dimensions (velocity / rate-of-change / participation / bandwidth) >related_to> VCP — Verified Cognitive Protocol
+    Four dimensions (velocity / rate-of-change / participation / bandwidth) >related_to> immutability ≠ correctness (VCP gap)
 
-%types platform:3 project:3 concept:3 event:3 knowledge:2 decision:1 human:1
+%types concept:4 platform:3 project:3 event:3 knowledge:2 decision:1 human:1
