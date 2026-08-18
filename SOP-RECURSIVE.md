@@ -131,22 +131,32 @@ Each model, in addition to producing/challenging the call, MUST inspect **how th
 
 **Kimi is worth it iff** the graded `KIMI-SUGGESTED` delta (its flag vs the pair, scored against outcome) is positive and non-trivial over a meaningful N. Until that shows up, treat it as an optional dash of independence, not a core reviewer — and promote/retire it only by human gate (§3b), never auto.
 
-## 4b. Specialist roster + Grok as full graded participant (Olivier 2026-08-18 — revised: Grok wired in)
+## 4b. Symmetric originator round-robin — CONFLUENCE not CONSENSUS (Olivier 2026-08-18 — "sum of intelligences")
 
-The desk runs a direct-pay specialist set. **Grok is now a FULL graded participant** (flagship `xai/grok-4.20-beta-latest-reasoning`), not a premium exception — its output is `GROK-SUGGESTED`, graded forward through the same `calibration.py`/`leaderboard.py` machinery (the `by:` field already maps `"grok"` → `"Grok"`), promoted/retired only by human gate, never auto. Roles:
+The desk runs a direct-pay **symmetric ensemble**. Every text model is a FULL co-originator AND a full cross-reviewer — nobody is assigned a permanent "challenger-only" seat. The governing idea is **confluence, not consensus**: the desk wants to read *where independent reasoning streams point the same way* (independent agreement = real conviction) and *where they split* (divergence = the high-information moment), NOT to average the three into one number.
 
-1. **Producer — DeepSeek `deepseek-v4-pro`** — generates the call/full-stack read.
-2. **Challenger — Qwen `qwen3.8-max`** — adversarial-against-the-call (incentive red-team: argues why the call is wrong).
-3. **Third eye / independence-adder — Grok `grok-4.20-beta-latest-reasoning`** — a DIFFERENT model family than DeepSeek/Qwen (bounded-independence caveat weakens once three families are in the room). Default role: the same narrow adversarial question Kimi gets (stop-integrity / R-fiction check) plus a full challenger pass when Qwen is down. `GROK-SUGGESTED` output is advisory, never overrides Producer/Challenger, and is graded forward alongside them.
-4. **Blind-audit** — DeepSeek OR Qwen OR Grok fed the SAME data set but with NO direction verdict (numbers + neutral framing: OI *trend*, funding *history*, session context, liq-map *delta* — never a bare column). Anti-anchoring WITHOUT starving it into noise. NOTE (Olivier 2026-08-18): raw numbers ALONE are under-determined — a bare "OI 41,752" with no baseline produces noise, not insight, and the selection of WHICH numbers to show still leaks the thesis. The useful blind-audit withholds the CONCLUSION, not the CONTEXT.
-5. **Coherence checker** — ME (Charly), inline, zero token cost — checks the call against doctrine/ledger for self-contradiction (no silent direction flips, no #085 violations, L1 invalidation placement).
-6. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
-7. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
-8. **Econ-timing — folded into the brief (§3c), NOT a separate agent** — the Producer's brief REQUIRES scheduled-catalyst + US-open timing.
+**The three co-originators (identical neutral brief, blind to each other):**
+1. **DeepSeek `deepseek-v4-pro`** — producer family A (Chinese).
+2. **Qwen `qwen3.8-max`** — producer family B (Chinese).
+3. **Grok `grok-4.20-beta-latest-reasoning`** — producer family C (US/xAI).
 
-**Red-team mapping (direct-pay, three families)** — producer (DeepSeek) + incentive-against (Qwen) + independence-adder (Grok) + coherence (Charly). Blind-audit can ride on any of the three text models. Bounded-independence caveat WEAKENS now that DeepSeek (Chinese), Qwen (Chinese), and Grok (US/xAI) are in the room — the remaining shared blind spot is only DeepSeek-Qwen, which Grok is positioned to catch.
+Each lays down its OWN full call **first** (levels, direction, p_up, named death-price) on the SAME neutral data set, BEFORE seeing any other read. Three independent theses. Then each cross-reviews the other two (adversarial pass) — DeepSeek reviews Qwen+Grok, Qwen reviews DeepSeek+Grok, Grok reviews DeepSeek+Qwen. Every output is tagged `by:"<family>"` and `SUGGESTED` (advisory, never auto-trusted) — graded forward through the same `calibration.py`/`leaderboard.py` machinery (the `by:` field already maps each family name). Promote/retire/weight is **human-gated**, never auto.
 
-**Firing policy:** full firings (2/day) + ad-hoc full reads → Producer + Challenger + Grok + Vision (up to 4 eyes) + reasoning-audit. Light deltas → DeepSeek only. High-stakes → full set + optional flagship spike ONLY if Olivier approves. **Resilience: any one of the text models may be absent — degrade via the §4 fallback chain (DeepSeek → Qwen → Grok → Kimi) and log the degradation; the loop and graphs still grade whatever landed.**
+**Reconcile (ME, Charly — inline, zero token cost, not a script):** I do NOT average the three numbers. I classify the triple as:
+- **CONFLUENT** — 2+ independent families land within a tight band on direction + level ⇒ conviction (independent agreement, NOT an echo — `leaderboard.py` independence check discounts near-identical pairs).
+- **DIVERGENT / CONTESTED** — the families materially split (≥ ~20pp p_up delta or a direction flip) ⇒ the high-information moment, surfaced to Olivier + captured as a candidate lesson (`contested_check.py`).
+- **ECHO** — two families near-duplicate ⇒ discounted to one vote (same-family blind spot, especially DeepSeek-Qwen).
+
+The full ensemble is the **sum of intelligences**: three distinct reasoning engines, independent enough that their correlated errors are the exception not the rule, graded against the only objective arbiter — the price tape.
+
+**Supporting (non-originator) roles:**
+5. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
+6. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
+7. **Econ-timing — folded into the brief (§3c), NOT a separate agent** — the Producer's brief REQUIRES scheduled-catalyst + US-open timing.
+
+**Red-team mapping (direct-pay, three families, symmetric)** — every model both originates AND red-teams the others: DeepSeek reviews Qwen+Grok, Qwen reviews DeepSeek+Grok, Grok reviews DeepSeek+Qwen. Coherence (Charly) + Vision (`qwen3-vl-max`) ride on top. Bounded-independence caveat WEAKENS now that DeepSeek (Chinese), Qwen (Chinese), and Grok (US/xAI) are in the room — the remaining shared blind spot is only DeepSeek-Qwen, which Grok is positioned to catch as the odd family.
+
+**Firing policy (symmetric round-robin):** full firings (2/day) + ad-hoc full reads → all three co-originators (DeepSeek + Qwen + Grok) each produce blind, then cross-review the other two, then Charly reconciles confluence/divergence + Vision chart-read (up to 4 independent eyes) + reasoning-audit. Light deltas → DeepSeek only. High-stakes → full ensemble + optional flagship spike ONLY if Olivier approves. **Resilience: any one of the text models may be absent — degrade via the §4 fallback chain (DeepSeek → Qwen → Grok → Kimi), the remaining two still origin + cross-review, and log the degradation; the loop and graphs still grade whatever landed.**
 
 ## 5. Anti-burn guardrail
 
