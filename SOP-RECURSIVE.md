@@ -25,7 +25,7 @@ Never trust a hard-coded model id. Proactively re-resolve the **best available m
 | DeepSeek | `api.deepseek.com` | `deepseek-v4-pro` | Was `deepseek-chat`; versioned ids (`-0813`, `-0731`) appear on the DashScope key too |
 | Qwen / DashScope | `dashscope-intl.aliyuncs.com/compatible-mode/v1` | `qwen3.8-max` | Also exposes `deepseek-v4-pro-0813`, `ZHIPU/GLM-5.3`, `qwen3-vl-max` (vision) |
 | Kimi / Moonshot | `api.moonshot.ai/v1` | `kimi-k3` | concurrency=1 org limit; 128k ctx (too small for full review); unreliable under load |
-| xAI / Grok | `api.x.ai/v1` | `grok-4.6` | bundled `xai` plugin; flagship is the `grok-4.20-beta-*` branch (raw `/models` also returns `grok-4.6`/`4.5` but those don't map to a selectable plugin model) |
+| xAI / Grok | `api.x.ai/v1` | `grok-4.6` | bundled `xai` plugin; flagship is `grok-4.6` (long-horizon agentic / reasoning); `grok-4.20-*` snapshots + `grok-4.3` kept as fallbacks |
 
 **Hard lessons already paid for:**
 - 2026-08-18: assumed `kimi-k2` (didn't exist) → fixed to `kimi-k3` only after a 404/empty test.
