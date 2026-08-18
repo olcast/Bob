@@ -1,7 +1,7 @@
 {
   "schema": "hlops-state-v1",
-  "generated_utc": "2026-08-18 22:57:33 UTC",
-  "generated_ts": 1787093853841,
+  "generated_utc": "2026-08-18 23:00:04 UTC",
+  "generated_ts": 1787094004945,
   "live_call": {
     "ts": 1787076810398,
     "h": 8,
@@ -124,17 +124,17 @@
     {
       "move": "move1",
       "action": "UP poke (nested/small)",
-      "entry": null,
+      "entry": "15m close > 64,861",
       "soft_inval": null,
-      "hard_inval": null,
+      "hard_inval": "15m close < 64,636",
       "use": null
     },
     {
       "move": "move2",
       "action": "DOWN fade (larger)",
-      "entry": null,
+      "entry": "15m close < 64,636 OR (if 65,018 tagged) 15m close < 64,778",
       "soft_inval": null,
-      "hard_inval": null,
+      "hard_inval": "1h close > 65,180",
       "use": null
     }
   ],
