@@ -25,7 +25,7 @@ Never trust a hard-coded model id. Proactively re-resolve the **best available m
 | DeepSeek | `api.deepseek.com` | `deepseek-v4-pro` | Was `deepseek-chat`; versioned ids (`-0813`, `-0731`) appear on the DashScope key too |
 | Qwen / DashScope | `dashscope-intl.aliyuncs.com/compatible-mode/v1` | `qwen3.8-max` | Also exposes `deepseek-v4-pro-0813`, `ZHIPU/GLM-5.3`, `qwen3-vl-max` (vision) |
 | Kimi / Moonshot | `api.moonshot.ai/v1` | `kimi-k3` | concurrency=1 org limit; 128k ctx (too small for full review); unreliable under load |
-| xAI / Grok | `api.x.ai/v1` | `grok-4.20-beta-latest-reasoning` | bundled `xai` plugin; flagship is the `grok-4.20-beta-*` branch (raw `/models` also returns `grok-4.6`/`4.5` but those don't map to a selectable plugin model) |
+| xAI / Grok | `api.x.ai/v1` | `grok-4.6` | bundled `xai` plugin; flagship is the `grok-4.20-beta-*` branch (raw `/models` also returns `grok-4.6`/`4.5` but those don't map to a selectable plugin model) |
 
 **Hard lessons already paid for:**
 - 2026-08-18: assumed `kimi-k2` (didn't exist) → fixed to `kimi-k3` only after a 404/empty test.
@@ -109,7 +109,7 @@ Each model, in addition to producing/challenging the call, MUST inspect **how th
 **Availability fallback (Olivier, 2026-08-18 — expanded for any-one-missing resilience):** the desk must keep working when ANY single model is absent/429s/times-out. Fallback order: **DeepSeek → Qwen → Grok → Kimi**, applying the highest-available model to whichever role is unstaffed.
 - Producer (DeepSeek `deepseek-v4-pro`) down → next-highest (Qwen) produces AND its own challenger role degrades to a same-model self-challenge (flag `DEGRADED-INDEPENDENCE`).
 - Challenger (Qwen `qwen3.8-max`) down → DeepSeek produces AND self-challenges (same degraded flag), or Grok steps in as challenger (preferred — preserves two-family independence).
-- DeepSeek + Qwen BOTH down → **Grok `grok-4.20-beta-latest-reasoning`** produces AND challenges (it is a different family, so independence is preserved even at this rung — better than the old Kimi-only tail).
+- DeepSeek + Qwen BOTH down → **Grok `grok-4.6`** produces AND challenges (it is a different family, so independence is preserved even at this rung — better than the old Kimi-only tail).
 - Grok also down / only Kimi left → Kimi `kimi-k3` (RPM=3 cap — expect slow/serialized, but it keeps the desk live).
 - **Never stall a call-generation on a single provider outage.** Record every fallback in the ledger (`fallback:` field) so the bounded-independence caveat stays honest. A run that degraded is still logged and graded — degradation is a state, not a reason to skip the loop.
 
@@ -138,7 +138,7 @@ The desk runs a direct-pay **symmetric ensemble**. Every text model is a FULL co
 **The three co-originators (identical neutral brief, blind to each other):**
 1. **DeepSeek `deepseek-v4-pro`** — producer family A (Chinese).
 2. **Qwen `qwen3.8-max`** — producer family B (Chinese).
-3. **Grok `grok-4.20-beta-latest-reasoning`** — producer family C (US/xAI). **KEEP him in
+3. **Grok `grok-4.6`** — producer family C (US/xAI). **KEEP him in
 reasoning mode** (Olivier 2026-08-18: "keep him in reasoning"). The reasoning variant is the whole
 point of the third family — depth over speed. Firing protocol for Grok is TWO-STAGE: first let him
 reason out loud freely, THEN instruct "now commit the JSON call". Do NOT clamp him to a bare

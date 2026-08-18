@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """LEDGER-COHERENCE PACKET — builds the brief fed to a long-context model (1M-token window,
-e.g. Qwen `qwen3.8-max` or Grok `grok-4.20-beta-latest-reasoning`) to check a new call against
+e.g. Qwen `qwen3.8-max` or Grok `grok-4.6`) to check a new call against
 the FULL doctrine + ledger history, not just the last read.
 Nobody currently re-reads the entire ledger (#000-#084 + all doctrine deltas + lessons.json) before
 grading or logging a new call — this closes that gap. It is a coherence/memory check, not another
