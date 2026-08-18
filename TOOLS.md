@@ -49,6 +49,30 @@ See hyperliquid-ops ledger entry #091 for the full incident record.
 
 Add whatever helps you do your job. This is your cheat sheet.
 
+## Model providers (key inventory + "best model" policy)
+
+**Policy: always use the very best model on each provider.** Discovered + confirmed 2026-08-18.
+
+**DeepSeek** (`api.deepseek.com`, OpenAI-compatible) — 2 models on key:
+- `deepseek-v4-pro` ← **BEST / flagship** (use this; it's the primary + agent default)
+- `deepseek-v4-flash` (cheap/fast, use only for low-stakes or bulk)
+
+**Moonshot / Kimi** (`api.moonshot.ai/v1`, config baseUrl has `/v1`) — 4 models on key:
+- `kimi-k3` ← **BEST / flagship** (but see reliability note below)
+- `kimi-k2.6` — previous-gen general model
+- `kimi-k2.7-code` — code-specialized
+- `kimi-k2.7-code-highspeed` — code-specialized, fast
+
+**Reliability note (Kimi/Moonshot):** on 2026-08-18 kimi-k3 failed a full-stack review twice, once with
+`engine_overloaded` (429) and once with `request reached max organization concurrency: 1`. The Moonshot
+org has a **concurrency limit of 1** — so DeepSeek + Kimi cannot run truly in parallel; overlapping Kimi
+calls will serialize or collide-error. Don't assume a Kimi failure means the model is bad; check for the
+concurrency/overload error string first before judging.
+
+**Cross-check / recursive-verify rule:** for important outputs (market reads, reviews, decisions), produce
+with one model and independently challenge/verify with a second — do not trust a single model's blind spot
+(the 2026-07-26 confirmation-bias miss is the standing lesson).
+
 ## Related
 
 - [Agent workspace](/concepts/agent-workspace)

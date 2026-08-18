@@ -3,11 +3,154 @@
   "meta": {
     "created": "2026-08-17",
     "lastConsolidated": null,
-    "entityCount": 0,
-    "edgeCount": 0,
+    "entityCount": 5,
+    "edgeCount": 5,
     "maxDepth": 0
   },
-  "nodes": {},
-  "edges": [],
-  "categories": {}
+  "nodes": {
+    "provider_deepseek": {
+      "id": "provider_deepseek",
+      "alias": "PR",
+      "type": "platform",
+      "label": "DeepSeek (provider)",
+      "parent": null,
+      "tags": [
+        "deepseek",
+        "model-provider",
+        "api"
+      ],
+      "attrs": {
+        "baseUrl": "https://api.deepseek.com",
+        "flagship": "deepseek-v4-pro",
+        "pricing": "direct-pay"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "provider_qwen": {
+      "id": "provider_qwen",
+      "alias": "PR",
+      "type": "platform",
+      "label": "Qwen / DashScope (provider)",
+      "parent": null,
+      "tags": [
+        "qwen",
+        "dashscope",
+        "alibaba",
+        "model-provider"
+      ],
+      "attrs": {
+        "baseUrl": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+        "flagship": "qwen3.8-max",
+        "pricing": "direct-pay"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "provider_kimi": {
+      "id": "provider_kimi",
+      "alias": "PR",
+      "type": "platform",
+      "label": "Kimi / Moonshot (provider)",
+      "parent": null,
+      "tags": [
+        "kimi",
+        "moonshot",
+        "model-provider"
+      ],
+      "attrs": {
+        "flagship": "kimi-k3",
+        "note": "concurrency=1, 128k ctx, unreliable under load"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "desk_hyperliquid": {
+      "id": "desk_hyperliquid",
+      "alias": "DE",
+      "type": "project",
+      "label": "Hyperliquid trading ops desk",
+      "parent": null,
+      "tags": [
+        "hyperliquid",
+        "trading",
+        "btc",
+        "perp"
+      ],
+      "attrs": {
+        "script": "skills/hyperliquid-ops",
+        "doctrine": "SKILL.md 79 rules"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    },
+    "decision_sop_recursive": {
+      "id": "decision_sop_recursive",
+      "alias": "DE",
+      "type": "decision",
+      "label": "SOP-RECURSIVE.md (recursive learning + model hygiene)",
+      "parent": null,
+      "tags": [
+        "sop",
+        "recursive",
+        "self-improvement"
+      ],
+      "attrs": {
+        "date": "2026-08-18",
+        "status": "active"
+      },
+      "created": "2026-08-18",
+      "updated": "2026-08-18"
+    }
+  },
+  "edges": [
+    {
+      "from": "desk_hyperliquid",
+      "to": "provider_deepseek",
+      "rel": "uses",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "desk_hyperliquid",
+      "to": "provider_qwen",
+      "rel": "uses",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "desk_hyperliquid",
+      "to": "provider_kimi",
+      "rel": "uses",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "desk_hyperliquid",
+      "to": "decision_sop_recursive",
+      "rel": "has",
+      "attrs": {},
+      "created": "2026-08-18"
+    },
+    {
+      "from": "provider_deepseek",
+      "to": "provider_qwen",
+      "rel": "used_with",
+      "attrs": {},
+      "created": "2026-08-18"
+    }
+  ],
+  "categories": {
+    "infra": [
+      "provider_deepseek",
+      "provider_qwen",
+      "provider_kimi"
+    ],
+    "trading": [
+      "desk_hyperliquid"
+    ],
+    "governance": [
+      "decision_sop_recursive"
+    ]
+  }
 }
