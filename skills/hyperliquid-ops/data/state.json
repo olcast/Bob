@@ -1,7 +1,7 @@
 {
   "schema": "hlops-state-v1",
-  "generated_utc": "2026-08-18 15:36:36 UTC",
-  "generated_ts": 1787067396422,
+  "generated_utc": "2026-08-18 15:41:40 UTC",
+  "generated_ts": 1787067700758,
   "live_call": {
     "ts": 1787045655466,
     "h": 24,
@@ -78,7 +78,15 @@
     "move3_invalid_up": 63200,
     "move3_invalid_down": 62000,
     "move3_graded": true,
-    "move3_ensemble": "DeepSeek 0.42 / Qwen 0.44 / Grok 0.51 = CONFLUENT stand-aside (second-approach decay, squeeze fuel, +137% 1h ext) \u2014 2026-08-18 13:37 UTC"
+    "move3_ensemble": "DeepSeek 0.42 / Qwen 0.44 / Grok 0.51 = CONFLUENT stand-aside (second-approach decay, squeeze fuel, +137% 1h ext) \u2014 2026-08-18 13:37 UTC",
+    "move2_terminus": "61600",
+    "move2_terminus_label": "max-pain terminus (Olivier); stair-step waypoints 63650, 62500",
+    "move2_waypoints": [
+      63650,
+      62500
+    ],
+    "move2_confirm_blowthrough_62000": true,
+    "move2_deathprice": 65020
   },
   "base_rates": {
     "reclaim:EARLY": {
@@ -117,7 +125,7 @@
   "_sources": {
     "current_call": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/current_call.json",
     "backtest_rates": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/backtest_rates.json",
-    "call_mtime": 1787060931,
+    "call_mtime": 1787067550,
     "rates_mtime": 1787047346
   }
 }
