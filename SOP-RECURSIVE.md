@@ -112,7 +112,18 @@ Each model, in addition to producing/challenging the call, MUST inspect **how th
 - **Light delta-briefs (2/day)** → DeepSeek only (deltas don't warrant the token spend).
 - **High-stakes single decision** → manually escalate: full cross-check + optionally the flagship-spend spike (§5).
 
-**Kimi `kimi-k3`** = distant third, NEVER in the critical path (128k ctx overflow + concurrency=1).
+**Kimi `kimi-k3`** = distant third, OPTIONAL adversarial spot-checker, NEVER in the critical path (128k ctx overflow + concurrency=1 + RPM=3 + org rate-limit). **(Olivier 2026-08-18 — optional and measured, not a blocker: "use the verdicts to see if he's worth it.")** Kimi's output is `SUGGESTED` only — never overrides or blocks the Producer/Challenger verdict. The desk must run fine if Kimi is disabled, absent, or 429s.
+
+**Design rule — do NOT hand Kimi the concluded verdict.** Feeding it the conclusion re-anchors it: it rubber-stamps or re-nitpicks what Qwen already said, which is an echo-check, not a third eye. Instead give it a **single narrow adversarial question it is uniquely positioned on**, sourced from the same neutral data set Qwen gets. Default question = the **stop-integrity / R-fiction check** (standing finding #1: is R real on this venue at this clock time — i.e. will the stop actually hold, or is the underlying dark and the close re-mark going to slip 1.33R → 3R+ in a wick). Swappable per-firing to whichever single hazard the desk wants stress-tested.
+
+**Operating constraints:**
+1. **Optional flag first.** Only invoke Kimi when explicitly enabled; by default the pair (DeepSeek + Qwen) runs without it. It is a measurement experiment, not a standing requirement.
+2. **Never spawn two Kimi jobs in parallel** — concurrency=1 org limit → one dies instantly (`max organization concurrency: 1`). Serialize all Kimi work.
+3. **Space Kimi calls ≥60s apart** — RPM=3 + rate-limit backoff stack on top of concurrency=1.
+4. **Pre-supply the macro gate, don't let it fetch** — write the RESOLVED macro gate to `data/macro_gate_resolved.md` and brief Kimi to READ THAT FILE (Kimi correctly aborts on untrusted email/news ingest; the security guard zeroes the turn).
+5. **Log every Kimi read as `KIMI-SUGGESTED` + grade it forward.** Record the read in the ledger tag alongside Producer/Challenger, then score it against the resolved outcome.
+
+**Kimi is worth it iff** the graded `KIMI-SUGGESTED` delta (its flag vs the pair, scored against outcome) is positive and non-trivial over a meaningful N. Until that shows up, treat it as an optional dash of independence, not a core reviewer — and promote/retire it only by human gate (§3b), never auto.
 
 ## 4b. Cost-effective specialist roster (Olivier 2026-08-18 — "no Grok/GPT unless a cheap red team is possible")
 
