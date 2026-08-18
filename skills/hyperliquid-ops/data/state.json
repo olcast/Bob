@@ -1,0 +1,111 @@
+{
+  "schema": "hlops-state-v1",
+  "generated_utc": "2026-08-18 10:43:05 UTC",
+  "generated_ts": 1787049785200,
+  "live_call": {
+    "ts": 1787045655466,
+    "h": 24,
+    "up": 64550,
+    "dn": 63950,
+    "p_up": 0.3,
+    "p_base": 0.5,
+    "by": "Charly (rebuilt 2026-08-18 09:50 UTC after reasoning-audit \u2014 see ledger #097)",
+    "thesis": "REBUILT on corrected desk base rates (supersedes the 09:2x draft whose pillars were misattributed \u2014 see Qwen reasoning-audit C1/C2). PRIMARY (structural-only, ~30%): poke into 64,300-64,550 then fade. The fade pivot rests on leg-2-reverse 55% (repro #48, n=191) and low-break-trap 66% (n=189) \u2014 NOT a continuation edge. ALTERNATIVE (down-poke, ~28%): lose 63,950 -> scan 63,380-63,130 -> flush 62,500-62,700 (decayed pool R-044, second approach) \u2014 reclaim probability lower than first approach, no 85% 'reclaim' conviction (that figure is doctrine #53 DEMOTED). PATH C (~15%): 4h close >64,550 ON EXPANDING OI -> squeeze 65,475. Residual (~27%): chop/range 63,950-64,300, no directional leg. Death-price (rule 22b): PRIMARY FADE DIES on a 30m close ABOVE 64,300 after the poke without OI expansion (acceptance, not a wick) \u2014 that's direction-up, not a fade. Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). These are mutually exclusive with the fade target.",
+    "entry_spec": {
+      "note": "Entry = close-confirmed TRIGGER (SOP \u00a73c.8). Move 1 and Move 2 are NESTED at different scales, NOT mutually exclusive (SOP \u00a73c.7). Reconciled 2026-08-18 10:40 UTC from producer(Bob/DeepSeek) + challenger(Qwen) memos.",
+      "move1": {
+        "action": "no entry \u2014 observe only",
+        "reason": "fresh 1,136-trade rejection wick at 64,418 (distribution not shelf); desk base rate range-high breaks 76% fake (n=189); target floor 64,300 below any meaningful entry => negative EV; macro (oil/spike Iran risk-off) counter-current.",
+        "use": "fuel gauge only \u2014 a FAILED poke at 64.40-64.55 CONFIRMS move 2 (the flush)"
+      },
+      "move2": {
+        "entry": "15m close below 63,930",
+        "reason": "sits below BOTH the 63,938 prior low AND the 64,000 round-number magnet \u2014 converts the sweep zone into confirmation instead of entry. (Bob proposed 1h close <62,678 = cleaner but too late; gives up the easy first ~100pts of the flush.)",
+        "soft_inval": "1h close back above 64,050 (reclaim of magnet zone = sweep, not flush)",
+        "hard_inval": "4h close above 64,580 (actual 72h high, not mid-cluster 64,550) \u2014 acceptance ALONE kills; OI only explains, NOT a condition"
+      },
+      "coupling": "MOVE 1 AND MOVE 2 ARE ANTI-CORRELATED, NOT INDEPENDENT BETS \u2014 move 1 succeeding is move 2 failing. Addressed after Qwen flagged the pairing as double-counted EV."
+    },
+    "move1_dir": "up",
+    "move1_zone": [
+      64300,
+      64550
+    ],
+    "move1_time": "if at all, inside 4-6h of 09:50 (EU close / early US)",
+    "move2_dir": "down",
+    "move2_zone": [
+      64000,
+      63650
+    ],
+    "move2_time": "fade leg after the poke rejects; if 63,950 lost instead, the down-poke is move-1 (not a move-2 splice)",
+    "path_b_terminus": [
+      62500,
+      62700
+    ],
+    "death_price": "30m close >64,300 after the poke, without OI expansion",
+    "probabilities": {
+      "primary_fade": 0.3,
+      "down_poke": 0.28,
+      "squeeze_pathc": 0.15,
+      "residual_chop": 0.27
+    },
+    "provenance": {
+      "leg2_reverse": {
+        "rate": 0.55,
+        "n": 191,
+        "source": "repro #48"
+      },
+      "low_break_trap": {
+        "rate": 0.66,
+        "n": 189,
+        "source": "level-break 145d"
+      },
+      "sweep_reclaim_85": {
+        "status": "DEMOTED",
+        "source": "doctrine #53",
+        "use": "none \u2014 do not use as conviction"
+      }
+    },
+    "note": "Rebuilt by Charly after the first reasoning-audit pass found the 09:2x draft built on misattributed base rates (66% = trap-rate not leg-2; 85% = demoted). Probabilities now derive (50% poke-first x 55% leg-2-reverse = ~28% fade, plus residual). move2_zone is the FADE leg (64,000-63,650), not a splice of Path B's 62.5k terminus. Falsifiability bar added. See ledger #097."
+  },
+  "base_rates": {
+    "reclaim:EARLY": {
+      "n": 76,
+      "hit_pct": 42,
+      "reached_pct": 50,
+      "med_reach_pct": 0.79,
+      "fwd_pct": -0.21
+    },
+    "reclaim:STRICT": {
+      "n": 97,
+      "hit_pct": 57,
+      "reached_pct": 64,
+      "med_reach_pct": 0.9,
+      "fwd_pct": -0.41
+    }
+  },
+  "entries": [
+    {
+      "move": "move1",
+      "action": "no entry \u2014 observe only",
+      "entry": null,
+      "soft_inval": null,
+      "hard_inval": null,
+      "use": "fuel gauge only \u2014 a FAILED poke at 64.40-64.55 CONFIRMS move 2 (the flush)"
+    },
+    {
+      "move": "move2",
+      "action": null,
+      "entry": "15m close below 63,930",
+      "soft_inval": "1h close back above 64,050 (reclaim of magnet zone = sweep, not flush)",
+      "hard_inval": "4h close above 64,580 (actual 72h high, not mid-cluster 64,550) \u2014 acceptance ALONE kills; OI only explains, NOT a condition",
+      "use": null
+    }
+  ],
+  "_sources": {
+    "current_call": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/current_call.json",
+    "backtest_rates": "/root/.openclaw/workspace/skills/hyperliquid-ops/scripts/../data/backtest_rates.json",
+    "call_mtime": 1787049444,
+    "rates_mtime": 1787047346
+  }
+}
