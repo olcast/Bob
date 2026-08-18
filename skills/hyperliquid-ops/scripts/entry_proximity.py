@@ -81,6 +81,11 @@ def main():
 
     prox = "hot" if mind <= HOT * 100 else ("warm" if mind <= HOT * 100 * 3 else "cold")
     print(json.dumps({"ok": True, "mark": mark, "proximity": prox, "min_dist_pct": round(mind, 3), "entries": dists}))
+    # NOTIFY semantics: ONLY "hot" (within HOT) is a user-facing trigger. "warm" is a
+    # cadence hint (wake faster), NOT a notify. Exit 0 = should wake faster (hot OR warm);
+    # the notify decision is made by the calling agent reading the "proximity" field, not
+    # by this exit code. (Fixes the recurring "warm ping" leak: warm stayed in the exit-0
+    # band AND the agent treated exit-0 as 'notify', so any 0.2-0.6% proximity notified.)
     sys.exit(0 if prox in ("hot", "warm") else 1)
 
 
