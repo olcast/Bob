@@ -224,3 +224,23 @@ Olivier resolved a 4-turn confusion with two decisions:
 3. NEXT-2-MOVES BRIEF UPGRADE (Olivier requirement): every call must now include reasoning, narrative, context (Econ numbers + US open + timing), timing/sequence, and Elliott Wave scenario — not levels alone. Wired into SOP §3c as the binding brief template.
 
 Producer/Challenger genuine divergence (DeepSeek up-first/squeeze vs Qwen poke-then-fade) logged as candidate lesson for the discovery loop (SOP §4 recursive). Continuation-to-65k requires OI expansion — currently 0.0%, so unfunded.
+
+---
+#097 — REASONING-AUDIT LOOP + INCENTIVE DESIGN + CALL REBUILD (first self-correction from the recursive layer) — 2026-08-18 09:50 UTC. Read-only; account untouched.
+
+The reasoning-audit layer (Olivier 09:40 "reasoning inspected by each model, improvements suggested") fired for the first time and produced a self-correction, not just an adjudication:
+
+1. DeepSeek (producer) + Qwen (challenger) each audited the REASONING of the 09:2x reconciled poke-then-fade call. Qwen's audit found the call's two flagship quantitative pillars were FABRICATED/MISATTRIBUTED:
+   - "leg-2 reverses ~66%" → desk measures 55% (n=191, repro #48). 66% = low-break TRAP rate (n=189, 145d). Stapled trap-rate onto leg-2, inflating ~11pp toward the primary (doctrine R7 violation).
+   - "shallow sweeps reclaim ~85%" → DESK DEMOTED this to unvalidated hypothesis (doctrine #53). Used as reclaim-conviction anyway.
+   Plus ~8 structural flaws (unfalsifiable primary, probabilities not derived 45/30/15=90%, move2_zone splice bug, tripwire/target non-exclusive, evidence-dependence unchecked, EW-as-predictor, distrust-window violation, missing catalyst/reference-class).
+
+2. Olivier asked "do we have an incentive design?" — honest answer was NO, only policing. So I BUILT one (cost-effective, no Grok/GPT):
+   - provenance_gate.py — hard precondition: empirical base rates must carry {rate,n,source}; demoted figures must carry status + use=false; probabilities must sum ~1.0 with named residual. Flags BEFORE a call goes live, not after.
+   - falsifiability_score.py — second scored dimension BEYOND call-hit: reasoning integrity (death-price named, tripwire/target exclusive, probabilities derived, provenance present, no splice). 0.0-1.0. Complements calibration.py (the outcome judge), does not replace it.
+
+3. Rebuilt data/current_call.json on the corrected desk base rates (ledger references real repro #48 n=191 leg-2 55%, trap 66% n=189, 85% = DEMOTED). Derived probabilities: poke-first ~50% x leg-2-reverse 55% => primary-fade 0.30, down-poke 0.28, squeeze 0.15, residual-chop 0.27 (sums 1.00). Fixed move2_zone to the FADE leg [64000,63650], stored path_b_terminus [62500,62700] separately. Added death_price (30m close >64,300 without OI expansion = fade dead). Added provenance object.
+
+4. Verified: provenance gate PASS, falsifiability 1.00/1.00 on rebuilt call (vs 0.35 on the original draft).
+
+FIRST candidate lesson for the reasoning-audit loop: "a call whose numeric pillars fail provenance-gate MUST not ship as-is." Candidate for promotion to lesson-YYYYMMDD-HHMM.json at next retro.

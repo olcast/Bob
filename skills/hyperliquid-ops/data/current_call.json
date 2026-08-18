@@ -1,15 +1,25 @@
 {
-  "ts": 1787045055466,
+  "ts": 1787045655466,
   "h": 24,
   "up": 64550,
   "dn": 63950,
-  "p_up": 0.45,
+  "p_up": 0.30,
   "p_base": 0.5,
-  "by": "DeepSeek(producer)+Qwen(challenger) reconciled by Charly",
-  "thesis": "RECONCILED cross-check 2026-08-18 09:2x UTC (supersedes 08-17 10:49 down-first call as the ACTIVE view; prior snapshot retained for grading only). Primary = poke-up into 64,300-64,550 then FADE toward 63,650-64,000 (Qwen's read; base rates leg-2 reverse ~66%, shallow-sweep reclaim ~85%). Alternative = down-poke still live: lose 63,950 -> 63,380-63,130 -> flush 62,500-62,700 then reclaim. Path C (~15%, NOT primary): 4h close >64,550 ON EXPANDING OI -> squeeze to 65,475 (needs dovish catalyst). Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). Net: fade strength into 64,300-64,550; don't chase squeeze; OI at 0.0% = continuation not yet funded.",
+  "by": "Charly (rebuilt 2026-08-18 09:50 UTC after reasoning-audit — see ledger #097)",
+  "thesis": "REBUILT on corrected desk base rates (supersedes the 09:2x draft whose pillars were misattributed — see Qwen reasoning-audit C1/C2). PRIMARY (structural-only, ~30%): poke into 64,300-64,550 then fade. The fade pivot rests on leg-2-reverse 55% (repro #48, n=191) and low-break-trap 66% (n=189) — NOT a continuation edge. ALTERNATIVE (down-poke, ~28%): lose 63,950 -> scan 63,380-63,130 -> flush 62,500-62,700 (decayed pool R-044, second approach) — reclaim probability lower than first approach, no 85% 'reclaim' conviction (that figure is doctrine #53 DEMOTED). PATH C (~15%): 4h close >64,550 ON EXPANDING OI -> squeeze 65,475. Residual (~27%): chop/range 63,950-64,300, no directional leg. Death-price (rule 22b): PRIMARY FADE DIES on a 30m close ABOVE 64,300 after the poke without OI expansion (acceptance, not a wick) — that's direction-up, not a fade. Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). These are mutually exclusive with the fade target.",
   "move1_dir": "up",
   "move1_zone": [64300, 64550],
+  "move1_time": "if at all, inside 4-6h of 09:50 (EU close / early US)",
   "move2_dir": "down",
-  "move2_zone": [62500, 62700],
-  "note": "Producer(DeepSeek) flipped primary to up-first/squeeze; Challenger(Qwen) killed the continuation, held poke-then-fade. Genuine divergence logged as candidate lesson (SOP 4). Continuation needs OI expansion, falsifiable bar."
+  "move2_zone": [64000, 63650],
+  "move2_time": "fade leg after the poke rejects; if 63,950 lost instead, the down-poke is move-1 (not a move-2 splice)",
+  "path_b_terminus": [62500, 62700],
+  "death_price": "30m close >64,300 after the poke, without OI expansion",
+  "probabilities": {"primary_fade": 0.30, "down_poke": 0.28, "squeeze_pathc": 0.15, "residual_chop": 0.27},
+  "provenance": {
+    "leg2_reverse": {"rate": 0.55, "n": 191, "source": "repro #48"},
+    "low_break_trap": {"rate": 0.66, "n": 189, "source": "level-break 145d"},
+    "sweep_reclaim_85": {"status": "DEMOTED", "source": "doctrine #53", "use": "none — do not use as conviction"}
+  },
+  "note": "Rebuilt by Charly after the first reasoning-audit pass found the 09:2x draft built on misattributed base rates (66% = trap-rate not leg-2; 85% = demoted). Probabilities now derive (50% poke-first x 55% leg-2-reverse = ~28% fade, plus residual). move2_zone is the FADE leg (64,000-63,650), not a splice of Path B's 62.5k terminus. Falsifiability bar added. See ledger #097."
 }
