@@ -122,6 +122,24 @@ The desk runs a specialist set built ENTIRELY from direct-pay models we already 
 
 Direct-pay only, no OpenRouter markup. Flagship spend (GPT/Opus) is reserved for a single high-stakes decision, never the daily driver. This guardrail traces to the ~$250 OpenRouter burn (2026-08-17).
 
+## 5d. Backtesting measurement rules (Olivier 2026-08-18)
+
+Two standing rules for how the desk measures edge — both fix a real flaw found while wiring the backtesters back in:
+
+1. **COST IS REMOVED from edge measurement.** Transaction friction (maker/taker, 25bp/5bp round-trip) is an EXECUTION parameter, not a signal property. Folding it into the edge number masks whether the pattern itself has any juice (reclaim went from "-0.23% negative" to "+0.02% raw" once 25bp was stripped). Measure the RAW signal; reason about cost as a SEPARATE overlay afterward. All `backtest_*.py` now use `COST=0.0`/`cost=0.0`.
+2. **TIMING = "did price reach higher/lower within X time", NOT first-touch.** The old `trade()` scored "stop-hit-then-recovered-to-target" as a LOSS, understating any slow-grind edge. The correct question is max forward excursion within the horizon: does price run to +0.8% (or higher) within H bars regardless of path. `backtest_lineexc.py` already did this correctly (peak-above/below); the others now report a `reached+X%` + `medReach` metric alongside (not replacing) first-touch. A pattern that "reaches" 64% but "hits on first-touch" 42% is a real slow-grind edge that first-touch was hiding.
+
+**The backtester battery lives in `scripts/backtest_*.py`** (reclaim/sweep/magnet/confluence/sfp/lineexc/excursion) — walk-forward, own-lines (pivot known only at p+k, no look-ahead), vs random-entry control + unconditional drift baseline. `scripts/backtest_rates.py` runs the battery and persists machine-readable n/rate to `data/backtest_rates.json`. **The producer MUST read `backtest_rates.json` for any base rate instead of recalling from memory** — this is the fix for the 66%/85% misattribution (ledger #097).
+
+## 5c. Incentive design — provenance gate + falsifiability score (Olivier 2026-08-18, "do we have an incentive design?")
+
+The desk had a POLICING layer (audits + doctrine catch errors after the fact) but no INCENTIVE layer (making the generator prefer sound reasoning because sound reasoning pays). Built two tools — and WIRED them into the Sunday retro so they fire automatically:
+
+- **`scripts/provenance_gate.py`** — hard precondition on any empirical base rate: must carry `{rate, n, source}`; demoted/retired figures carry `status:"DEMOTED"` + `use:false`. Probabilities must sum ~1.0 with a named residual. Flags BEFORE a call ships, not after. The exact R7 failure class (misattributed 66%/85%) now trips automatically.
+- **`scripts/falsifiability_score.py`** — a second scored dimension BEYOND call-hit: reasoning integrity (death-price named, tripwire/target exclusive, probabilities derive, provenance present, no splice). 0.0–1.0, complements calibration.py (outcome judge), does NOT replace it. Below 0.60 = "reasoning not honestly gradeable."
+
+**Wiring:** Sunday-retro cron (`2a1b9d2f`) runs calibration → discovery → leaderboard → provenance gate → falsifiability score, and surfaces a below-bar/gate-FLAGGED live call as an explicit "needs rebuild" flag. First live case = ledger #097 (the 09:2x call rebuilt 0.35→1.00).
+
 ## 5b. Terminology — "frozen" vs "evolving" (Olivier, 2026-08-18)
 
 Two words that must NEVER blur:
