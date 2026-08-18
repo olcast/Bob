@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """1h shallow-sweep -> reclaim, graded by EXCURSION (MFE/MAE/velocity) not fixed-time, + OOS regime split.
 Per entry over the next 24h: MFE (max run up), MAE (max heat down), time-to-peak, velocity=MFE/hrs.
-'Held' = MAE never worse than -0.3% (didn't go lower before the move). Expectancy = first-touch +0.5%/-0.3%, 5bp."""
+'Held' = MAE never worse than -0.3% (didn't go lower before the move). Expectancy = first-touch +0.5%/-0.3%, cost removed (signal-only)."""
 import json,time,urllib.request,statistics
 API="https://api.hyperliquid.xyz/info"
 def fetch(iv,days):
@@ -28,7 +28,7 @@ def prof(idx):
         for j in range(e+1,min(e+1+Wm,n)):
             if L[j]<=ent*0.997: r=-0.3;break
             if H[j]>=ent*1.005: r=0.5;break
-        EXP.append((r if r is not None else (C[min(e+Wm,n-1)]/ent-1)*100)-0.05)
+        EXP.append((r if r is not None else (C[min(e+Wm,n-1)]/ent-1)*100)-0.0)  # cost removed
     k=len(MFE)
     return k,statistics.median(MFE),statistics.median(MAE),statistics.median(TT),statistics.median(VEL),100*held/k,100*p05/k,100*p10/k,statistics.mean(EXP)
 mid=n//2
@@ -39,4 +39,4 @@ for nm,idx in [("FULL",ev),("TRAIN 1st-half",[e for e in ev if e<mid]),("TEST 2n
     print(f"    median MFE (run up)   {mfe:+.2f}%      median MAE (heat)  {mae:+.2f}%")
     print(f"    median time-to-peak   {tt:.0f}h        median velocity    {vel:.3f}%/h")
     print(f"    held (MAE>-0.3%)      {held:.0f}%        reached +0.5% {p05:.0f}%   +1.0% {p10:.0f}%")
-    print(f"    expectancy +0.5/-0.3/5bp = {exp:+.3f}%/trade")
+    print(f"    expectancy +0.5/-0.3 (cost removed) = {exp:+.3f}%/trade")

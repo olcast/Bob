@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Trendline break+retest x LIQUIDITY (traded-structure proxy). The real liq-map is forward-only, so
 'liquidity above' = nearest UNTAPPED prior swing high within 150 bars (where stops/liquidity actually sit).
-Split reclaim events by whether a magnet sits 0.3-2% above, and grade by excursion (MFE/MAE, 5bp). 1h/208d."""
+Split reclaim events by whether a magnet sits 0.3-2% above, and grade by excursion (MFE/MAE, cost removed). 1h/208d."""
 import json,time,urllib.request,statistics,random
 random.seed(11)
 API="https://api.hyperliquid.xyz/info"
@@ -38,7 +38,7 @@ for i in range(30,n-Wm-1):
     for j in range(i+1,min(i+1+Wm,n)):
         if L[j]<=ent*0.997: r=-0.3;break
         if H[j]>=ent*1.005: r=0.5;break
-    exp=(r if r is not None else (C[min(i+Wm,n-1)]/ent-1)*100)-0.05
+    exp=(r if r is not None else (C[min(i+Wm,n-1)]/ent-1)*100)-0.0
     rec=(mfe,mae,exp)
     (mag if (d is not None and 0.3<=d<=2.0) else air).append(rec)
 ctrl=[]
@@ -48,7 +48,7 @@ for _ in range(2000):
     for j in range(i+1,min(i+1+Wm,n)):
         if L[j]<=ent*0.997: r=-0.3;break
         if H[j]>=ent*1.005: r=0.5;break
-    ctrl.append((r if r is not None else (C[min(i+Wm,n-1)]/ent-1)*100)-0.05)
+    ctrl.append((r if r is not None else (C[min(i+Wm,n-1)]/ent-1)*100)-0.0)
 def show(nm,ev):
     if len(ev)<10: print(f"  {nm:32s} n={len(ev)} (too few)");return
     mfe=statistics.median(x[0] for x in ev);mae=statistics.median(x[1] for x in ev);exp=statistics.mean(x[2] for x in ev)

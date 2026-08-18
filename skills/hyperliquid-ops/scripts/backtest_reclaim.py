@@ -5,7 +5,7 @@ pivot highs (a pivot at p is only 'known' at p+k -> no look-ahead). A reclaim = 
 crosses above that line. EARLY = reclaim on an impulsive candle (vol>1.5x med or body>0.5 ATR),
 enter at reclaim close. STRICT = price holds above the line for 2 more bars, enter at bar i+2.
 Both measured to a +0.8% target vs a reclaim-fail stop (line -0.2%) over H bars, and by raw
-forward-H return after a 25bp round-trip cost, vs the unconditional drift baseline.
+forward-H return with COST REMOVED (signal-only, no transaction friction), vs the unconditional drift baseline.
 DISCOVERY / in-sample, single venue+asset -> needs blind + regime-split validation (R4/A5/A6)
 before ANY live weight."""
 import json, time, urllib.request, statistics, sys
@@ -28,7 +28,7 @@ def rolling_atr(H,L,C,n=14):
 def pivot_highs(H,k):
     return [i for i in range(k,len(H)-k) if H[i]==max(H[i-k:i+k+1])]
 
-def backtest(coin, interval, days, H, k=3, cost=0.0025):
+def backtest(coin, interval, days, H, k=3, cost=0.0):  # cost removed (Olivier 2026-08-18): measure signal, not friction
     cd=fetch(coin,interval,days)
     O=[float(c["o"]) for c in cd]; Hi=[float(c["h"]) for c in cd]
     Lo=[float(c["l"]) for c in cd]; C=[float(c["c"]) for c in cd]; V=[float(c["v"]) for c in cd]
@@ -51,29 +51,36 @@ def backtest(coin, interval, days, H, k=3, cost=0.0025):
         # EARLY
         if (V[i]>1.5*vmed) or ((C[i]-O[i])>0.5*atr):
             e=C[i]; stop=Li-0.002*e; tgt=e*1.008; win=None
+            reach=0.0
             for f in range(i+1,i+1+H):
+                reach=max(reach,(Hi[f]-e)/e*100)
                 if Lo[f]<=stop: win=False; break
                 if Hi[f]>=tgt: win=True; break
             if win is None: win=C[i+H]>e
-            early.append((win,(C[i+H]-e)/e*100)); last=i
+            # TIMING FIX (Olivier 2026-08-18): also record "did price go higher within H", not just first-touch
+            early.append((win,(C[i+H]-e)/e*100, reach)); last=i
         # STRICT (hold above line 2 bars, enter i+2)
         if C[i]>Li and C[i+1]>m*(i+1)+c0 and C[i+2]>m*(i+2)+c0:
             e2=i+2; e=C[e2]; L2=m*e2+c0; stop=L2-0.002*e; tgt=e*1.008; win=None
-            end=min(e2+H,n-1)
+            end=min(e2+H,n-1); reach=0.0
             for f in range(e2+1,end+1):
+                reach=max(reach,(Hi[f]-e)/e*100)
                 if Lo[f]<=stop: win=False; break
                 if Hi[f]>=tgt: win=True; break
             if win is None: win=C[end]>e
-            strict.append((win,(C[end]-e)/e*100)); last=max(last,i)
+            strict.append((win,(C[end]-e)/e*100, reach)); last=max(last,i)
         i+=1
     def show(name,ev):
         if not ev: print(f"  {name:6s} 0 events"); return
-        w=[x for x,_ in ev if x is not None]
+        w=[x for x,_,_ in ev if x is not None]
         hr=100*sum(w)/len(w) if w else 0
-        fs=100*sum(1 for x,_ in ev if x is False)/len(ev)
-        fwd=[f for _,f in ev]; net=statistics.mean(fwd)-cost*100
+        fs=100*sum(1 for x,_,_ in ev if x is False)/len(ev)
+        fwd=[f for _,f,_ in ev]; reach=[r for _,_,r in ev]
+        net=statistics.mean(fwd)-cost*100
+        r08=100*sum(1 for r in reach if r>=0.8)/len(reach) if reach else 0
         print(f"  {name:6s} n={len(ev):3d}  hit={hr:3.0f}%  false-start={fs:3.0f}%  "
-              f"medFwd={statistics.median(fwd):+.2f}%  meanFwd(after25bp)={net:+.2f}%")
+              f"medFwd={statistics.median(fwd):+.2f}%  meanFwd(raw)={net:+.2f}%  "
+              f"reached+0.8%={r08:3.0f}%  medReach={statistics.median(reach):+.2f}%")
     print(f"\n[{coin} {interval} {days}d ~{n}bars H={H}]  DISCOVERY/in-sample")
     print(f"  BASELINE unconditional {H}-bar drift: mean {statistics.mean(base):+.2f}%  median {statistics.median(base):+.2f}%")
     show("EARLY",early); show("STRICT",strict)

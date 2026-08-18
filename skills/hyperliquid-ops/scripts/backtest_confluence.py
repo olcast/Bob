@@ -5,7 +5,7 @@ For a base timeframe, detect fresh reclaims of the active descending resistance
 Tag each reclaim CONFLUENT if, at that timestamp, a live higher-TF descending line sits
 within 0.4% of the reclaimed line (structure.py confluence tol); else ISOLATED.
 Compare forward outcome (target +0.8% vs reclaim-fail stop line-0.2%, H bars; and mean
-fwd after 25bp) confluent vs isolated vs unconditional drift.
+fwd with cost removed) confluent vs isolated vs unconditional drift.
 DISCOVERY / in-sample, single venue+asset -> needs blind + regime-split validation."""
 import json, time, urllib.request, statistics, bisect
 API="https://api.hyperliquid.xyz/info"
@@ -45,7 +45,7 @@ def get(coin,iv,days):
     if key not in CACHE: CACHE[key]=build(coin,iv,days)
     return CACHE[key]
 
-def run(coin, base_iv, days, H, highers, tolpct=0.004, cost=0.25):
+def run(coin, base_iv, days, H, highers, tolpct=0.004, cost=0.0):
     bs=get(coin,base_iv,days); hb={iv:get(coin,iv,d) for iv,d in highers}
     T,C,Hh,Ll,mc,n=bs["T"],bs["C"],bs["H"],bs["L"],bs["mc"],bs["n"]
     drift=[(C[i+H]-C[i])/C[i]*100 for i in range(30,n-H)]
@@ -72,7 +72,7 @@ def run(coin, base_iv, days, H, highers, tolpct=0.004, cost=0.25):
         fs=100*sum(1 for x,_,_ in ev if x is False)/len(ev)
         f=[x for _,x,_ in ev]
         print(f"  {nm:22s} n={len(ev):3d}  hit={hr:3.0f}%  false-start={fs:3.0f}%  "
-              f"medFwd={statistics.median(f):+.2f}%  mean(after25bp)={statistics.mean(f)-cost:+.2f}%")
+              f"medFwd={statistics.median(f):+.2f}%  mean(raw, cost removed)={statistics.mean(f)-cost:+.2f}%")
     hl=",".join(iv for iv,_ in highers)
     print(f"\n[{coin} base {base_iv} {days}d ~{n}bars  H={H}  confluence vs {hl}]  DISCOVERY/in-sample")
     print(f"  DRIFT baseline {H}-bar: mean {statistics.mean(drift):+.2f}%")
@@ -82,7 +82,7 @@ def run(coin, base_iv, days, H, highers, tolpct=0.004, cost=0.25):
         ev=[x for x in confl if x[2]==d]
         if len(ev)>=8:
             f=[x for _,x,_ in ev]; hr=100*sum(1 for x,_,_ in ev if x)/len([1 for x,_,_ in ev if x is not None])
-            print(f"     deg={d}: n={len(ev):3d} hit={hr:3.0f}% mean(after25bp)={statistics.mean(f)-cost:+.2f}%")
+            print(f"     deg={d}: n={len(ev):3d} hit={hr:3.0f}% mean(raw, cost removed)={statistics.mean(f)-cost:+.2f}%")
 
 if __name__=="__main__":
     run("BTC","5m",17,48,[("15m",52),("1h",208),("4h",800)])

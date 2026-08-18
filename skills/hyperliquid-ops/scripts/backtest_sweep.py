@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cost/timeframe sweep at Olivier's real params (target +0.5% / stop -0.3% / 5bp round-trip).
+"""Cost/timeframe sweep at Olivier's real params (target +0.5% / stop -0.3% / COST REMOVED).
 Re-tests the reclaim family (impulsive/quiet, post-impulse/flat) + RSI-divergence-at-low across
 5m/15m/30m/1h, each vs its OWN random-entry control using identical trade management. Walk-forward,
 own-lines (structure.py logic; pivots known only at p+k). ~6h refractory (H/4). DISCOVERY/in-sample;
@@ -38,7 +38,7 @@ def rsi(C,n=14):
         if i>n: ag=(ag*(n-1)+g[i])/n;al=(al*(n-1)+l[i])/n
         out[i]=100-100/(1+(ag/al if al>0 else 999))
     return out
-def run(iv,days,H,TGT=0.005,STOP=0.003,COST=0.05,k=3,L=20):
+def run(iv,days,H,TGT=0.005,STOP=0.003,COST=0.0,k=3,L=20):  # COST=0.0 (Olivier 2026-08-18: measure signal, not friction)
     cd=fetch(iv,days)
     O=[float(c["o"]) for c in cd];Hi=[float(c["h"]) for c in cd];Lo=[float(c["l"]) for c in cd];C=[float(c["c"]) for c in cd]
     n=len(C);A=atr(Hi,Lo,C);RS=rsi(C);REF=max(3,H//4)
@@ -76,7 +76,7 @@ def run(iv,days,H,TGT=0.005,STOP=0.003,COST=0.05,k=3,L=20):
         i=random.randint(L+5,n-2);net,hit=trade(i);ctrl.append((net-COST,hit))
     def st(ev):return len(ev),100*sum(1 for _,h in ev if h)/len(ev),statistics.mean(x for x,_ in ev)
     cn,ch,cm=st(ctrl)
-    print(f"\n[BTC {iv}  {days}d (~{n} bars)  +0.5%/-0.3%/5bp  H={H}({H*({'1m':1,'5m':5,'15m':15,'30m':30,'1h':60}[iv])//60}h)]")
+    print(f"\n[BTC {iv}  {days}d (~{n} bars)  +0.5%/-0.3%/cost-removed  H={H}({H*({'1m':1,'5m':5,'15m':15,'30m':30,'1h':60}[iv])//60}h)]")
     print(f"  {'RANDOM control':26s} n={cn:4d} hit={ch:3.0f}% net={cm:+.3f}%")
     for name,ev in B.items():
         if len(ev)<10: print(f"  {name:26s} n={len(ev):4d}  (too few)");continue
