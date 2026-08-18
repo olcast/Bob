@@ -63,9 +63,13 @@ def extract_entries(call):
         entries.append({
             "move": mv,
             "action": m.get("action"),
-            "entry": m.get("entry"),
+            # Schema drift fix (2026-08-18 22:57 UTC): the reconciled entry_spec uses
+            # "trigger"/"invalidation" keys, not the old "entry"/"hard_inval". Without the
+            # fallback every entry serialized as null and entry_proximity.py went blind
+            # (proximity="unknown") while mark sat 0.05% off the trigger. Fall back both.
+            "entry": m.get("entry") or m.get("trigger"),
             "soft_inval": m.get("soft_inval"),
-            "hard_inval": m.get("hard_inval"),
+            "hard_inval": m.get("hard_inval") or m.get("invalidation"),
             "use": m.get("use"),
         })
     return entries
