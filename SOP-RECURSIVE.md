@@ -75,6 +75,15 @@ Every next-2-moves call MUST include all of these, in this order. Levels alone a
 
 This template is the brief the Producer is given AND the structure the Reconciler outputs. It is binding.
 
+### Reasoning audit (Olivier, 2026-08-18) — inspect the REASONING itself, not just the verdict
+
+Each model, in addition to producing/challenging the call, MUST inspect **how the reasoning was built** and **suggest improvements to the reasoning process**. This is a third required output per model, not optional polish:
+
+- **What it audits:** input quality (right data, fresh tape, correct base rates), prior quality (were the assumptions tested against base rates or asserted?), inference steps (where the logic jumped, over-fit, or confused magnet-with-destination), missing context (Econ timing, session state, EW count, divergence-check), and the falsifiable bar (is it actually falsifiable, or unfalsifiable narrative?).
+- **Output shape:** each model returns BOTH (a) its call/challenge AND (b) a short "reasoning-improvements" list — concrete changes that would make the reasoning stronger next time (better input, better prior, a step that should be re-ordered, a gap to close).
+- **Feeds the loop:** reasoning-improvement suggestions are ALSO candidate lessons for `lessons.json` / `discovery_loop.py`. A suggestion that keeps improving forward outcomes gets promoted; a change that keeps adding noise gets retired. The cross-check is now grading two things: the call's correctness AND the reasoning that produced it.
+- **Reconciler duty:** I (Charly) merge the reasoning-improvements lists across the pair, strip contradictions, and fold the surviving suggestions into the NEXT brief — so the brief itself gets better over time, not just the levels.
+
 ## 4. Cross-check (two independent eyes) — AUTOMATIC, not optional
 
 **The wiring (how we actually USE the two agents):** spawn-on-demand subagents pinned per model via `sessions_spawn(model=...)` — NO named persistent agents (less config surface, already proven).
@@ -92,6 +101,22 @@ This template is the brief the Producer is given AND the structure the Reconcile
 - **High-stakes single decision** → manually escalate: full cross-check + optionally the flagship-spend spike (§5).
 
 **Kimi `kimi-k3`** = distant third, NEVER in the critical path (128k ctx overflow + concurrency=1).
+
+## 4b. Cost-effective specialist roster (Olivier 2026-08-18 — "no Grok/GPT unless a cheap red team is possible")
+
+The desk runs a specialist set built ENTIRELY from direct-pay models we already use — NO Grok, NO GPT, no premium spend. Roles:
+
+1. **Producer — DeepSeek `deepseek-v4-pro`** — generates the call/full-stack read.
+2. **Challenger — Qwen `qwen3.8-max`** — adversarial-against-the-call (incentive red-team: argues why the call is wrong).
+3. **Blind-audit (cost-effective Grok-substitute)** — DeepSeek OR Qwen fed RAW NUMBERS ONLY (no thesis/narrative) → kills anchoring/confirmation bias. The Grok blind-audit's job, free.
+4. **Coherence checker (cost-effective Gemini-substitute)** — ME (Charly), inline, zero token cost — checks the call against doctrine/ledger for self-contradiction (no silent direction flips, no #085 violations, L1 invalidation placement).
+5. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
+6. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
+7. **Econ-timing — folded into the brief (§3c), NOT a separate agent** — the Producer's brief REQUIRES scheduled-catalyst + US-open timing.
+
+**Red-team mapping (cheap)** — the old premium trio reduces to: blind-audit (DeepSeek/Qwen raw-numbers) + incentive-against (Qwen) + coherence (Charly). That IS the cost-effective red team. Bounded-independence caveat stands (both are Chinese frontier families).
+
+**Firing policy:** full firings (2/day) + ad-hoc full reads → Producer + Challenger + Vision (3 eyes) + reasoning-audit. Light deltas → DeepSeek only. High-stakes → full set + optional flagship spike ONLY if Olivier approves.
 
 ## 5. Anti-burn guardrail
 
