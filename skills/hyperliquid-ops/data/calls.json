@@ -1,5 +1,35 @@
 [
   {
+    "ts": 1786859373553,
+    "h": 36,
+    "up": 63474,
+    "dn": 62800,
+    "p_up": 0.54,
+    "p_base": 0.5,
+    "by": "Claude",
+    "note": "ledger SCORE tag #083 (2026-08-16 05:47 UTC firing), recovered from HL-OPS_CALLS_LEDGER...through-084.txt L215"
+  },
+  {
+    "ts": 1786866352316,
+    "h": 48,
+    "up": 63500,
+    "dn": 62150,
+    "p_up": 0.58,
+    "p_base": 0.5,
+    "by": "Claude+Olivier",
+    "note": "seed call-20260816-0745.json (call #2, 2026-08-16 07:45 UTC)"
+  },
+  {
+    "ts": 1786871688457,
+    "h": 30,
+    "up": 63474,
+    "dn": 61900,
+    "p_up": 0.55,
+    "p_base": 0.5,
+    "by": "Claude",
+    "note": "seed call-20260816-1113.json / ledger SCORE tag #084 (2026-08-16 09:14 UTC), dn drawn below pool per L1"
+  },
+  {
     "ts": 1786963783916,
     "h": 24,
     "up": 64579,
@@ -8,6 +38,7 @@
     "p_base": 0.5,
     "by": "Claude",
     "move1_dir": "down",
-    "move1_zone": [62499, 62730]
+    "move1_zone": [62499, 62730],
+    "note": "current_call.json (2026-08-17 10:49 UTC)"
   }
 ]

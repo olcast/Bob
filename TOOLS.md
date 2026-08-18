@@ -69,6 +69,13 @@ org has a **concurrency limit of 1** — so DeepSeek + Kimi cannot run truly in 
 calls will serialize or collide-error. Don't assume a Kimi failure means the model is bad; check for the
 concurrency/overload error string first before judging.
 
+**Kimi reliability VERDICT (2026-08-18, re-confirmed by live probe):** the org is ALSO hard-capped at
+`rate_limit_reached_error` = **max RPM 3** (3 requests/minute for the whole org). Even a single isolated
+"say hi" call trips it right after the 1s reset window. So Kimi `kimi-k3` (highest version, confirmed via
+`/models`) is **below the reliability bar for producer/challenger/review work** — it's a FALLBACK-at-best,
+never in the critical path. Architecture stays DeepSeek (producer) + Qwen (challenger). Do NOT promote
+Kimi into the pair just because it's a frontier family; the RPM/429/concurrency caps make it a false peer.
+
 **Cross-check / recursive-verify rule:** for important outputs (market reads, reviews, decisions), produce
 with one model and independently challenge/verify with a second — do not trust a single model's blind spot
 (the 2026-07-26 confirmation-bias miss is the standing lesson).

@@ -164,7 +164,7 @@ ROOT CAUSE (verified in scripts/call_evolve.py): `pos_in_range` is computed pure
 
 SEPARATE FROM (but surfaced alongside) the Haiku orchestration-quality issue: same job's 16:00 UTC run also sent a message despite its own text concluding "No messaging required per doctrine #10" — a distinct reliability failure. Olivier's call: revert BOTH hlops-call-evolve and hlops-contested-flag orchestration from Haiku 4.5 back to Sonnet-5 ("i prefer the orchestrator is the best") — cost savings not worth it if judgment quality suffers on a job whose entire point is deciding when to interrupt Olivier. Applied immediately.
 
-STANDING FOLLOW-UP (not yet fixed): call_evolve.py itself needs a structural update to carry the call's Move1/Move2 sequence (not just up/dn/p_up) so its `reason` string can correctly say something like "66% toward Move 2's target, but this requires Move 1 (62,499-62,730 down-poke) to have fired first — it has NOT, so this progress is via the ALTERNATE squeeze path (#090), not confirmation of the primary sequence" instead of reporting raw distance as unqualified STRENGTHENED. Flagging as an open script-level gap, separate from the orchestration-model choice.
+STANDING FOLLOW-UP (RESOLVED 2026-08-18): call_evolve.py's sequential-path awareness is now FIXED in code — lines 146–162 read `move1_dir`/`move1_zone` and emit `STRENGTHENED_ALT_PATH` (verified against the last call_evolution.jsonl row). The prior "not yet fixed" line below was stale; the fix landed without a ledger close-out.
 
 ---
 
@@ -198,3 +198,16 @@ ACTION: no change to up/dn/p_up (frozen commit stays frozen per #085). But the P
 ---
 
 _(next entry will be #095, appended below this line and committed)_
+
+---
+#095 — RECONCILIATION + RECOVERY — #093/#094 duplicate, #092 close-out, grading loop restoration — 2026-08-18 08:35 UTC. Read-only; account untouched.
+
+RECONCILIATION (#093/#094 DUPLICATE): #093 (16:52 UTC) and #094 (16:49–16:52 UTC) are the SAME 3-model cross-check event, logged twice with near-identical three-model results (Grok blind-audit same zone, GPT-5.1 red-team same short-book material finding, Gemini same no-contradiction). Append-only forbids deletion; this line reconciles them: treat as ONE cross-check for coherence/retro purposes, not two independent verifications. A future reader (or the Gemini coherence audit) must not double-count them.
+
+#092 CLOSE-OUT: the "not yet fixed" follow-up is now RESOLVED — call_evolve.py has sequential-path awareness (move1_dir/move1_zone → STRENGTHENED_ALT_PATH). Verified in code + last evolution row.
+
+GRADING-LOOP RECOVERY (the material fix): data/calls.json had been pruned to n=1 (the 08-17 10:49 call) by the call-evolve spam fix — which deleted the grading INPUT rather than filtering the tracker. Rebuilt from ground truth: recovered 3 resolved SCORE records (ledger #083 L215 tag + seed call-20260816-0745.json + seed call-20260816-1113.json / #084 L262 tag) + the still-unmatured current call = 4 total. calibration.py now grades 3 resolved of 4 (was 0 of 1); discovery_loop now sees L1 gathering at 1/5 wrong-calls, swept-then-right 100%. The recursion engine has real input again.
+
+OPEN ITEM (deferred): data-pipeline crons (collector, call-evolve, contested-flag, sunday-retro) remain DISABLED per Olivier's cost directive (#094). Forward-only data (liq-map/HLP/addressbook/blow-ratio) is not accruing while off. Recommendation stands (Qwen review P1): re-enable collector at reduced frequency (~4 runs/day) — pennies, and every off-day is unrecoverable P2 sample. Olivier's call on whether to lift the freeze.
+
+---
