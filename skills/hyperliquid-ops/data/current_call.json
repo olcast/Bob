@@ -1,1 +1,15 @@
-{"ts": 1786963783916, "h": 24, "up": 64579, "dn": 63001, "p_up": 0.56, "p_base": 0.5, "by": "Claude", "thesis": "Move1(~55%): down-poke into 62,499-62,730 confluence shelf (score 469, TL-sup+swingL, TFs 15m/1d/1h/4h), secondary/nested magnet at 61,821-61,976 (score 108, also Coinglass-confirmed long-liq cliff ~61,868) if shelf fails. Move2(~58%, conditional on Move1): reclaim/bounce to 63,474-63,500 then 65,475-65,983 on further acceptance. Invalidation: hourly acceptance below ~61,800 (below the 61,821-61,976 pool), no reclaim [corrected 2026-08-17 15:28 UTC per L1/#089 - was previously 62,000, which sat ABOVE the pool and would have mis-scored a valid spring/reclaim as a loss]. NOTE: as of 15:16 UTC price already broke the 63,001 tripwire upward without the Move1 down-leg occurring; flow (5m+1h) is FADING/DIVERGING even as price climbs - fake-push signature, unresolved."}
+{
+  "ts": 1787045055466,
+  "h": 24,
+  "up": 64550,
+  "dn": 63950,
+  "p_up": 0.45,
+  "p_base": 0.5,
+  "by": "DeepSeek(producer)+Qwen(challenger) reconciled by Charly",
+  "thesis": "RECONCILED cross-check 2026-08-18 09:2x UTC (supersedes 08-17 10:49 down-first call as the ACTIVE view; prior snapshot retained for grading only). Primary = poke-up into 64,300-64,550 then FADE toward 63,650-64,000 (Qwen's read; base rates leg-2 reverse ~66%, shallow-sweep reclaim ~85%). Alternative = down-poke still live: lose 63,950 -> 63,380-63,130 -> flush 62,500-62,700 then reclaim. Path C (~15%, NOT primary): 4h close >64,550 ON EXPANDING OI -> squeeze to 65,475 (needs dovish catalyst). Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). Net: fade strength into 64,300-64,550; don't chase squeeze; OI at 0.0% = continuation not yet funded.",
+  "move1_dir": "up",
+  "move1_zone": [64300, 64550],
+  "move2_dir": "down",
+  "move2_zone": [62500, 62700],
+  "note": "Producer(DeepSeek) flipped primary to up-first/squeeze; Challenger(Qwen) killed the continuation, held poke-then-fade. Genuine divergence logged as candidate lesson (SOP 4). Continuation needs OI expansion, falsifiable bar."
+}

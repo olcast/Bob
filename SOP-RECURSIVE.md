@@ -62,6 +62,19 @@ doctrine.json / SKILL.md updated   → NEXT call-generation reads the improved r
 
 **Cross-check feeds the loop (recursive everything):** a Producer/Challenger DISAGREEMENT is itself evidence. Capture each disagreement as a candidate lesson in `lessons.json` (with the specific divergence). The discovery loop grades *those* forward — so a disagreement that keeps predicting wrong outcomes gets retired, and one that keeps predicting right outcomes gets promoted to doctrine and changes how BOTH models are briefed next firing. The two-model pair is not a static check; it is an input to the same recursive loop.
 
+## 3c. The next-2-moves brief — REQUIRED sections (Olivier, 2026-08-18)
+
+Every next-2-moves call MUST include all of these, in this order. Levels alone are insufficient.
+
+1. **Reasoning** — the *why* behind direction: tape mechanics (funding, OI, liq-fuel skew, premium), not just "up or down".
+2. **Narrative** — the named macro story (bond slump, ETF flows, macro-bid), as CONTEXT only, with a divergence-check against the desk tape.
+3. **Context** — scheduled Econ data / events (CPI, FOMC, payrolls) + US-open session state, each with timing.
+4. **Timing** — which leg fires FIRST, then what, in clock/sequence order (not just a level list).
+5. **Elliott Wave scenario** — the impulse-vs-corrective count, and which branch each count implies (countertrend corrective = fade; impulse-5 = continuation).
+6. **The moves** — Move 1 (primary) + branch 1A→1B, Move 2 (alternative) + branch 2A→2B, tripwires close-only, p_up, and the falsifiable bar (e.g. continuation on expanding OI).
+
+This template is the brief the Producer is given AND the structure the Reconciler outputs. It is binding.
+
 ## 4. Cross-check (two independent eyes) — AUTOMATIC, not optional
 
 **The wiring (how we actually USE the two agents):** spawn-on-demand subagents pinned per model via `sessions_spawn(model=...)` — NO named persistent agents (less config surface, already proven).
@@ -70,6 +83,8 @@ doctrine.json / SKILL.md updated   → NEXT call-generation reads the improved r
 - **Challenger — Qwen `qwen3.8-max`** (`sessions_spawn(model="qwen/qwen3.8-max", task=...)`): same brief, independent run, then compared.
 - **Reconciler — me (Charly):** judges where they GENUINELY diverge vs echo. Divergence = signal → captured as a candidate lesson (§3b). Agreement = lower info (bounded-independence caveat).
 - Run the pair **in parallel for independent generation, reconcile after both land** (not sequential — that was only a Kimi-concurrency workaround; DeepSeek+Qwen on different accounts can run concurrently).
+
+**Availability fallback (Olivier, 2026-08-18):** if either model in the pair errors/429s/times-out, fall back to the OTHER model to cover its role — DeepSeek fails → Qwen produces AND challenges (single-model self-challenge, flag as degraded independence); Qwen fails → DeepSeek produces AND challenges (same degraded flag). Never let one provider's outage stall a call-generation. If BOTH fail, fall back to Kimi `kimi-k3` (RPM=3 cap — expect slow/serialized, but it keeps the desk live). Record any fallback in the ledger so the bounded-independence caveat stays honest.
 
 **When the cross-check fires (automatic, no human signal):**
 - **Full firings (2/day) + any ad-hoc full read** → ALWAYS DeepSeek produces + Qwen challenges.
@@ -81,6 +96,15 @@ doctrine.json / SKILL.md updated   → NEXT call-generation reads the improved r
 ## 5. Anti-burn guardrail
 
 Direct-pay only, no OpenRouter markup. Flagship spend (GPT/Opus) is reserved for a single high-stakes decision, never the daily driver. This guardrail traces to the ~$250 OpenRouter burn (2026-08-17).
+
+## 5b. Terminology — "frozen" vs "evolving" (Olivier, 2026-08-18)
+
+Two words that must NEVER blur:
+
+- **"Evolving"** = the LIVE read (what to do next). Levels, direction, p_up shift with fresh tape. This is the desk's working view and it is *supposed* to change — calls are dynamic and evolve by design.
+- **"Frozen"** = ONLY the grading snapshot, immutable *at issuance*. The `(up, dn, p_up, ts, h)` recorded the moment a call is issued is fixed so calibration.py can grade it without hindsight bias. You cannot edit a graded snapshot to match where price went — that would let the desk "win" every call retroactively.
+
+**Rule:** never call the *live read* "frozen"; it evolves. The only thing frozen is the scored snapshot of each issued call (append-only `calls.json` + resolved SCORE tags). When a new read supersedes an old one, the old snapshot is RETAINED for grading and the new read becomes the ACTIVE view — both coexist, neither is overwritten.
 
 ## 6. Freshness / verification discipline
 

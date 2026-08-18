@@ -211,3 +211,16 @@ GRADING-LOOP RECOVERY (the material fix): data/calls.json had been pruned to n=1
 OPEN ITEM (deferred): data-pipeline crons (collector, call-evolve, contested-flag, sunday-retro) remain DISABLED per Olivier's cost directive (#094). Forward-only data (liq-map/HLP/addressbook/blow-ratio) is not accruing while off. Recommendation stands (Qwen review P1): re-enable collector at reduced frequency (~4 runs/day) — pennies, and every off-day is unrecoverable P2 sample. Olivier's call on whether to lift the freeze.
 
 ---
+
+---
+#096 — "KEEP LATEST CALL" + TERMINOLOGY FIX (frozen=gading only) + next-2-moves brief upgrade — 2026-08-18 09:39 UTC. Read-only; account untouched.
+
+Olivier resolved a 4-turn confusion with two decisions:
+
+1. KEEP THE LATEST CALL (not "revert to frozen 08-17"). The morning DeepSeek-produce/Qwen-challenge cross-check produced a NEW live read: primary = poke-up into 64,300-64,550 then FADE toward 63,650-64,000 (Qwen's read, base rates leg-2 reverse ~66% / shallow-sweep reclaim ~85%); alternative = down-poke still live below 63,950 -> 63,380-63,130 -> 62,500-62,700; Path C (~15%) = 4h close >64,550 ON EXPANDING OI -> squeeze 65,475. This is written to data/current_call.json as the ACTIVE view. The 08-17 10:49 down-first call (ts 1786963783916) is RETAINED in calls.json strictly as its grading snapshot — NOT as the governing live read.
+
+2. "FROZEN" IS RESERVED FOR GRADING. The live read is EVOLVING (dynamic, changes with tape); "frozen" refers ONLY to the immutable scored snapshot of an issued call, recorded at issuance so calibration.py grades without hindsight bias. Both coexist: a superseded call's snapshot stays for grading; the new read becomes active. Wired into SOP §5b.
+
+3. NEXT-2-MOVES BRIEF UPGRADE (Olivier requirement): every call must now include reasoning, narrative, context (Econ numbers + US open + timing), timing/sequence, and Elliott Wave scenario — not levels alone. Wired into SOP §3c as the binding brief template.
+
+Producer/Challenger genuine divergence (DeepSeek up-first/squeeze vs Qwen poke-then-fade) logged as candidate lesson for the discovery loop (SOP §4 recursive). Continuation-to-65k requires OI expansion — currently 0.0%, so unfunded.
