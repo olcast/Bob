@@ -195,6 +195,35 @@ def evolve_one(call, coin, now_ms, mark, pulse_lines):
                 "away from the up target has real volume/CVD behind it, not just noise."
             )
 
+    # --- Move-3 awareness (deep terminus / R-044 stand-aside branch, 2026-08-18) ---------------
+    # A call may carry a move3_zone (deep terminus) with a pre-registered branch (stand-aside +
+    # contingent reload-short / reclaim-long). The ORIGINAL up/dn distance metric does not grade
+    # this deep leg — it is a SEPARATE sequential leg that only activates if the move3 zone is
+    # actually tagged. Surface its resolution state explicitly so it is graded forward, not dropped.
+    move3_zone = call.get("move3_zone")
+    move3_state = None
+    move3_note = None
+    if isinstance(move3_zone, list) and len(move3_zone) == 2 and mark is not None:
+        m3_lo, m3_hi = float(move3_zone[0]), float(move3_zone[1])
+        reload_short = call.get("move3_contingent_reload_short")
+        reclaim_long = call.get("move3_contingent_reclaim_long")
+        inv_up = call.get("move3_invalid_up")
+        inv_dn = call.get("move3_invalid_down")
+        if mark >= inv_up and inv_up is not None:
+            move3_state = "MOVE3_INVALIDATED_UP"
+            move3_note = f"mark {mark} >= up-invalidation {inv_up} — the deep stem reclaimed, short-lean dead"
+        elif inv_dn is not None and mark <= inv_dn:
+            move3_state = "MOVE3_INVALIDATED_DOWN"
+            move3_note = f"mark {mark} <= down-invalidation {inv_dn} — flush blew through the pool"
+        elif m3_lo <= mark <= m3_hi:
+            move3_state = "MOVE3_TAGGED"
+            move3_note = (f"mark {mark} inside move3 zone [{m3_lo},{m3_hi}] — stand-aside branch; "
+                          f"await 15m close <{m3_lo:.0f} (reload short, '{(reload_short or '')[:0]}') "
+                          f"or 15m close above .618 (reclaim long)")
+        else:
+            move3_state = "MOVE3_DORMANT"
+            move3_note = f"mark {mark} outside move3 zone — deep leg not yet live"
+
     record = {
         "evolved_at_ms": now_ms,
         "original_call_ts": ts,
@@ -207,6 +236,8 @@ def evolve_one(call, coin, now_ms, mark, pulse_lines):
         "status": status,
         "conviction_delta": conviction,
         "reason": reason,
+        "move3_state": move3_state,
+        "move3_note": move3_note,
         "live_pulse_lines": pulse_lines,
         "note": "This is a mechanical distance/status check on the ORIGINAL call, not a new independent "
                 "forecast. p_up_orig is never overwritten here — calibration.py grades the original commit.",

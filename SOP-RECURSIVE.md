@@ -196,6 +196,30 @@ Two words that must NEVER blur:
 
 **Rule:** never call the *live read* "frozen"; it evolves. The only thing frozen is the scored snapshot of each issued call (append-only `calls.json` + resolved SCORE tags). When a new read supersedes an old one, the old snapshot is RETAINED for grading and the new read becomes the ACTIVE view — both coexist, neither is overwritten.
 
+## 5e. Past-as-prior, NOT past-as-anchor (Olivier 2026-08-18 — "evolution with more information")
+
+A later ensemble run that produces a DIFFERENT read must REPLACE the old read, not be pulled toward it.
+The old conclusion is a PRIOR, never an ANCHOR. Evolution means the newest read — conditioned on MORE
+information (new tape, new funding, new OI, new catalyst) — wins; the old one is historical record only.
+
+Three structural rules, so this is enforced by process and not by the reconciler's good intentions:
+
+1. **Every level read is timestamped + input-stamped.** A new run carries a fresh timestamp and the
+   inputs it saw (funding, OI, catalyst list). The old verdict stays in the append-only ledger as
+   history, but is NEVER the starting point for the next read.
+2. **Compare new-input → new-read, NOT new-read → old-read.** The question a fresh run answers is
+   "given TODAY's tape, what's the edge?" — not "how far should I adjust LAST time's answer?".
+   Anchoring to the past INPUT SET (stale catalyst, old OI) is the actual failure mode.
+3. **Divergence from a prior read is INFORMATION, not a conflict to smooth.** If run #2 says
+   "reclaim long" where run #1 said "stand aside", do NOT average them (that is anchoring with extra
+   steps). Ask WHY the input changed (funding? catalyst? OI flush?) and let the CHANGED INPUT drive
+   the new call. Old-vs-new divergence is a signal that something moved — grade the "something",
+   not the two opinions.
+
+Relationship to §5b: the graded snapshot (`up,dn,p_up,ts,h`) stays FROZEN for calibration; the LIVE
+read (including move1/move2/move3 zones + direction) EVOLVES and is freely superseded. Both coexist;
+neither is overwritten; the old live read gets no vote in the new one.
+
 ## 6. Freshness / verification discipline
 
 - Every price/level quoted carries its pull timestamp. Nothing older than ~30min presented as current — re-run instead.

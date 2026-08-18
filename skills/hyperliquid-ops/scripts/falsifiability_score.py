@@ -26,7 +26,7 @@ def score(call):
     #    the down tripwire. Compare structured tripwires with move zones.
     trip = call.get("tripwires") or {}
     zones = []
-    for k in ("move1_zone", "move2_zone"):
+    for k in ("move1_zone", "move2_zone", "move3_zone"):
         z = call.get(k)
         if isinstance(z, list) and len(z) == 2:
             zones.append((k, float(z[0]), float(z[1])))
@@ -74,6 +74,18 @@ def score(call):
         if call.get("path_b_terminus") and float(m2[1]) < dn_trip - 300:
             splice = True
     checks["move2_not_spliced"] = not splice
+
+    # 6. move-3 (deep terminus / R-044 stand-aside) coherence: if present, it must name
+    #    a stand-aside or a contingent trigger (reload-short / reclaim-long) and an
+    #    up-invalidation. A move3_zone with NO contingent trigger + invalidation is a
+    #    half-specified deep leg (protocol gap), not a graded branch.
+    m3 = call.get("move3_zone")
+    if isinstance(m3, list) and len(m3) == 2:
+        has_cont = bool(call.get("move3_contingent_reload_short") or call.get("move3_contingent_reclaim_long"))
+        has_inval = bool(call.get("move3_invalid_up") is not None)
+        checks["move3_wellformed"] = has_cont and has_inval
+    else:
+        checks["move3_wellformed"] = True  # no move3 present -> nothing to check
 
     w = {
         "death_price_named": 0.35,

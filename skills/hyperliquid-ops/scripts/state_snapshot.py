@@ -56,7 +56,7 @@ def extract_entries(call):
     """Pull the ACTIVE entries from current_call.entry_spec into a machine-readable list."""
     spec = call.get("entry_spec", {}) or {}
     entries = []
-    for mv in ("move1", "move2"):
+    for mv in ("move1", "move2", "move3"):
         m = spec.get(mv) or {}
         if not m:
             continue
