@@ -2,6 +2,14 @@
 
 Standing operating procedure (Olivier, 2026-08-18). This file is **instruction, not notes** — Charly must follow it every session, unprompted.
 
+## 0. Canonical state + event-driven orchestration (Olivier 2026-08-18, "are we optimal" → no → fixed)
+
+**Single source of truth:** `skills/hyperliquid-ops/data/state.json`, written by `scripts/state_snapshot.py`. It holds everything: `live_call` (scenario + entries + provenance + probabilities), `base_rates` (flattened from `backtest_rates.json`), `entries` (active entry triggers), and source mtimes for staleness detection. **EVERY agent — producer, challenger, provenance gate, falsifiability, level-watch, d7-depth, retro — reads `state.json` FIRST and never recalls a base rate from memory.** This is the structural fix for the 66%/85% misattribution class (ledger #097).
+
+**Event-driven wake:** `scripts/entry_proximity.py` pulls the live mark and returns `hot`/`warm`/`cold` vs every active entry trigger. The level-watch cron runs it and wakes tighter when an entry is near — so the machines wake WHEN the trigger is near, not on a blind timer. Reconciled cadence: entry timeframe (15m close) → watch at ≤15m (10m), plus a 5m snapshot+proximity pulse on top.
+
+**Orchestration roster (12 jobs):** state-snapshot 5m · price/entry-watch 10m · crosscheck-open 60m · d7-depth 2×/day · call-evolve 15m · collector 20m · discovery-sweep 2×/day · news-gate 3×/day · bberg ×3 (05:30/11:30/20:30 UTC) · sunday-retro weekly.
+
 ## 1. Model-version hygiene (ALWAYS use the highest/current version of each model)
 
 Never trust a hard-coded model id. Proactively re-resolve the **best available model** per provider before any call-generation or review.
