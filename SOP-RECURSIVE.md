@@ -131,6 +131,8 @@ Two standing rules for how the desk measures edge — both fix a real flaw found
 
 **The backtester battery lives in `scripts/backtest_*.py`** (reclaim/sweep/magnet/confluence/sfp/lineexc/excursion) — walk-forward, own-lines (pivot known only at p+k, no look-ahead), vs random-entry control + unconditional drift baseline. `scripts/backtest_rates.py` runs the battery and persists machine-readable n/rate to `data/backtest_rates.json`. **The producer MUST read `backtest_rates.json` for any base rate instead of recalling from memory** — this is the fix for the 66%/85% misattribution (ledger #097).
 
+3. **BACKTESTS WHISPER, THEY DON'T SHOUT (Olivier 2026-08-18 — anti-overfit, #53).** A backtest is CONSISTENCY evidence, not CONVICTION. In any call, backtest reference is capped to ONE line: "consistent with the X% reach rate (n=Y, TF) — in-sample, walk-forward-unvalidated." Never let a backtest number drive direction by itself. The only time a backtest earns foreground is when it surfaces something NEW — a divergence from the live tape, or a base rate that corrects what memory recalled. Then (and only then) flag it as an explicit improvement suggestion, with the caveat that it is still in-sample/regime-dependent. The whole point of walk-forward + OOS is humility: a backtest tells us what USED to happen, and the regime may have flipped.
+
 ## 5c. Incentive design — provenance gate + falsifiability score (Olivier 2026-08-18, "do we have an incentive design?")
 
 The desk had a POLICING layer (audits + doctrine catch errors after the fact) but no INCENTIVE layer (making the generator prefer sound reasoning because sound reasoning pays). Built two tools — and WIRED them into the Sunday retro so they fire automatically:
