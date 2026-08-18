@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-18 19:22:49 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-18 19:45:13 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,10 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64695.5",
-  "oi_btc": "41374.92306",
-  "funding": "-0.0000049897",
-  "markPx": "64694.2"
+  "mark": "64648.5",
+  "oi_btc": "41353.30138",
+  "funding": "-0.0000001331",
+  "markPx": "64646.2"
 }
 
 ## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
@@ -20,24 +20,24 @@ A timestamped PRICE with no velocity/participation/bandwidth is a point, not a r
 from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
 {
   "bandwidth": {
-    "bid_btc_5bp": 148.32,
-    "ask_btc_5bp": 72.55,
-    "bid_orders_5bp": 205,
-    "ask_orders_5bp": 115,
-    "bid_weight_pct": 67.2
+    "bid_btc_5bp": 117.31,
+    "ask_btc_5bp": 125.1,
+    "bid_orders_5bp": 149,
+    "ask_orders_5bp": 182,
+    "bid_weight_pct": 48.4
   },
-  "velocity_15m_pct": 0.0959,
+  "velocity_15m_pct": -0.1976,
   "rate_of_change": {
-    "first_half_pct": 0.1439,
-    "second_half_pct": -0.0479,
-    "accel_pct": -0.1918
+    "first_half_pct": -0.1251,
+    "second_half_pct": -0.0727,
+    "accel_pct": 0.0524
   },
   "participation": {
-    "vol_last": 13.0,
-    "vol_window_sum": 1319.5,
+    "vol_last": 1.8,
+    "vol_window_sum": 916.7,
     "vol_trend": "contracting"
   },
-  "funding_pct_h": -0.0005
+  "funding_pct_h": -1e-05
 }
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
@@ -304,6 +304,28 @@ it bakes the error in and moves on. So: amend, never erase. The wrong call stays
 the thing that got corrected — that visibility is the entire learning engine. (MISS→LESSON→RULE,
 §calibration, only functions because the MISS cannot be quietly deleted.)
 
+## 5f. The four dimensions — what a read must MEASURE (Olivier 2026-08-18)
+
+"We think in terms of rate of change, velocity, participation, and bandwidth." A timestamped PRICE
+with no velocity/participation/bandwidth is a POINT, not a read. Every read must DERIVE all four,
+never settle for price/funding alone:
+
+1. **VELOCITY** = signed speed (direction x rate). Which way is the fuel pointed. Funding sign +
+   level is velocity-of-carry, not just a number.
+2. **RATE-OF-CHANGE** = acceleration/deceleration. Is the move BUILDING or DYING? (e.g. up-leg
+   +0.14% then −0.05% = decelerating = losing steam, not a fresh impulse.)
+3. **PARTICIPATION** = who is actually IN it. OI build vs fall, volume quality — is the move
+   SPONSORED (new money entering) or EXHAUSTED (old money covering)? This is the difference between
+   "squeeze that continues" and "fake impulse that reverts." The single most dispositive dimension.
+4. **BANDWIDTH** = channel capacity — how much can actually trade before slippage (order-book depth,
+   resting size within N bps). Thin book = a break slips fast once it starts; thick book = absorb.
+
+The assembler (assemble_brief.py §0b) derives all four live each firing. The point of the frame:
+a move's MEANING lives in its rate + participation + bandwidth, NOT its endpoint — which is exactly
+why the append-only ledger must record these four to make "what happened" reconstructable into "why
+it moved." Rate-of-change is the link to the root principle (§5e): what happened still shapes the
+future, and you only see that through the derivative, not the price print.
+
 ## 6. Freshness / verification discipline
 
 - Every price/level quoted carries its pull timestamp. Nothing older than ~30min presented as current — re-run instead.
@@ -325,13 +347,10 @@ It exists so you calibrate correctly against the venue's real mechanics. Where a
 a *directional* implication, that is Charly's job (the reconcile layer), NOT yours — your job is
 to produce your own independent read WITH these facts known.
 
-**Root principle — immutability is DISCOVERY, not a freeze on truth (Olivier / VCP):** the desk
-ledger is append-only and never erased, only AMENDED. What is true today may not be true tomorrow;
-what happened still shapes the future, and that is discovery. When a prior read turns out wrong, we
-amend it — we never delete it, because the *visible* contradiction between the old belief and the new
-truth is the entire learning engine (MISS→LESSON→RULE only works if the MISS stays legible). No
-ledger, no progress. Your job is NOT to reconcile with a past read — it is to give a clean,
-independent read of TODAY's facts. Divergence from the past is information, not a conflict to smooth.
+**Root principle — the ledger is append-only, never erased, only AMENDED (Olivier / VCP; see SOP §5e).**
+Why this matters to YOU: what was true today may not be true tomorrow — discovery is finding out
+we were wrong. Give a clean, independent read of TODAY's facts. Do NOT reconcile toward a past
+read, and do NOT smooth a divergence — divergence from the past is information, not a conflict.
 
 ---
 

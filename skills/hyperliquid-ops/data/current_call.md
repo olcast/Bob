@@ -1,4 +1,4 @@
-━━━ DESK CALL — 19:42 UTC ━━━
+━━━ DESK CALL — 19:47 UTC ━━━
 DIRECTION: SHORT
 (65,018 squeeze: OI fell + funding = exhaustion, not sponsorship)
 
@@ -16,6 +16,6 @@ DIRECTION: SHORT
 ⇒ TERMINUS: 61,600 (max pain)
 
 ───────────────
-mark 64650 | OI 41358 | funding -0.0000%/h
-19:42 UTC
+mark 64656 | OI 41348 | funding +0.0000%/h
+19:47 UTC
 ━━━━━━━━━━━━━━━━
