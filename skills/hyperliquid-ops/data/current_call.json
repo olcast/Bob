@@ -7,6 +7,21 @@
   "p_base": 0.5,
   "by": "Charly (rebuilt 2026-08-18 09:50 UTC after reasoning-audit — see ledger #097)",
   "thesis": "REBUILT on corrected desk base rates (supersedes the 09:2x draft whose pillars were misattributed — see Qwen reasoning-audit C1/C2). PRIMARY (structural-only, ~30%): poke into 64,300-64,550 then fade. The fade pivot rests on leg-2-reverse 55% (repro #48, n=191) and low-break-trap 66% (n=189) — NOT a continuation edge. ALTERNATIVE (down-poke, ~28%): lose 63,950 -> scan 63,380-63,130 -> flush 62,500-62,700 (decayed pool R-044, second approach) — reclaim probability lower than first approach, no 85% 'reclaim' conviction (that figure is doctrine #53 DEMOTED). PATH C (~15%): 4h close >64,550 ON EXPANDING OI -> squeeze 65,475. Residual (~27%): chop/range 63,950-64,300, no directional leg. Death-price (rule 22b): PRIMARY FADE DIES on a 30m close ABOVE 64,300 after the poke without OI expansion (acceptance, not a wick) — that's direction-up, not a fade. Tripwires: 64,550 (up, OI-confirmed) / 63,950 (down). These are mutually exclusive with the fade target.",
+  "entry_spec": {
+    "note": "Entry = close-confirmed TRIGGER (SOP §3c.8). Move 1 and Move 2 are NESTED at different scales, NOT mutually exclusive (SOP §3c.7). Reconciled 2026-08-18 10:40 UTC from producer(Bob/DeepSeek) + challenger(Qwen) memos.",
+    "move1": {
+      "action": "no entry — observe only",
+      "reason": "fresh 1,136-trade rejection wick at 64,418 (distribution not shelf); desk base rate range-high breaks 76% fake (n=189); target floor 64,300 below any meaningful entry => negative EV; macro (oil/spike Iran risk-off) counter-current.",
+      "use": "fuel gauge only — a FAILED poke at 64.40-64.55 CONFIRMS move 2 (the flush)"
+    },
+    "move2": {
+      "entry": "15m close below 63,930",
+      "reason": "sits below BOTH the 63,938 prior low AND the 64,000 round-number magnet — converts the sweep zone into confirmation instead of entry. (Bob proposed 1h close <62,678 = cleaner but too late; gives up the easy first ~100pts of the flush.)",
+      "soft_inval": "1h close back above 64,050 (reclaim of magnet zone = sweep, not flush)",
+      "hard_inval": "4h close above 64,580 (actual 72h high, not mid-cluster 64,550) — acceptance ALONE kills; OI only explains, NOT a condition"
+    },
+    "coupling": "MOVE 1 AND MOVE 2 ARE ANTI-CORRELATED, NOT INDEPENDENT BETS — move 1 succeeding is move 2 failing. Addressed after Qwen flagged the pairing as double-counted EV."
+  },
   "move1_dir": "up",
   "move1_zone": [64300, 64550],
   "move1_time": "if at all, inside 4-6h of 09:50 (EU close / early US)",

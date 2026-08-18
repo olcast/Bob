@@ -244,3 +244,15 @@ The reasoning-audit layer (Olivier 09:40 "reasoning inspected by each model, imp
 4. Verified: provenance gate PASS, falsifiability 1.00/1.00 on rebuilt call (vs 0.35 on the original draft).
 
 FIRST candidate lesson for the reasoning-audit loop: "a call whose numeric pillars fail provenance-gate MUST not ship as-is." Candidate for promotion to lesson-YYYYMMDD-HHMM.json at next retro.
+
+## #098 — Entry-price spec for next-2-moves (2026-08-18 10:40 UTC)
+Olivier asked how to attach an entry price to the 2-move scenarios using the same skills/processes. Outcome:
+1. **Logical fix (§3c.7):** small vs large moves are NESTED, not mutually exclusive — my earlier "move1 voids move2" was wrong; the small poke is often the SETUP for the big flush. Invalidation = structural close-break, never the smaller move finishing.
+2. **Entry spec (§3c.8):** entry = close-confirmed TRIGGER (no wicks), conditional, one per move; entries do NOT cancel across scales.
+3. **Entry pins scenario to a CLOCK (§3c.8e):** start-flag + implied lifespan + expiry-by-non-occurrence = falsifiable/gradeable lifecycle.
+4. **Reconciled entries (producer Bob/DeepSeek + challenger Qwen):**
+   - Move 1 (poke): NO ENTRY — observe only. Fresh 1,136-trade rejection wick at 64,418; 76%-fake range-high break base rate; target floor below entry = negative EV; macro risk-off counter-current. Use = failed-poke fuel gauge for move 2.
+   - Move 2 (flush): entry = 15m close < 63,930 (below 63,938 low + 64,000 magnet). soft-inval 1h close >64,050; hard-inval 4h close >64,580 (actual 72h high).
+   - Invalidation bug fixed: "expanding OI" conjunct removed — acceptance kills, OI only explains (both models caught independently).
+   - Coupling: move 1 and move 2 are ANTI-CORRELATED, not independent bets; move-1 success = move-2 failure.
+5. **Candidate lessons surfaced:** range-high breaks 76% fake (already base rate n=189); "no entry when target floor < entry = fee generator, use as info."
