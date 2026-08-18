@@ -60,12 +60,23 @@ doctrine.json / SKILL.md updated   → NEXT call-generation reads the improved r
 
 **The recursion invariant:** the deliverable stays "the 2 next probable moves," but the *rules that generate them* are versioned by outcomes. A lesson earns promotion only after it holds FORWARD across N supporting calls (default bar = 5). This is what makes learning accumulate across sessions instead of resetting each morning.
 
-## 4. Cross-check (two independent eyes) — final architecture
+**Cross-check feeds the loop (recursive everything):** a Producer/Challenger DISAGREEMENT is itself evidence. Capture each disagreement as a candidate lesson in `lessons.json` (with the specific divergence). The discovery loop grades *those* forward — so a disagreement that keeps predicting wrong outcomes gets retired, and one that keeps predicting right outcomes gets promoted to doctrine and changes how BOTH models are briefed next firing. The two-model pair is not a static check; it is an input to the same recursive loop.
 
-- **DeepSeek `deepseek-v4-pro` = producer** (carries the heavy full-stack work).
-- **Qwen `qwen3.8-max` = challenger** (1M ctx, cheap, direct-pay — can actually fit the full review).
-- Run them **sequentially** (lesson: Kimi's concurrency=1 taught us overlapping calls collide; also DashScope/other providers may serialize). For important outputs: produce with one, independently challenge/verify with the other, reconcile.
-- **Kimi `kimi-k3`** is a distant third — do not put it in the critical path (128k ctx overflows on full reviews; concurrency ceiling).
+## 4. Cross-check (two independent eyes) — AUTOMATIC, not optional
+
+**The wiring (how we actually USE the two agents):** spawn-on-demand subagents pinned per model via `sessions_spawn(model=...)` — NO named persistent agents (less config surface, already proven).
+
+- **Producer — DeepSeek `deepseek-v4-pro`** (`sessions_spawn(model="deepseek/deepseek-v4-pro", task=...)`): generates the call / runs the full-stack read. Also the default agent model.
+- **Challenger — Qwen `qwen3.8-max`** (`sessions_spawn(model="qwen/qwen3.8-max", task=...)`): same brief, independent run, then compared.
+- **Reconciler — me (Charly):** judges where they GENUINELY diverge vs echo. Divergence = signal → captured as a candidate lesson (§3b). Agreement = lower info (bounded-independence caveat).
+- Run the pair **in parallel for independent generation, reconcile after both land** (not sequential — that was only a Kimi-concurrency workaround; DeepSeek+Qwen on different accounts can run concurrently).
+
+**When the cross-check fires (automatic, no human signal):**
+- **Full firings (2/day) + any ad-hoc full read** → ALWAYS DeepSeek produces + Qwen challenges.
+- **Light delta-briefs (2/day)** → DeepSeek only (deltas don't warrant the token spend).
+- **High-stakes single decision** → manually escalate: full cross-check + optionally the flagship-spend spike (§5).
+
+**Kimi `kimi-k3`** = distant third, NEVER in the critical path (128k ctx overflow + concurrency=1).
 
 ## 5. Anti-burn guardrail
 
