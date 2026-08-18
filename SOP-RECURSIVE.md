@@ -108,7 +108,7 @@ The desk runs a specialist set built ENTIRELY from direct-pay models we already 
 
 1. **Producer — DeepSeek `deepseek-v4-pro`** — generates the call/full-stack read.
 2. **Challenger — Qwen `qwen3.8-max`** — adversarial-against-the-call (incentive red-team: argues why the call is wrong).
-3. **Blind-audit (cost-effective Grok-substitute)** — DeepSeek OR Qwen fed RAW NUMBERS ONLY (no thesis/narrative) → kills anchoring/confirmation bias. The Grok blind-audit's job, free.
+3. **Blind-audit (cost-effective Grok-substitute)** — DeepSeek OR Qwen fed the SAME data set but with NO direction verdict (numbers + neutral framing: OI *trend*, funding *history*, session context, liq-map *delta* — never a bare column). Anti-anchoring WITHOUT starving it into noise. NOTE (Olivier 2026-08-18): raw numbers ALONE are under-determined — a bare "OI 41,752" with no baseline produces noise, not insight, and the selection of WHICH numbers to show still leaks the thesis. The useful blind-audit withholds the CONCLUSION, not the CONTEXT.
 4. **Coherence checker (cost-effective Gemini-substitute)** — ME (Charly), inline, zero token cost — checks the call against doctrine/ledger for self-contradiction (no silent direction flips, no #085 violations, L1 invalidation placement).
 5. **Vision chart-reader — `qwen3-vl-max`** — standing third eye on FULL firings: reads 1h/4h candle structure, volume profile, liq-map heatmap, catches wick-rejections / printed lower-highs / whether the poke already fired. Text-reads can't see this; a chart-read can.
 6. **Reasoning auditor — recurse (§3c)** — each model returns its call/challenge PLUS a reasoning-improvements list.
