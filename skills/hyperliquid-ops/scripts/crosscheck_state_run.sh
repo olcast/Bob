@@ -20,6 +20,10 @@ else
     echo "[health] probe returned nothing — proceeding (degraded, no gate)"
 fi
 
+# 1.5) STALE-DATA GATE (Olivier 2026-08-19): if the forward tape is stale, backfill via
+#      desk_collect BEFORE any model touches the state. No model reasons against a stale tape.
+python3 "$HERE/preflight_freshness.py" --max-age-min 65 || { echo "preflight_freshness FAILED — tape not fresh"; exit 1; }
+
 # 1) serialize state (single source of truth)
 python3 "$HERE/state_snapshot.py" || { echo "state_snapshot FAILED"; exit 1; }
 

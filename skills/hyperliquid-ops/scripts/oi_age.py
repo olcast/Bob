@@ -134,7 +134,7 @@ def render(o):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--cap", type=int, default=150)
-    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
+    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE,SPX")
     a = ap.parse_args()
     coins = tuple(c.strip() for c in a.coins.split(",") if c.strip())
     render(build(a.cap, coins))

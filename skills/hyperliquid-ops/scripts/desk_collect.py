@@ -32,7 +32,8 @@ def main():
     ap.add_argument("--cap", type=int, default=400)
     ap.add_argument("--liqevents", action="store_true")
     ap.add_argument("--lookback", type=int, default=30)
-    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
+    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE,SPX")
+    ap.add_argument("--light-coins", default="PAXG")
     ap.add_argument("--options-coins", default="BTC,ETH")
     a = ap.parse_args()
     coins_tail = a.coins.replace(",", "_")
@@ -40,8 +41,10 @@ def main():
     t0 = time.time()
     print(f"=== desk_collect {time.strftime('%Y-%m-%d %H:%M:%S')}Z · coins={a.coins} · cap={a.cap} ===")
 
-    # 1) forward collector (market/book/hlp/liqmap/liqevent) — the tape
-    coll_args = ["--once", "--cap", str(a.cap), "--coins", a.coins]
+    # 1) forward collector (market/book/hlp/liqmap/liqevent) — the tape.
+    # SPX is TRADED (full depth); PAXG is light-tier (macro reference only).
+    coll_args = ["--once", "--cap", str(a.cap), "--coins", a.coins,
+                 "--light-coins", a.light_coins]
     if a.liqevents: coll_args += ["--liqevents", "--lookback", str(a.lookback)]
     run("collector.py", coll_args, "collector")
 

@@ -216,7 +216,7 @@ def collect_liqevents(ts, coins, book, cap, lookback_min=30):
     return uniq
 
 # ------------------------------------------------------------------ one tick
-def tick(coins, cap, do_liqevents, lookback=30):
+def tick(coins, cap, do_liqevents, lookback=30, light_coins=()):
     ts = now_ms()
     mac = post({"type": "metaAndAssetCtxs"})
     if not mac:
@@ -224,12 +224,16 @@ def tick(coins, cap, do_liqevents, lookback=30):
     book = load_book()
     book = harvest(coins, book, ts)
     rows = []
+    # MAIN coins: full depth (market + book + hlp + liqmap + liqevent)
     rows += collect_market(ts, coins, mac)
     rows += collect_book(ts, coins)
     rows += collect_hlp(ts, coins)
     rows += collect_liqmap(ts, coins, book, cap, mac)
     if do_liqevents:
         rows += collect_liqevents(ts, coins, book, min(cap, 120), lookback)
+    # LIGHT coins: market/premium/funding/OI only (no deep sweep) — oracle synthetics (SPX/PAXG)
+    if light_coins:
+        rows += collect_market(ts, light_coins, mac)
     save_book(book)
     emit(rows)
     kinds = {}
@@ -244,20 +248,23 @@ def main():
     ap.add_argument("--loop", action="store_true")
     ap.add_argument("--interval", type=int, default=300)
     ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
+    ap.add_argument("--light-coins", default="SPX,PAXG",
+                    help="oracle-priced synthetics: market/premium/funding/OI only, no deep sweep")
     ap.add_argument("--cap", type=int, default=150, help="max addresses swept per tick")
     ap.add_argument("--liqevents", action="store_true", help="also pull realized liq fills (slower)")
     ap.add_argument("--lookback", type=int, default=30,
                     help="minutes of realized-liq history per tick; set >= run cadence to stay gapless")
     a = ap.parse_args()
     coins = [c.strip() for c in a.coins.split(",") if c.strip()]
-    print(f"HL-OPS collector · coins={coins} · cap={a.cap} · lookback={a.lookback}m · ledger={LEDGER}")
+    light = [c.strip() for c in a.light_coins.split(",") if c.strip()]
+    print(f"HL-OPS collector · coins={coins} · light={light} · cap={a.cap} · lookback={a.lookback}m · ledger={LEDGER}")
     if a.loop:
         while True:
-            try: tick(coins, a.cap, a.liqevents, a.lookback)
+            try: tick(coins, a.cap, a.liqevents, a.lookback, light)
             except Exception as e: print("  tick error:", e)
             time.sleep(a.interval)
     else:
-        tick(coins, a.cap, a.liqevents, a.lookback)
+        tick(coins, a.cap, a.liqevents, a.lookback, light)
 
 if __name__ == "__main__":
     main()
