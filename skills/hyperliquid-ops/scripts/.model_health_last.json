@@ -1,1 +1,1 @@
-{"alive": [{"name": "DeepSeek", "model": "deepseek-v4-pro"}, {"name": "Qwen", "model": "qwen3.8-max"}, {"name": "Grok", "model": "grok-4.6"}], "dead": [], "ts": "2026-08-18 19:47:40 UTC"}
+{"alive": [{"name": "Qwen", "model": "qwen3.8-max"}, {"name": "Grok", "model": "grok-4.6"}], "dead": [{"name": "DeepSeek", "model": "deepseek-v4-pro", "reason": "CREDIT/QUOTA (402)"}], "ts": "2026-08-19 01:48:35 UTC"}

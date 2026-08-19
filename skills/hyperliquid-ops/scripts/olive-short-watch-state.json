@@ -1,0 +1,18 @@
+{
+  "job": "OLIVE-short-watch",
+  "updated_utc": "2026-08-19T02:19Z",
+  "btc_mark": 64331.5,
+  "last_completed_15m": {"t": "2026-08-19T02:00Z", "close": 64369.0},
+  "in_progress_15m": {"t": "2026-08-19T02:15Z", "live_close": 64331.0, "high": 64369.0, "low": 64327.0},
+  "recent_15m_closes": {
+    "01:15": 64450.0, "01:30": 64387.0, "01:45": 64368.0, "02:00": 64369.0
+  },
+  "recent_30m_closes": {
+    "01:00": 64450.0, "01:30": 64368.0
+  },
+  "trigger_L": {"below_63938_seen": false, "note": "no 15m close below 63938 yet (lowest close 64,368; lowest bar low 64,321 on the now-closed 02:00 bar). Set flag when a 15m close <63938 prints; fire L only on next 15m close back ABOVE 63938."},
+  "trigger_R": {"fired_utc": "2026-08-19T02:19Z", "on_15m_closes": [64454.0, 64496.0, 64450.0, 64387.0, 64368.0, 64369.0], "telegram_msg_id": 3094, "note": "R last fired on 02:00 close 64,369 <64,550 (msg 3094). 02:15 bar still forming (live 64,331). NEXT DEDUP: only re-alert R on the 02:15 bar's CLOSE (02:30Z) if it is <64,550, or on any later new closed bar <64,550, OR if L/M3/BT/K prints. Do NOT re-fire while bar still forming."},
+  "trigger_M3": {"fired": false},
+  "trigger_BT": {"fired": false},
+  "trigger_K": {"fired": false}
+}
