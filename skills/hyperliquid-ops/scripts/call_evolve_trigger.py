@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
-"""Headless trigger for the hlops-call-evolve cron: returns a JSON {fire: true/false} so the job
-only wakes the agent when there is actually an OPEN call to evolve. Prevents ~96 empty 15-min runs/day
-when calls.json has no unresolved call (nothing to track => skip, save tokens). Fire condition: at
-least one call where now < ts + h*3600s (horizon not yet elapsed) AND neither up nor dn target has been
-reached yet (still OPEN). Read-only: reads calls.json + a single mark fetch; touches nothing.
+"""Headless trigger for the cross-check (and call-evolve) cron.
 
-Usage: python3 call_evolve_trigger.py   -> prints {"fire": true} or {"fire": false}
+Olivier 2026-08-19: the cross-check must ALWAYS produce a call — never abort to silence.
+Old behavior returned {fire: false} when no open call existed, and the cross-check treated
+that as "stop silently", which starved the desk of fresh reads exactly when it needed one.
+
+NEW semantics — return a MODE, not a boolean:
+  {"mode": "fresh",  "open_count": 0, ...}  -> no open call: originators generate a NEW call
+  {"mode": "evolve", "open_ts": [...], ...} -> >=1 open call: originators EVOLVE the open one(s)
+
+An OPEN call = now < ts + h*3600s (horizon not elapsed) AND neither up nor dn target reached.
+Read-only: reads calls.json + a single mark fetch; touches nothing.
+
+Usage: python3 call_evolve_trigger.py   -> prints {"mode": "fresh"|"evolve", ...}
 """
 import json, os, time, urllib.request, sys
 
@@ -35,7 +42,7 @@ def main():
     calls = load_calls()
     now = int(time.time() * 1000)
     mark = get_mark()
-    fire = False
+    open_tss = []
     for c in calls:
         ts = int(c.get("ts", 0))
         h = int(c.get("h", 0))
@@ -46,9 +53,12 @@ def main():
         dn = float(c.get("dn", 0))
         if mark is not None and (mark >= up or mark <= dn):
             continue  # already resolved
-        fire = True
-        break
-    print(json.dumps({"fire": fire}))
+        open_tss.append(ts)
+
+    if open_tss:
+        print(json.dumps({"mode": "evolve", "open_count": len(open_tss), "open_ts": open_tss, "mark": mark}))
+    else:
+        print(json.dumps({"mode": "fresh", "open_count": 0, "mark": mark}))
 
 if __name__ == "__main__":
     main()
