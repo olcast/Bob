@@ -9,3 +9,9 @@ __pycache__/
 .xai_api_key
 .gmail_app_password
 .gmail_app_password
+
+# sub-agent workspaces (own .git) — not part of the desk repo
+/co-grok/
+/co-qwen/
+# runtime artifacts
+skills/hyperliquid-ops/scripts/.model_health_last.json

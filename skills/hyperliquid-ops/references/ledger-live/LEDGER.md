@@ -296,3 +296,5 @@ Full-run A/B firing with Grok 4.6 as the newly-switched flagship reasoning origi
 **RECONCILED DESK CALL:** cover the dead short NOW (wrong-side into a live up-poke), re-short on CORRECTED 15m close <64,636 (not 64,550), target 64,065 → 63,651. 61,600 max-pain terminus is LATER, not this leg. Up-poke death = 15m close <64,636 before >64,861; fade death = 1h close >65,180.
 
 **GRADING:** forward-grade against 24h outcome (Brier vs 0.5). Grok4.6 first full-fire = clean, no crash (unlike 4.20 snapshot's mid-reasoning hang in #099).
+
+SCORE {"ts":1787058353000,"h":12,"up":64861,"dn":64300,"p_up":0.55,"p_base":0.5}

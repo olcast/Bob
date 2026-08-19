@@ -231,7 +231,7 @@ def tick(coins, cap, do_liqevents, lookback=30, light_coins=()):
     rows += collect_liqmap(ts, coins, book, cap, mac)
     if do_liqevents:
         rows += collect_liqevents(ts, coins, book, min(cap, 120), lookback)
-    # LIGHT coins: market/premium/funding/OI only (no deep sweep) — oracle synthetics (SPX/PAXG)
+    # LIGHT coins: market/premium/funding/OI only (no deep sweep) — oracle synthetics (PAXG)
     if light_coins:
         rows += collect_market(ts, light_coins, mac)
     save_book(book)
@@ -248,7 +248,7 @@ def main():
     ap.add_argument("--loop", action="store_true")
     ap.add_argument("--interval", type=int, default=300)
     ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
-    ap.add_argument("--light-coins", default="SPX,PAXG",
+    ap.add_argument("--light-coins", default="PAXG",
                     help="oracle-priced synthetics: market/premium/funding/OI only, no deep sweep")
     ap.add_argument("--cap", type=int, default=150, help="max addresses swept per tick")
     ap.add_argument("--liqevents", action="store_true", help="also pull realized liq fills (slower)")
