@@ -39,6 +39,12 @@ def main():
 
     # re-short line (move2) from current_call.json
     reshort_trigger = cc.get("reshort_trigger", "15m close < 64,550")
+    # Schema drift guard: reshort_trigger may be a dict {level, note} (current_call.json)
+    if isinstance(reshort_trigger, dict):
+        lvl = reshort_trigger.get("level")
+        lvl_s = f"{lvl:,}" if isinstance(lvl, (int, float)) else str(lvl)
+        note_s = reshort_trigger.get("note", "")
+        reshort_trigger = f"15m close < {lvl_s} ({note_s})" if note_s else f"15m close < {lvl_s}"
     reshort_entry = cc.get("reshort_entry", 64550)
     reshort_target = cc.get("reshort_path", "63,650 → 62,500 → 61,600")
     reshort_death = cc.get("reshort_death", "15m close > 65,020")

@@ -30,7 +30,7 @@ CONFIG = "/root/.openclaw/openclaw.json"
 # provider -> (display name, baseUrl, apiKey path in config)
 PROVIDERS = [
     ("deepseek", "DeepSeek", "https://api.deepseek.com", ["models", "providers", "deepseek"]),
-    ("qwen",     "Qwen",    "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+    ("qwen",     "Qwen",    "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
                  ["models", "providers", "qwen"]),
     ("grok",     "Grok",    "https://api.x.ai/v1", ["models", "providers", "xai"]),
 ]
