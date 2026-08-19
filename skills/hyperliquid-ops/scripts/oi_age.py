@@ -120,7 +120,7 @@ def build(cap=150, coins=("BTC",)):
 def render(o):
     if not o:
         print("no cohort data"); return
-    print("=========== OI-AGE / COHORT HALF-LIFE (D11) — BTC ===========")
+    print("=========== OI-AGE / COHORT HALF-LIFE (D11) — per-coin ===========")
     for c, r in o.items():
         print(f"  {c}: nCohort={r['nCohort']}  totalNtl=${r['totalNtl']:,.0f}")
         print(f"      medianAge={r['medianAgeH']}h  old+underwater={r['oldUnderwaterShare'] if r['oldUnderwaterShare'] is not None else 'n/a'} "
@@ -134,7 +134,7 @@ def render(o):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--cap", type=int, default=150)
-    ap.add_argument("--coins", default="BTC")
+    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
     a = ap.parse_args()
     coins = tuple(c.strip() for c in a.coins.split(",") if c.strip())
     render(build(a.cap, coins))

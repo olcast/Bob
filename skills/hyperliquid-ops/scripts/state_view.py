@@ -113,17 +113,25 @@ except Exception as e:
     print(f"  D9 JUMP GEOMETRY           (unavailable: {e})")
 try:
     _os = options_build()
-    if _os and "error" not in _os:
-        print(f"  D10 OPTIONS SKEW          ATM IV={_os.get('atm_iv_pct','n/a')}%  RR25d={_os.get('rr_25d_pp','n/a')}pp [{_os.get('skew_reading','')}]  term={_os.get('term_reading','')}  P/C OI={_os.get('put_call_oi','n/a')}")
+    if _os:
+        parts = []
+        for _c, _o in _os.items():
+            if not _o or "error" in _o:
+                parts.append(f"{_c}:err"); continue
+            parts.append(f"{_c}: ATM={_o.get('atm_iv_pct','n/a')}% RR25d={_o.get('rr_25d_pp','n/a')}pp[{_o.get('skew_reading','')}] P/C={_o.get('put_call_oi','n/a')}")
+        print(f"  D10 OPTIONS SKEW          {' · '.join(parts)}")
     else:
-        print(f"  D10 OPTIONS SKEW          (unavailable: {_os.get('error') if _os else 'no data'})")
+        print(f"  D10 OPTIONS SKEW          (unavailable: no data)")
 except Exception as e:
     print(f"  D10 OPTIONS SKEW          (unavailable: {e})")
 try:
-    _oa = oiage_build(cap=100, coins=("BTC",))
+    _oa = oiage_build(cap=100, coins=("BTC", "ETH", "SOL", "HYPE"))
     if _oa:
-        _b = _oa.get("BTC", {})
-        print(f"  D11 OI-AGE COHORT         medianAge={_b.get('medianAgeH','n/a')}h  old+uw={_b.get('oldUnderwaterShare','n/a')}  fresh={_b.get('freshShare','n/a')}  cohort={_b.get('nCohort','n/a')}")
+        parts = []
+        for _c, _b in _oa.items():
+            if not _b: continue
+            parts.append(f"{_c}:age={_b.get('medianAgeH','n/a')}h old+uw={_b.get('oldUnderwaterShare','n/a')} fresh={_b.get('freshShare','n/a')}")
+        print(f"  D11 OI-AGE COHORT         {' · '.join(parts)}")
     else:
         print(f"  D11 OI-AGE COHORT         (no cohort data yet — accumulates over runs)")
 except Exception as e:

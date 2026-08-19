@@ -243,7 +243,7 @@ def main():
     ap.add_argument("--once", action="store_true")
     ap.add_argument("--loop", action="store_true")
     ap.add_argument("--interval", type=int, default=300)
-    ap.add_argument("--coins", default="BTC")   # narrowed to BTC-only (OLIVIER 2026-08-15): concentrate the
+    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
     ap.add_argument("--cap", type=int, default=150, help="max addresses swept per tick")
     ap.add_argument("--liqevents", action="store_true", help="also pull realized liq fills (slower)")
     ap.add_argument("--lookback", type=int, default=30,

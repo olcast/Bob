@@ -29,10 +29,11 @@ def run(script, args, label):
 def main():
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cap", type=int, default=150)
+    ap.add_argument("--cap", type=int, default=400)
     ap.add_argument("--liqevents", action="store_true")
     ap.add_argument("--lookback", type=int, default=30)
-    ap.add_argument("--coins", default="BTC")
+    ap.add_argument("--coins", default="BTC,ETH,SOL,HYPE")
+    ap.add_argument("--options-coins", default="BTC,ETH")
     a = ap.parse_args()
     coins_tail = a.coins.replace(",", "_")
 
@@ -50,7 +51,7 @@ def main():
     # 3) live sensors (D7–D10) — deterministic, free APIs
     run("carry_term_structure.py", [], "carry-term D8")
     run("jump_geometry.py", ["--interval", "1h", "--bars", "96"], "jump-geom D9")
-    run("options_skew.py", [], "options-skew D10")
+    run("options_skew.py", ["--coins", a.options_coins], "options-skew D10")
 
     # 4) joint-state interpretation D1..D11 (cross_venue D7 is inside state_view)
     run("state_view.py", [], "joint-state D1-D11")
