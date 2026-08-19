@@ -234,11 +234,100 @@ def _current_call_facts(state):
     return json.dumps(wanted, indent=2)
 
 
+def _mechanism_section(state, venue):
+    """SEAM-1 FIX (2026-08-19): the mechanism fields the packet previously DROPPED.
+
+    base_rates is in state.json but _current_call_facts never surfaced it. premium/HLP/turnover
+    were collected upstream but starved out of the fire packet. This is the 'originator starvation'
+    seam flagged by Grok Round-2 AND re-derived by DeepSeek today. Facts+rates only, no verdict.
+    """
+    out = {"base_rates": None, "premium_bp": None, "oi_delta": None}
+    try:
+        s = json.loads(state) if isinstance(state, str) else state
+    except Exception:
+        return json.dumps(out, indent=2) + "\n(state unparseable)"
+
+    # base_rates — the desk's own prior-frequency table (n / hit / reach / fwd), NOT a verdict.
+    br = s.get("base_rates", {}) or {}
+    if br:
+        out["base_rates"] = {k: {"n": v.get("n"), "hit_pct": v.get("hit_pct"),
+                                 "reached_pct": v.get("reached_pct"), "fwd_pct": v.get("fwd_pct")}
+                              for k, v in br.items()}
+
+    # Live mechanism from the venue pull: premium = mark − oracle (crowding signal).
+    # oi_flow.py has the ±4bp fair band; here we surface the RAW spread so the originator sees it.
+    try:
+        def post(b):
+            r = urllib.request.Request(
+                "https://api.hyperliquid.xyz/info",
+                data=json.dumps(b).encode(),
+                headers={"Content-Type": "application/json"},
+            )
+            return json.load(urllib.request.urlopen(r, timeout=20))
+        orc = post({"type": "allMids"})
+        mark = venue.get("mark")
+        oracle = orc.get("BTC")
+        if mark and oracle:
+            mark_f = float(mark); oracle_f = float(oracle)
+            out["premium_bp"] = round((mark_f - oracle_f) / oracle_f * 10000, 2)
+            out["mark"] = mark_f
+            out["oracle"] = oracle_f
+        # OI delta signature (open interest level — participation, not direction).
+        if venue.get("oi_btc") is not None:
+            out["oi_btc"] = float(venue.get("oi_btc"))
+    except Exception:
+        pass
+
+    return json.dumps(out, indent=2)
+
+
+def _cross_venue():
+    """SEAM-1 FIX: cross-venue funding/mark — the 'island' gap all three models flagged unanimously.
+
+    predictedFundings already exists in the HL API (hl_ops.py:297); never promoted to the packet.
+    Returns horizon-NORMALIZED funding (annualized %) so HL-1h vs Binance-4h/8h vs Bybit-4h are
+    comparable, not raw-rate mismatches. Different raw intervals are an illegal comparison otherwise.
+    """
+    try:
+        def post(b):
+            r = urllib.request.Request(
+                "https://api.hyperliquid.xyz/info",
+                data=json.dumps(b).encode(),
+                headers={"Content-Type": "application/json"},
+            )
+            return json.load(urllib.request.urlopen(r, timeout=40))
+        pf = post({"type": "predictedFundings"})
+        # shape: list of [coin, [[venue, {fundingRate,nextFundingTime,fundingIntervalHours}], ...]]
+        btc = None
+        for row in pf if isinstance(pf, list) else []:
+            if isinstance(row, list) and len(row) >= 2 and row[0] == "BTC":
+                btc = row[1]
+                break
+        if not btc:
+            return "(predictedFundings returned no BTC row)"
+        out = {"note": "funding annualized to a common horizon (raw intervals differ — compare the pct, not the raw)"}
+        for venue, v in btc:
+            if isinstance(v, dict):
+                rate = float(v.get("fundingRate", 0))
+                hrs = float(v.get("fundingIntervalHours", 8))
+                out[venue] = {
+                    "fundingRate": rate,
+                    "fundingIntervalHours": hrs,
+                    "annualized_pct": round(rate * (365 * 24 / hrs) * 100, 4),
+                    "nextFundingTime": v.get("nextFundingTime"),
+                }
+        return json.dumps(out, indent=2)
+    except Exception as e:
+        return f"(predictedFundings unavailable: {e})\n"
+
+
 def build():
     venue = _live_venue()
     dims = _four_dims()
     state_txt = _read(STATE_PATH)
     call_facts = _current_call_facts(state_txt)
+    mechanism = _mechanism_section(state_txt, venue)
+    cross_venue = _cross_venue()
 
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
 
@@ -267,6 +356,16 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
 {call_facts}
+
+## 1b. MECHANISM FACTS (base_rates + premium + OI — the fields the packet used to DROP)
+--- BEGIN MECHANISM ---
+{mechanism}
+--- END MECHANISM ---
+
+## 1c. CROSS-VENUE FUNDING (predictedFundings — HL vs Binance vs Bybit; the 'island' check)
+--- BEGIN CROSS-VENUE ---
+{cross_venue}
+--- END CROSS-VENUE ---
 
 ## 2. DOCTRINE RULES (SOP-RECURSIVE.md — read the rule prose; obey it, don't quote it)
 --- BEGIN SOP ---
