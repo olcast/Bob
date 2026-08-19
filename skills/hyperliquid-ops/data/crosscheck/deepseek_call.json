@@ -1,0 +1,26 @@
+{
+  "by": "deepseek",
+  "generated_utc": "2026-08-19 10:03 UTC",
+  "mark": 64378.5,
+  "direction": "RANGE-first, then fade-down bias (weaker squeeze than the 08-18 read)",
+  "p_up": 0.45,
+  "move1": {
+    "action": "DOWN fade (primary)",
+    "trigger": "15m close < 64,636 (coil floor)",
+    "target": "64,065 -> 63,651",
+    "invalidation": "1h close > 65,180"
+  },
+  "move2": {
+    "action": "UP poke (alternative, weaker)",
+    "trigger": "15m close > 64,861",
+    "target": "65,018 (stretch 65,094)",
+    "invalidation": "15m close < 64,636"
+  },
+  "death_price": "30m close < 64,300 confirms the down leg is primary; 30m close > 65,180 kills the fade",
+  "thesis": "Four-dimension read: velocity -0.07% (mild down), rate-of-change decelerating (2nd half +0.04% vs 1st half -0.11%), participation CONTRACTING, and bandwidth ask-heavy (215 BTC ask vs 75 BTC bid within 5bp) — thin bids, thicker resting sells overhead. The 08-18 'UP-first-then-fade' thesis leaned on OI building (41.6k->41.9k) + shorts paying as squeeze fuel; that OI has now RECEDED to 39.8k, and HL funding (3.49% ann) is a mild island vs Binance 5.57% — no acute funding flush. Contracting volume = no conviction either way, so the honest read is a range first, with a fade-down bias if the coil floor 64,636 breaks on expanding participation. The up-poke is downgraded to a lower-probability alternative that only revives on OI re-expansion.",
+  "reasoning_improvements": [
+    "Track OI delta explicitly at fire-time (the 08-18 squeeze thesis died on OI receding 41.9k->39.8k — a live OI_delta field would have caught the regime flip, not a manual read).",
+    "Bandwidth asymmetry (ask 2.9x bid within 5bp) should be a first-class input to the fade bias, not an afterthought.",
+    "Move3 stand-aside zone (62,500-62,700) should carry a re-entry condition keyed to OI recovery, not just price."
+  ]
+}
