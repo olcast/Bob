@@ -117,3 +117,12 @@
 {"ts":1787148430958,"kind":"oiage","coin":"ETH","nCohort":61,"totalNtl":73466068.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":73466068.0,"freshShare":1.0,"medianAdversePct":-0.074}
 {"ts":1787148430958,"kind":"oiage","coin":"SOL","nCohort":52,"totalNtl":27874067.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":27874067.0,"freshShare":1.0,"medianAdversePct":0.132}
 {"ts":1787148430958,"kind":"oiage","coin":"HYPE","nCohort":55,"totalNtl":65625941.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":65625941.0,"freshShare":1.0,"medianAdversePct":0.046}
+{"ts":1787151870534,"kind":"oiage","coin":"BTC","nCohort":204,"totalNtl":265053986.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":235521162.0,"freshShare":0.889,"medianAdversePct":0.29}
+{"ts":1787151870534,"kind":"oiage","coin":"ETH","nCohort":174,"totalNtl":287236175.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":286404716.0,"freshShare":0.997,"medianAdversePct":0.316}
+{"ts":1787151870534,"kind":"oiage","coin":"SOL","nCohort":139,"totalNtl":52349919.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":52349919.0,"freshShare":1.0,"medianAdversePct":0.089}
+{"ts":1787151870534,"kind":"oiage","coin":"HYPE","nCohort":146,"totalNtl":121252037.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":119338029.0,"freshShare":0.984,"medianAdversePct":0.534}
+{"ts":1787151870534,"kind":"oiage","coin":"SPX","nCohort":34,"totalNtl":396786.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":396775.0,"freshShare":1.0,"medianAdversePct":-0.042}
+{"ts":1787152038889,"kind":"oiage","coin":"BTC","nCohort":56,"totalNtl":59107886.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":57416662.0,"freshShare":0.971,"medianAdversePct":-0.13}
+{"ts":1787152038889,"kind":"oiage","coin":"ETH","nCohort":57,"totalNtl":50634039.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":50634039.0,"freshShare":1.0,"medianAdversePct":0.0}
+{"ts":1787152038889,"kind":"oiage","coin":"SOL","nCohort":52,"totalNtl":20700458.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":20700458.0,"freshShare":1.0,"medianAdversePct":0.094}
+{"ts":1787152038889,"kind":"oiage","coin":"HYPE","nCohort":52,"totalNtl":18078686.0,"medianAgeH":0.0,"oldUnderwaterNtl":0,"oldUnderwaterShare":0.0,"freshNtl":18070755.0,"freshShare":1.0,"medianAdversePct":0.002}
