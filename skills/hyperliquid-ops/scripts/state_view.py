@@ -15,6 +15,8 @@ from edge_ensemble import fetch, atr, E_resreject, E_pokereclaim
 from cross_venue import build as cross_venue_build
 from carry_term_structure import build as carry_build
 from jump_geometry import build as jump_build
+from options_skew import build as options_build
+from oi_age import build as oiage_build
 API="https://api.hyperliquid.xyz/info"
 def post(b):
     try:
@@ -109,6 +111,23 @@ try:
     print(f"  D9 JUMP GEOMETRY           J={_J if _J is not None else 'n/a'} (jump share)  vol={_vol if _vol is not None else 'n/a'}%ann  [{_jg.get('reading','') if _jg else 'n/a'}]")
 except Exception as e:
     print(f"  D9 JUMP GEOMETRY           (unavailable: {e})")
+try:
+    _os = options_build()
+    if _os and "error" not in _os:
+        print(f"  D10 OPTIONS SKEW          ATM IV={_os.get('atm_iv_pct','n/a')}%  RR25d={_os.get('rr_25d_pp','n/a')}pp [{_os.get('skew_reading','')}]  term={_os.get('term_reading','')}  P/C OI={_os.get('put_call_oi','n/a')}")
+    else:
+        print(f"  D10 OPTIONS SKEW          (unavailable: {_os.get('error') if _os else 'no data'})")
+except Exception as e:
+    print(f"  D10 OPTIONS SKEW          (unavailable: {e})")
+try:
+    _oa = oiage_build(cap=100, coins=("BTC",))
+    if _oa:
+        _b = _oa.get("BTC", {})
+        print(f"  D11 OI-AGE COHORT         medianAge={_b.get('medianAgeH','n/a')}h  old+uw={_b.get('oldUnderwaterShare','n/a')}  fresh={_b.get('freshShare','n/a')}  cohort={_b.get('nCohort','n/a')}")
+    else:
+        print(f"  D11 OI-AGE COHORT         (no cohort data yet — accumulates over runs)")
+except Exception as e:
+    print(f"  D11 OI-AGE COHORT         (unavailable: {e})")
 
 # ===== (B) RELATIONSHIP MATRIX (how the dimensions co-move) =====
 dims={"trend":trend,"regime":effr,"basis":basis,"funding":fund,"volexp":volexp,"cvdslp":cvdslope}
