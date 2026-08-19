@@ -161,6 +161,14 @@ def collect_liqmap(ts, coins, book, cap, mac, bucket_pct=0.005):
             bucket = round(lp / (mark * bucket_pct)) * (mark * bucket_pct)
             agg[c][side][bucket] = agg[c][side].get(bucket, 0.0) + ntl
             seen_positions[c] += 1
+            # COST-BASIS / UNDERWATER (SEAM candidate #6 — was DISCARDED): capture entryPx alongside
+            # liquidationPx so the desk can later read the UNDERWATER MASS (who is trapped, by how much),
+            # not just the liq geometry. entryPx and uPnL are the 'position', liqPx is the 'exit'.
+            ep = pos.get("entryPx")
+            dd = agg[c].setdefault("_underwater", {"n": 0, "usd": 0.0, "dist_pct": []})
+            if ep:
+                ep = float(ep); dd["n"] += 1; dd["usd"] += ntl
+                dd["dist_pct"].append(round((mark - ep) / ep * 100, 3) if szi > 0 else round((ep - mark) / ep * 100, 3))  # adverse-distance pct
         time.sleep(0.08)
     rows = []
     for c in coins:
@@ -171,10 +179,14 @@ def collect_liqmap(ts, coins, book, cap, mac, bucket_pct=0.005):
                           key=lambda x: -x[1])[:12]
         down = sum(agg[c]["long"].values())     # forced sells below = down-fuel
         up   = sum(agg[c]["short"].values())    # forced buys above  = up-fuel
+        uw = agg[c].get("_underwater", {}); uw_dist = uw.get("dist_pct", [])
         rows.append({"ts": ts, "kind": "liqmap", "coin": c, "mark": mark,
                      "nPositions": seen_positions[c], "nAddrScanned": len(addrs),
                      "downFuelUsd": round(down, 0), "upFuelUsd": round(up, 0),
                      "fuelSkew": round((up - down) / (up + down), 3) if (up + down) else None,
+                     "underwaterUsd": round(uw.get("usd", 0.0), 0),
+                     "underwaterN": uw.get("n", 0),
+                     "underwaterMedDistPct": round(statistics.median(uw_dist), 3) if uw_dist else None,
                      "longLiqClusters": top("long"), "shortLiqClusters": top("short")})
     return rows
 

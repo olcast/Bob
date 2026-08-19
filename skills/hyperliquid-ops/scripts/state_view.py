@@ -12,6 +12,9 @@ one of the pre-registered signal regions (PREREG-reversal-x-basis.md). The signa
 state, never a dimension in isolation."""
 import statistics, math, bisect, urllib.request, json, time
 from edge_ensemble import fetch, atr, E_resreject, E_pokereclaim
+from cross_venue import build as cross_venue_build
+from carry_term_structure import build as carry_build
+from jump_geometry import build as jump_build
 API="https://api.hyperliquid.xyz/info"
 def post(b):
     try:
@@ -81,6 +84,31 @@ print(f"  D3 POSITIONING (basis bp)  {('%+6.1f'%basis[i]) if basis[i] is not Non
 print(f"  D4 FUNDING (/hr)           {('%+.2e'%fund[i]) if fund[i] is not None else '  n/a'}   pctile {fp if fp is None else round(fp,2)}  aligned={('%+.1e'%falign[i]) if falign[i] is not None else 'n/a'}")
 print(f"  D5 FLOW volexp / CVDslope  {volexp[i]:+6.2f} / {cvdslope[i]:+.0f}   volexp pctile {vp if vp is None else round(vp,2)}  [{'EXPANDING' if (vp or 0)>=.7 else ('QUIET' if (vp or 1)<=.3 else 'normal')}]")
 print(f"  D6 PRICE-STRUCTURE setup   {'poke-reclaim LONG' if setup[i]==1 else ('resTL-reject SHORT' if setup[i]==-1 else 'none')}")
+
+# ===== NEW DIMENSIONS (D7 cross-venue, D8 carry term-structure, D9 jump geometry) — 2026-08-19 =====
+# These are the three-model-unanimous gaps, now FIRST-CLASS rows. Each is computed live (free APIs) and
+# reported as a level + a read. They are COLLECTED FORWARD (doctrine #46/#53) — descriptive, not signals.
+try:
+    _cv = cross_venue_build(); _d = _cv.get("divergence", {})
+    _mgs = _d.get("mark_gap_bp"); _fgs = _d.get("funding_gap_pct")
+    _cv_read = "GLOBAL/systemic (mark+funding same sign)" if (_mgs is not None and _fgs is not None and (_mgs>0)==(_fgs>0)) else (
+               "LOCAL dislocation (split — arb candidate)" if _mgs is not None else "n/a")
+    print(f"  D7 CROSS-VENUE             mark_gap={_mgs if _mgs is not None else 'n/a'}bp  funding_gap={_fgs if _fgs is not None else 'n/a'}%  oi_share={_d.get('oi_share_hl_pct','n/a')}%  [{_cv_read}]")
+except Exception as e:
+    print(f"  D7 CROSS-VENUE             (unavailable: {e})")
+try:
+    _cs = carry_build(); _c = _cs.get("curve", {}); _r = _cs.get("residual")
+    _slope = _c.get("slope_1h_to_8h_pct")
+    _contra = "YES" if (_r and _r.get("contradiction")) else "no"
+    print(f"  D8 CARRY TERM-STRUCTURE    slope_1h→8h={_slope if _slope is not None else 'n/a'}%ann  [{_c.get('reading','') if _slope is not None else 'n/a'}]  contradiction={_contra}")
+except Exception as e:
+    print(f"  D8 CARRY TERM-STRUCTURE    (unavailable: {e})")
+try:
+    _jg = jump_build("1h", 96); _f = _jg.get("full", {}) if _jg else {}
+    _J = _f.get("J"); _vol = _f.get("vol_ann_pct")
+    print(f"  D9 JUMP GEOMETRY           J={_J if _J is not None else 'n/a'} (jump share)  vol={_vol if _vol is not None else 'n/a'}%ann  [{_jg.get('reading','') if _jg else 'n/a'}]")
+except Exception as e:
+    print(f"  D9 JUMP GEOMETRY           (unavailable: {e})")
 
 # ===== (B) RELATIONSHIP MATRIX (how the dimensions co-move) =====
 dims={"trend":trend,"regime":effr,"basis":basis,"funding":fund,"volexp":volexp,"cvdslp":cvdslope}

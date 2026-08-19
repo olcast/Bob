@@ -100,7 +100,33 @@ async def collect(coin, secs):
     return trades
 
 
-def analyse(trades, bucket_secs=15):
+def mix(trades):
+    """TAPE MIX vs TAPE SUM (SEAM candidate #7) — the order-flow gap where net delta
+    cannot tell '8 whales' from '400 clips'. Same CVD, opposite markets. Computes the
+    size-distribution shape of aggressor prints, not just the signed sum."""
+    if not trades:
+        return None
+    sizes = [t["sz"] for t in trades]
+    n = len(sizes)
+    # HHI of print size — 1.0 = one print did everything (whale), ~0 = many equal clips
+    tot = sum(sizes)
+    hhi = sum((s / tot) ** 2 for s in sizes) if tot else 0.0
+    # whale-vs-clip: fraction of volume from the top-1/top-5 largest prints
+    srt = sorted(sizes, reverse=True)
+    top1_share = srt[0] / tot if tot else 0.0
+    top5_share = sum(srt[:5]) / tot if tot else 0.0
+    # size buckets: clip (<med), mid (med..3×med), whale (>3×med)
+    med = statistics.median(sizes)
+    clip = sum(s for s in sizes if s < med)
+    mid = sum(s for s in sizes if med <= s <= 3 * med)
+    whale = sum(s for s in sizes if s > 3 * med)
+    return {"hhi": round(hhi, 4),
+            "top1_vol_share": round(top1_share, 3),
+            "top5_vol_share": round(top5_share, 3),
+            "clip_vol_share": round(clip / tot, 3) if tot else 0.0,
+            "whale_vol_share": round(whale / tot, 3) if tot else 0.0,
+            "n_whale_prints": sum(1 for s in sizes if s > 3 * med),
+            "n_prints": n}
     if not trades:
         return None
     trades.sort(key=lambda t: t["time"])
@@ -180,7 +206,8 @@ def analyse(trades, bucket_secs=15):
             "avg_size": total / len(trades), "med_size": statistics.median(sizes),
             "max_size": max(sizes), "big": big, "series": series,
             "signals": signals,
-            "px_first": trades[0]["px"], "px_last": trades[-1]["px"]}
+            "px_first": trades[0]["px"], "px_last": trades[-1]["px"],
+            "mix": mix(trades)}
 
 
 def main():
