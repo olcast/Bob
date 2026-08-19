@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-18 19:45:13 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-19 07:38:30 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,10 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64648.5",
-  "oi_btc": "41353.30138",
-  "funding": "-0.0000001331",
-  "markPx": "64646.2"
+  "mark": "64352.5",
+  "oi_btc": "40134.26168",
+  "funding": "0.0000034916",
+  "markPx": "64352.0"
 }
 
 ## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
@@ -20,24 +20,24 @@ A timestamped PRICE with no velocity/participation/bandwidth is a point, not a r
 from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
 {
   "bandwidth": {
-    "bid_btc_5bp": 117.31,
-    "ask_btc_5bp": 125.1,
-    "bid_orders_5bp": 149,
-    "ask_orders_5bp": 182,
-    "bid_weight_pct": 48.4
+    "bid_btc_5bp": 66.37,
+    "ask_btc_5bp": 194.15,
+    "bid_orders_5bp": 139,
+    "ask_orders_5bp": 256,
+    "bid_weight_pct": 25.5
   },
-  "velocity_15m_pct": -0.1976,
+  "velocity_15m_pct": 0.3149,
   "rate_of_change": {
-    "first_half_pct": -0.1251,
-    "second_half_pct": -0.0727,
-    "accel_pct": 0.0524
+    "first_half_pct": 0.2494,
+    "second_half_pct": 0.0653,
+    "accel_pct": -0.1841
   },
   "participation": {
-    "vol_last": 1.8,
-    "vol_window_sum": 916.7,
+    "vol_last": 14.4,
+    "vol_window_sum": 1214.9,
     "vol_trend": "contracting"
   },
-  "funding_pct_h": -1e-05
+  "funding_pct_h": 0.00035
 }
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
@@ -69,6 +69,56 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
   "soft_kill": null,
   "hard_kill": null
 }
+
+## 1b. MECHANISM FACTS (base_rates + premium + OI — the fields the packet used to DROP)
+--- BEGIN MECHANISM ---
+{
+  "base_rates": {
+    "reclaim:EARLY": {
+      "n": 76,
+      "hit_pct": 42,
+      "reached_pct": 50,
+      "fwd_pct": -0.21
+    },
+    "reclaim:STRICT": {
+      "n": 97,
+      "hit_pct": 57,
+      "reached_pct": 64,
+      "fwd_pct": -0.41
+    }
+  },
+  "premium_bp": 0.0,
+  "oi_delta": null,
+  "mark": 64352.5,
+  "oracle": 64352.5,
+  "oi_btc": 40134.26168
+}
+--- END MECHANISM ---
+
+## 1c. CROSS-VENUE FUNDING (predictedFundings — HL vs Binance vs Bybit; the 'island' check)
+--- BEGIN CROSS-VENUE ---
+{
+  "note": "funding annualized to a common horizon (raw intervals differ \u2014 compare the pct, not the raw)",
+  "BinPerp": {
+    "fundingRate": 4.24e-05,
+    "fundingIntervalHours": 8.0,
+    "annualized_pct": 4.6428,
+    "nextFundingTime": 1787126400000
+  },
+  "HlPerp": {
+    "fundingRate": 3.479e-06,
+    "fundingIntervalHours": 1.0,
+    "annualized_pct": 3.0476,
+    "nextFundingTime": 1787122800000
+  },
+  "BybitPerp": {
+    "fundingRate": 1.909e-05,
+    "fundingIntervalHours": 8.0,
+    "annualized_pct": 2.0904,
+    "nextFundingTime": 1787126400000
+  }
+}
+--- END CROSS-VENUE ---
 
 ## 2. DOCTRINE RULES (SOP-RECURSIVE.md — read the rule prose; obey it, don't quote it)
 --- BEGIN SOP ---
@@ -487,6 +537,84 @@ and divergence from these numbers, NOT inherit a pre-resolved "risk-off" conclus
 - You must RECONCILE these against the raw breadth above — they can pull opposite directions.
 
 --- END CROSS-ASSET ---
+
+## 6. FROZEN PRE-REGISTERED SIGNAL (PREREG-reversal-x-basis.md — the ONE mechanism confluence, #46)
+--- BEGIN PREREG ---
+## The frozen signal (exact, no free parameters left)
+
+Timeframe 1h. Two legs, each graded independently:
+
+- **LEG S (short):** E2 resTL-REJECT — price tags a confirmed descending-resistance trendline
+  (`desc_res`, pivots k=3) within tol=0.0015 and closes back below it (< line·0.9995) — **AND** the
+  contemporaneous basis is in its **top-30% PREMIUM** band. Direction d = −1.
+- **LEG L (long):** E4 POKE-LOW→RECLAIM — price trades below a prior swing low (pivots k=3) within a
+  0.0024 band and closes back above it — **AND** the contemporaneous basis is in its **bottom-30%
+  DISCOUNT** band. Direction d = +1.
+- Event de-dup: REF = 6 bars minimum between same-leg events.
+- (LEG V, secondary/lower-confidence: E1 vol-spike-FADE aligned with the perp dislocation. Logged but not
+  required for the primary verdict.)
+
+**Basis-band rule — the one anti-look-ahead refinement vs discovery.** In discovery the 30/70 percentile
+was computed on the FULL sample (look-ahead). Forward, the band is the 30th/70th percentile of the
+**trailing 60-day** basis distribution, recomputed as each 1h bar arrives — past data only. This is frozen.
+
+Grading: pure directional forward return d·(C[i+h]/C[i]−1), h = 12 bars, plus MFE/MAE excursion.
+**NO stop, NO cost, NO bracket** (OLIVIER owns execution at ~0 cost; a stop would invalidate the pattern —
+#35/#39). This matches how the edge was discovered; changing it would test a different thing.
+--- END PREREG ---
+
+## 7. PRIOR FULL-STACK REVIEWS (build on these — do NOT repeat conclusions already refuted)
+--- BEGIN REVIEWS ---
+STANDING REVIEW VERDICTS (doctrine #53/#56/#59) — govern every read, do NOT relitigate:
+1. The desk is a DISCIPLINE / RISK-CONTROL framework, NOT a proven alpha engine.
+2. The reversal-excursion thesis is FROZEN — exactly ONE forward test graded on excursion.
+3. The ONLY mechanism-backed signal is 'price-reversal x perp-spot-basis-extreme' (PREREG §6).
+   Everything else currently on the desk is DISCOVERY/unvalidated, not conviction.
+--- END REVIEWS ---
+
+## 8. DESK LINEAGE (git — the learning trajectory: what was tried, frozen, rejected)
+--- BEGIN LINEAGE ---
+7452268 ops: durable discovery-sweep runner (tee stdout→prospecting.log at shell layer, not agent discretion)
+c0f7a68 memory: 2026-08-18 daily note (Kimi role, cron delivery fix)
+139c15c state: commit orphaned state.json (restore SOP §0 single-source-of-truth ownership)
+b7d15d7 ops: Kimi → optional adversarial spot-checker (narrow question, KIMI-SUGGESTED, graded forward)
+fe5157a ops: SOP §0 — canonical state + event-driven orchestration (12-job roster, single source of truth)
+02678bb orchestration: canonical state (state_snapshot) + entry-proximity trigger + level-watch cadence 30m→10m
+ad2074a ops: reconcile 2-move entry prices (producer/challenger) + entry clock doctrine
+65553af ops: ledger #098 + entry_spec in current_call (producer+challenger reconciled entries)
+cc80c70 ops: SOP §3c.8e — entry price pins scenario to a clock (start/invalidation/horizon = falsifiable lifecycle)
+3e98ae7 ops: SOP §3c.8 — entry price as close-confirmed TRIGGER (not limit); entries don't cancel across scales
+a891435 ops: SOP §3c.7 — small vs large moves are NESTED not exclusive; structural close (not the other move) drives invalidation
+092e2ad ops: SOP §5d.3 — backtests whisper don't shout (consistency evidence, not conviction; anti-overfit #53)
+71058e4 backtest: capture reach/medReach as first-class JSON fields (timing fix durable, not just stdout)
+0a64876 ops: SOP §5d backtesting measurement rules — cost removed + timing=reach-within-window
+2967f87 backtest: remove cost from edge measurement + fix timing (reach-within-window, not first-touch) + capture backtest_rates.json harness
+10f3fec ops: incentive design (provenance gate + falsifiability score) + rebuild call on corrected desk base rates (ledger #097) + cheap red team (no Grok/GPT)
+b28de11 ops: correct blind-audit definition — withhold the CONCLUSION not the CONTEXT (raw numbers alone are under-determined)
+3fcda62 ops: cost-effective specialist roster (no Grok/GPT) — vision third eye, cheap red-team (blind-audit+incentive-against+coherence), reasoning-audit recurse
+16c96b8 ops: keep-latest-call + frozen=grading-only terminology + next-2-moves brief upgrade (reasoning/narrative/context/timing/EW)
+7e2d284 ops: Bloomberg macro gate (IMAP Gmail, Authers-first, pre-EU/pre-US/US-close) + news gate + liveness probe
+c30944a ops: liveness_probe.py (continuous 'how do we test everything') + discovery-sweep durable-sink fix (prospecting.log)
+8b7a618 add call_evolve_trigger.py gate (skip empty 15-min runs unless an open call exists)
+c90131f restore data pipeline crons + durable-sink fix (collector auto-commits ticks; call-evolve auto-commits evolution)
+82638a3 fix: rebuild calls.json (3 resolved calls recovered from seed+ledger), ledger hygiene #092/#093/#094, Kimi reliability verdict (RPM=3)
+586bea1 sop: cross-check automatic + recursive (2-model pair feeds discovery loop)
+ac4de3c kg: desk v2.6.4 + safety findings + olive entity; tools: prompting discipline
+26654ec memory: ingest Claude export (Olive identity + desk v2.6.4 + prior safety findings)
+57fcf06 ops: recursive-learning SOP + heartbeat cadence + Qwen provider + KG seed + qwen review
+b67eeee workspace: pre-review baseline — config provider updates (DeepSeek v4-pro, Kimi k3), knowledge-graph skill, yesterday's hlops data sync
+808b251 hlops: fix skill_workshop apply overwrite AGAIN (2nd occurrence) - restore full doctrine + append ON-THE-LINE amendment properly instead of replacing
+1315a44 hlops: CRITICAL FIX - restore full SKILL.md doctrine (#1-59) that skill_workshop apply had replaced with amendment-only content; append amendment properly instead. Also: prune resolved calls from calls.json (stops call-evolve duplicate-notification spam), correct L1 invalidation placement on live call (#089), ledger #085-#090 entries.
+66aba3b hlops: sync memory notes + latest collector/call-evolve data ticks after skill-path move
+03f8de0 hlops: move skill from skills-archive/ (never auto-loaded) to skills/ (real skill root) — fixes new sessions having zero visibility into the skill
+3c27b15 hlops: add game-theory red-team (GPT-5.1) + ledger-coherence audit (Gemini 3 Pro) + call-evolution tracker (Haiku); doctrine v3.35 (#59); route highest-frequency cron jobs to Haiku 4.5
+91c1fd8 hlops: add inbox_check.py — read-only Gmail IMAP scan (Bloomberg/FT/alert senders) for doctrine Step 0 catalyst check; secrets dir gitignored
+118db1e hlops: add news_check.py — free Bloomberg/FT RSS headline scan, interim substitute for disabled web_search (doctrine Step 0)
+7b508f2 workspace: clean baseline commit — full skills-archive (6 skills), hlops data/seed+ledger-live+reviews+originals, gitignore for pycache/tmp/media
+8d9ce3a hlops: add contested_check.py (pre-resolution CONTESTED auto-flag per doctrine #57)
+8c794c1 hlops: migrate ledger from Gmail-draft to git-tracked file; import live #077-#084 ledger, hostile reviews, seed doctrine/lessons/calls/ticks
+2018fe6 Bootstrap: establish Charly identity for Olivier
+--- END LINEAGE ---
 
 ---
 
