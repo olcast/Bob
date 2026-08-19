@@ -1,0 +1,21 @@
+{
+  "by": "qwen",
+  "generated_utc": "2026-08-19 10:15 UTC",
+  "mark": 64378.5,
+  "direction": "down-first (grind to the shelf); flush only on confirmed break",
+  "p_up": 0.45,
+  "move1": {
+    "action": "short the failed bounce (fade the unsponsored reclaim)",
+    "trigger": "15m close < 64,300 (loss of the pivot / bottom of the up-zone)",
+    "target": "64,000 -> 63,940 (magnet + prior-low shelf)",
+    "invalidation": "15m close > 64,550 (acceptance above the ask wall)"
+  },
+  "move2": {
+    "action": "flush short, only on close-confirmation — never chase pre-break",
+    "trigger": "15m close < 63,930 (below prior low 63,938 + 64,000 magnet)",
+    "target": "63,650 (bottom of the down-zone)",
+    "invalidation": "1h close > 64,050 (reclaim = low-break trap)"
+  },
+  "death_price": "15m close > 64,550 WITH OI expanding (acceptance through the ask wall on new money); 4h close > 64,580 is the hard kill",
+  "thesis": "Participation is contracting and OI unwound ~2.2k BTC since the prior call, so the narrow BTC decoupling bid is unsponsored; the book is top-heavy (215 BTC asks vs 75 BTC bids within 5bp, bid weight 25.8%), meaning bounces grind into supply while downside slips fast once 64,300 goes. Zero premium, near-flat funding (3.5% ann.), and negative reclaim forward drift (STRICT fwd -0.41%, n=97) argue against paying up, with Fed minutes today capping longs into US hours. Down first to the 64,000/63,930 shelf; the 66% low-break trap rate (n=189) forbids chasing the flush before a 15m close below 63,930."
+}

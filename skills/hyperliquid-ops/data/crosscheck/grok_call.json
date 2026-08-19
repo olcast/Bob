@@ -1,0 +1,21 @@
+{
+  "by": "grok",
+  "generated_utc": "2026-08-19 10:15 UTC",
+  "mark": 64378.5,
+  "direction": "failed-bounce-then-down",
+  "p_up": 0.37,
+  "move1": {
+    "action": "fade 64,450-64,550 wall (nested setup into larger down)",
+    "trigger": "15m close back below 64,420 after tagging 64,450-64,550, or 15m close < 64,300 if the bounce never prints",
+    "target": "64,000 then 63,650 (flush only on 15m close < 63,930)",
+    "invalidation": "15m close > 64,580"
+  },
+  "move2": {
+    "action": "acceptance squeeze (same-scale alternative)",
+    "trigger": "15m close > 64,580 with OI expanding above 39,797",
+    "target": "64,820-65,020",
+    "invalidation": "15m close < 64,300 after that reclaim"
+  },
+  "death_price": "4h close > 64,580 (acceptance alone; expanding OI makes it definitive)",
+  "thesis": "Mark 64,378 already sits below the old 64,636 coil while OI bled to 39,797 and the 5bp book is only 26% bids, so squeeze-fuel geometry is gone and downside slips first. 15m velocity is a shallow red that is decelerating on contracting volume, so the first print can be a dead bounce into the 64,450-64,550 offer wall — a setup, not an impulse. Lose 64,300 and the thin bid should travel 64,000 then 63,650; only 4h acceptance through 64,580 on rising OI reopens squeeze. Basis is flat and PREREG is off, so this is a tape/structure lean into Fed minutes, not a mechanism signal."
+}

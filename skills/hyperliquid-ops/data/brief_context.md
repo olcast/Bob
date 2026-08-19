@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-19 10:02:08 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-19 10:56:34 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,10 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64378.5",
-  "oi_btc": "39796.7761",
-  "funding": "0.0000039885",
-  "markPx": "64379.0"
+  "mark": "64396.5",
+  "oi_btc": "39634.52576",
+  "funding": "0.0000064397",
+  "markPx": "64397.0"
 }
 
 ## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
@@ -20,24 +20,24 @@ A timestamped PRICE with no velocity/participation/bandwidth is a point, not a r
 from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
 {
   "bandwidth": {
-    "bid_btc_5bp": 74.85,
-    "ask_btc_5bp": 215.26,
-    "bid_orders_5bp": 151,
-    "ask_orders_5bp": 320,
-    "bid_weight_pct": 25.8
+    "bid_btc_5bp": 132.83,
+    "ask_btc_5bp": 73.62,
+    "bid_orders_5bp": 236,
+    "ask_orders_5bp": 164,
+    "bid_weight_pct": 64.3
   },
-  "velocity_15m_pct": -0.0698,
+  "velocity_15m_pct": 0.0684,
   "rate_of_change": {
-    "first_half_pct": -0.1102,
-    "second_half_pct": 0.0404,
-    "accel_pct": 0.1506
+    "first_half_pct": 0.0124,
+    "second_half_pct": 0.0559,
+    "accel_pct": 0.0435
   },
   "participation": {
-    "vol_last": 3.9,
-    "vol_window_sum": 506.2,
-    "vol_trend": "contracting"
+    "vol_last": 74.3,
+    "vol_window_sum": 376.7,
+    "vol_trend": "expanding"
   },
-  "funding_pct_h": 0.0004
+  "funding_pct_h": 0.00064
 }
 
 ## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
@@ -89,9 +89,9 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
   },
   "premium_bp": 0.0,
   "oi_delta": null,
-  "mark": 64378.5,
-  "oracle": 64378.5,
-  "oi_btc": 39796.7761
+  "mark": 64396.5,
+  "oracle": 64396.5,
+  "oi_btc": 39634.52576
 }
 --- END MECHANISM ---
 
@@ -100,21 +100,21 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
 {
   "note": "funding annualized to a common horizon (raw intervals differ \u2014 compare the pct, not the raw)",
   "BinPerp": {
-    "fundingRate": 5.088e-05,
+    "fundingRate": 4.072e-05,
     "fundingIntervalHours": 8.0,
-    "annualized_pct": 5.5714,
+    "annualized_pct": 4.4588,
     "nextFundingTime": 1787155200000
   },
   "HlPerp": {
-    "fundingRate": 3.9885e-06,
+    "fundingRate": 6.4452e-06,
     "fundingIntervalHours": 1.0,
-    "annualized_pct": 3.4939,
+    "annualized_pct": 5.646,
     "nextFundingTime": 1787133600000
   },
   "BybitPerp": {
-    "fundingRate": 4.246e-05,
+    "fundingRate": 3.251e-05,
     "fundingIntervalHours": 8.0,
-    "annualized_pct": 4.6494,
+    "annualized_pct": 3.5598,
     "nextFundingTime": 1787155200000
   }
 }
