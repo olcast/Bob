@@ -40,6 +40,13 @@ FACTS_PATH = os.path.join(DATA, "brief_facts.md")
 XASSET_PATH = os.path.join(DATA, "cross_asset_snapshot.md")
 OUT_PATH = os.path.join(DATA, "brief_context.md")
 
+# Full-desk context (Olivier 2026-08-19: "models should read EVERYTHING on every run, not just the snapshot").
+# The originators are stateless; doctrine lineage + prereg + prior reviews are RULES/CONTEXT that must
+# ride along on every firing, not only when a human hand-points them. These are facts+rules, NOT verdicts.
+SKILL_DIR = os.path.dirname(DATA)
+PREREG_PATH = os.path.join(SKILL_DIR, "references", "PREREG-reversal-x-basis.md")
+REVIEWS_DIR = os.path.join(SKILL_DIR, "references", "reviews")
+
 
 def _read(p, default=""):
     try:
@@ -168,6 +175,43 @@ def _rules_section(path):
     return txt
 
 
+def _git_lineage():
+    """Recent meaningful commits — the desk's learning trajectory (temporal/meta dimension)."""
+    try:
+        out = subprocess.run(
+            ["git", "-C", WS_ROOT, "log", "--oneline", "--since=30 days ago"],
+            capture_output=True, text=True, timeout=10,
+        )
+        lines = [l for l in out.stdout.splitlines()
+                 if not re.search(r'tick \(auto\)|snapshot tick|collector tick|desk.?card', l, re.I)]
+        # cap to last 40 meaningful lines — trajectory signal, not a changelog dump
+        return "\n".join(lines[-40:]) or "(no meaningful commits)"
+    except Exception as e:
+        return f"(git lineage unavailable: {e})"
+
+
+def _prereg_section():
+    """The frozen pre-registered signal — decision-relevant CORE only (the rule, not the narrative)."""
+    txt = _read(PREREG_PATH)
+    if not txt:
+        return "(PREREG-reversal-x-basis.md not found — originator should flag this)"
+    # Keep only the operative rule block; the file's prose/lead-lag narrative is doctrine, not fire-time input.
+    m = re.search(r'## The frozen signal.*?(?=\n## |\Z)', txt, re.DOTALL)
+    return m.group(0).strip() if m else txt[:1500]
+
+
+def _prior_reviews():
+    """Prior full-stack reviews — only the STANDING VERDICTS (conclusions), not the prose."""
+    # Lean digest: the three conclusions that govern every read, sourced from doctrine #53/#56/#59.
+    return (
+        "STANDING REVIEW VERDICTS (doctrine #53/#56/#59) — govern every read, do NOT relitigate:\n"
+        "1. The desk is a DISCIPLINE / RISK-CONTROL framework, NOT a proven alpha engine.\n"
+        "2. The reversal-excursion thesis is FROZEN — exactly ONE forward test graded on excursion.\n"
+        "3. The ONLY mechanism-backed signal is 'price-reversal x perp-spot-basis-extreme' (PREREG §6).\n"
+        "   Everything else currently on the desk is DISCOVERY/unvalidated, not conviction."
+    )
+
+
 def _current_call_facts(state):
     """Pull the LIVE call's level facts (zones/directions/death prices), NOT prior verdicts."""
     try:
@@ -198,7 +242,12 @@ def build():
 
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
 
-    # Bundle order matters: rules first (calibration), then venue facts, then raw tape.
+    lineage = _git_lineage()
+    prereg = _prereg_section()
+    reviews = _prior_reviews()
+
+    # Bundle order matters: rules first (calibration), then venue facts, then raw tape, then the
+    # full-desk CONTEXT (lineage + frozen signal + prior reviews) so every originator reads everything.
     doc = f"""# BRIEF CONTEXT — assembled {ts} (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
@@ -238,6 +287,21 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
 --- BEGIN CROSS-ASSET ---
 {_read(XASSET_PATH)}
 --- END CROSS-ASSET ---
+
+## 6. FROZEN PRE-REGISTERED SIGNAL (PREREG-reversal-x-basis.md — the ONE mechanism confluence, #46)
+--- BEGIN PREREG ---
+{prereg}
+--- END PREREG ---
+
+## 7. PRIOR FULL-STACK REVIEWS (build on these — do NOT repeat conclusions already refuted)
+--- BEGIN REVIEWS ---
+{reviews}
+--- END REVIEWS ---
+
+## 8. DESK LINEAGE (git — the learning trajectory: what was tried, frozen, rejected)
+--- BEGIN LINEAGE ---
+{lineage}
+--- END LINEAGE ---
 
 ---
 
