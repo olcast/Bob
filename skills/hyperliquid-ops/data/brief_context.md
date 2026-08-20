@@ -1,4 +1,4 @@
-# BRIEF CONTEXT — assembled 2026-08-19 11:55:49 UTC (fire-time, fresh from source files)
+# BRIEF CONTEXT — assembled 2026-08-20 10:14:36 UTC (fire-time, fresh from source files)
 
 This packet replaces the old hand-assembled spawn string. It is REBUILT every firing from the
 CURRENT source files below. You are STATELESS: read THIS now, do NOT rely on any memory of a
@@ -9,10 +9,10 @@ and the VERDICT are yours to produce independently.
 
 ## 0. LIVE venue state (Hyperliquid API, pulled at fire time — not from disk)
 {
-  "mark": "64475.5",
-  "oi_btc": "39509.96894",
-  "funding": "0.0000040582",
-  "markPx": "64476.0"
+  "mark": "71999.5",
+  "oi_btc": "36438.57416",
+  "funding": "0.0000125",
+  "markPx": "71999.0"
 }
 
 ## 0b. FOUR DIMENSIONS (velocity / rate-of-change / participation / bandwidth — Olivier's frame)
@@ -20,54 +20,59 @@ A timestamped PRICE with no velocity/participation/bandwidth is a point, not a r
 from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (thin book = fast slip).
 {
   "bandwidth": {
-    "bid_btc_5bp": 107.18,
-    "ask_btc_5bp": 126.97,
-    "bid_orders_5bp": 181,
-    "ask_orders_5bp": 161,
-    "bid_weight_pct": 45.8
+    "bid_btc_5bp": 173.54,
+    "ask_btc_5bp": 44.91,
+    "bid_orders_5bp": 113,
+    "ask_orders_5bp": 93,
+    "bid_weight_pct": 79.4
   },
-  "velocity_15m_pct": 0.1662,
+  "velocity_15m_pct": 0.6937,
   "rate_of_change": {
-    "first_half_pct": 0.1647,
-    "second_half_pct": 0.0016,
-    "accel_pct": -0.1631
+    "first_half_pct": 0.4419,
+    "second_half_pct": 0.2506,
+    "accel_pct": -0.1913
   },
   "participation": {
-    "vol_last": 83.5,
-    "vol_window_sum": 1151.7,
+    "vol_last": 1052.0,
+    "vol_window_sum": 10406.2,
     "vol_trend": "contracting"
   },
-  "funding_pct_h": 0.00041
+  "funding_pct_h": 0.00125
 }
 
-## 1. CURRENT CALL LEVEL FACTS (state.json — zones/structure only, no prior verdicts)
+## 1. PRIOR CALL GEOMETRY (LAST ROUND'S VERDICT — re-derive today's levels from live tape)
 {
-  "moves": {
+  "LABEL": "PRIOR CALL \u2014 last round's structure verdict, NOT today's levels. Re-derive from live tape. Do not treat these zones as facts.",
+  "asOfUtc": "2026-08-19 11:55:40 UTC",
+  "death_price_prior": "30m close >64,300 after the poke, without OI expansion",
+  "soft_kill_prior": null,
+  "hard_kill_prior": null,
+  "moves_prior": {
     "move1": {
       "zone": [
         64300,
         64550
       ],
-      "dir": "up"
+      "dir": "up",
+      "status": "PRIOR_VERDICT"
     },
     "move2": {
       "zone": [
         64000,
         63650
       ],
-      "dir": "down"
+      "dir": "down",
+      "status": "PRIOR_VERDICT"
     },
     "move3": {
       "zone": [
         62500,
         62700
       ],
-      "dir": "STAND_ASIDE (Branch C)"
+      "dir": "STAND_ASIDE (Branch C)",
+      "status": "PRIOR_VERDICT"
     }
-  },
-  "death_price": "30m close >64,300 after the poke, without OI expansion",
-  "soft_kill": null,
-  "hard_kill": null
+  }
 }
 
 ## 1b. MECHANISM FACTS (base_rates + premium + OI — the fields the packet used to DROP)
@@ -89,9 +94,9 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
   },
   "premium_bp": 0.0,
   "oi_delta": null,
-  "mark": 64475.5,
-  "oracle": 64475.5,
-  "oi_btc": 39509.96894
+  "mark": 71999.5,
+  "oracle": 71999.5,
+  "oi_btc": 36438.57416
 }
 --- END MECHANISM ---
 
@@ -100,25 +105,141 @@ from ALL FOUR, never price alone. Bandwidth = order-book depth before slippage (
 {
   "note": "funding annualized to a common horizon (raw intervals differ \u2014 compare the pct, not the raw)",
   "BinPerp": {
-    "fundingRate": 4.173e-05,
+    "fundingRate": 0.0001,
     "fundingIntervalHours": 8.0,
-    "annualized_pct": 4.5694,
-    "nextFundingTime": 1787155200000
+    "annualized_pct": 10.95,
+    "nextFundingTime": 1787241600000
   },
   "HlPerp": {
-    "fundingRate": 4.1191e-06,
+    "fundingRate": 1.25e-05,
     "fundingIntervalHours": 1.0,
-    "annualized_pct": 3.6083,
-    "nextFundingTime": 1787137200000
+    "annualized_pct": 10.95,
+    "nextFundingTime": 1787220000000
   },
   "BybitPerp": {
-    "fundingRate": 4.483e-05,
+    "fundingRate": 4.031e-05,
     "fundingIntervalHours": 8.0,
-    "annualized_pct": 4.9089,
-    "nextFundingTime": 1787155200000
+    "annualized_pct": 4.4139,
+    "nextFundingTime": 1787241600000
   }
 }
 --- END CROSS-VENUE ---
+
+## 1d. COLLECTOR GOLDMINE (CVD proxy / HLP / near-mark liqmap / ΔOI — facts, not a lean)
+--- BEGIN GOLDMINE ---
+{
+  "cvd": {
+    "proxy": "1h candle signed-volume",
+    "slope6h": 17287.5,
+    "px6h": 2604.0
+  },
+  "hlp": {
+    "equity": 191081298.959022,
+    "apr": 0.02435122969176909,
+    "btc_szi": 0.0093,
+    "btc_ntlUsd": 2339.0
+  },
+  "liqmap": {
+    "status": "OK",
+    "mark": 71998.0,
+    "ageMin": 14.2,
+    "nPositions": 152,
+    "nAddrScanned": 400,
+    "near": [
+      {
+        "side": "long",
+        "px": 66360.4,
+        "dist_pct": -7.83,
+        "ntl": 342667.0,
+        "inBand": true
+      },
+      {
+        "side": "long",
+        "px": 67077.8,
+        "dist_pct": -6.83,
+        "ntl": 1675939.0,
+        "inBand": true
+      },
+      {
+        "side": "long",
+        "px": 67795.2,
+        "dist_pct": -5.84,
+        "ntl": 220.0,
+        "inBand": true
+      },
+      {
+        "side": "long",
+        "px": 68512.7,
+        "dist_pct": -4.84,
+        "ntl": 299.0,
+        "inBand": true
+      },
+      {
+        "side": "long",
+        "px": 68871.4,
+        "dist_pct": -4.34,
+        "ntl": 1210.0,
+        "inBand": true
+      },
+      {
+        "side": "long",
+        "px": 70664.9,
+        "dist_pct": -1.85,
+        "ntl": 8603.0,
+        "inBand": true
+      }
+    ],
+    "forcedPath": [
+      "if tag DOWN through 71,024 (-1.4%, -974), these long-liq clusters fire ($111k)",
+      "if tag DOWN through 70,665 (-1.9%, -1333), these long-liq clusters fire ($9k)",
+      "if tag UP through 72,458 (+0.6%, +460), these short-liq clusters fire ($1k)",
+      "if tag UP through 73,176 (+1.6%, +1178), these short-liq clusters fire ($558k)"
+    ],
+    "notes": [],
+    "coverage": "liqmap is an address-book SAMPLE (nPositions/nAddrScanned), not the whole book; clusters are exact HL liquidationPx, not leverage guesses."
+  },
+  "d_oi_pct": 1.51,
+  "turnover": 2.755
+}
+--- END GOLDMINE ---
+
+## 1e. CANDIDATE LESSONS (not doctrine — do not treat as conviction)
+--- BEGIN LESSONS ---
+schema=hlops-lessons-v1  n=1  bar=5  (CANDIDATE — not doctrine)
+- L1 [candidate]: In discovery the scenario invalidation is a SCORING line, not a stop — commit it BELOW the liquidity pool (recent swing-low / liq-cluster / round number), not above it. Placing it above the pool lets a stop-hunt sweep score a correct reversal call as wrong.
+--- END LESSONS ---
+
+## 1f. BACKTEST RATES (one line; named {rate,n,source} only if you fetch the file)
+hlops-backtest-rates-v1 generated 2026-08-18 10:02 UTC — DISCOVERY/in-sample, not live weight. Read data/backtest_rates.json if you need a named rate {rate,n,source}.
+
+## 1g. KG LEAN (first 25 lines of kg-summary — context, not a directional prior)
+--- BEGIN KG ---
+#KGML v2 | 18e 21r | depth:2 | 2026-08-20
+
+[⚖️ Decisions]
+Compaction user-notices OFF(DE3):decision — date:2026-08-20, status:active
+
+[🔨 Projects]
+VCP — Verified Cognitive Protocol(VC):project — standard_version:V1.2, author:Olivier Castagne, license:open + vendor-neutral, sector:AI accountability / trust infrastructure, date:2026-08-18
+  immutability ≠ correctness (VCP gap)(VCV):concept — severity:critical
+    citigroup_2022(CI):event — date:2022, detail:$444B fat-finger, $189B reached market
+    flash_crash_2010(FL):event — date:2010, detail:~$1T value evaporated, 5mo investigation
+    knight_capital_2012(KN):event — date:2012, loss:$440M in 45min, cause:failed software update
+  receipt→ledger→notary chain(VC3):concept
+  zero-knowledge proof (prove rules, hide weights)(VC2):concept
+
+[governance]
+SOP-RECURSIVE.md (recursive learning + model hygiene)(DED):decision — date:2026-08-18, status:active
+
+[infra]
+DeepSeek (provider)(PR):platform — baseUrl:https://api.deepseek.com, flagship:deepseek-v4-pro, pricing:direct-pay
+  DeepSeek V4 Pro context window is 1M tokens(KNK):knowledge — contextWindow:1000000, oldCatalogCap:128000, date:2026-08-20
+Kimi / Moonshot (provider)(PR2):platform — flagship:kimi-k3
+Qwen / DashScope (provider)(PRP):platform — flagship:qwen3.8-max, pricing:direct-pay
+
+[person]
+Olivier 'Olive' Castagne(HU):human — email:ol.castagne@gmail.com, tz:Europe/Madrid
+--- END KG ---
 
 ## 2. DOCTRINE RULES (SOP-RECURSIVE.md — read the rule prose; obey it, don't quote it)
 --- BEGIN SOP ---

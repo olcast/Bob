@@ -64,5 +64,26 @@
       "coin": "BTC",
       "note": "2026-08-20 09:32 full read: Move1 tag/fail 72055; SCORE silent"
     }
+  },
+  {
+    "ts": 1787222372559,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 73176,
+    "dn": 71024,
+    "p_up": 0.48,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787222372559,
+      "h": 8,
+      "up": 73176,
+      "dn": 71024,
+      "p_up": 0.48,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-20 10:39 full read: Move1 tag/fail 72501; SCORE silent"
+    }
   }
 ]
