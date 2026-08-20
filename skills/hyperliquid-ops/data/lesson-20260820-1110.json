@@ -1,0 +1,26 @@
+{
+  "id": "L3",
+  "status": "candidate",
+  "statement": "On a full read, analog_markov refuse (n<15) AND analog.py n<15 is itself information: do not interpolate a path; keep P(up) near 0.5 and let structure+liqmap break the tie. Treating an unusual fingerprint as 'no analog so fade/chase' is a method error.",
+  "spawned_by_call": "interactive-full-read 2026-08-20 10:39",
+  "spawned_utc": "2026-08-20 11:10 UTC",
+  "metric": "unusual_state_then_wrong_rate",
+  "bar": {
+    "min_wrong": 5,
+    "rate_gte": 0.4
+  },
+  "retire_if": {
+    "metric": "unusual_state_then_wrong_rate",
+    "min_wrong": 10,
+    "rate_lt": 0.15
+  },
+  "test": "Among SCORE tags written when analog.py n<15 or analog_markov refused, fraction that resolved opposite the committed lean. If interpolating/narrating the empty cell is the miss, rate should be high enough to promote 'refuse = stay near 0.5'.",
+  "evidence": {
+    "supporting_calls": [
+      "2026-08-20 09:32 p_up=0.45 analog refuse",
+      "2026-08-20 10:39 p_up=0.48 analog n=2 / markov n=7 refuse"
+    ],
+    "seed_note": "Both 08-20 full reads refused analog/Markov on trend/high-range/expanded-ATR. Committed on-the-line instead of faking a path."
+  },
+  "proposed_doctrine": "When analog.py n<15 or analog_markov refuses, do not interpolate. Unusual state is information: keep p_up near 0.5 and let structure + near-mark liqmap break the tie."
+}
