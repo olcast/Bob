@@ -106,5 +106,26 @@
       "coin": "BTC",
       "note": "2026-08-20 11:51 cash-open read: Move1 tag/fail 72501; SCORE silent"
     }
+  },
+  {
+    "ts": 1787239367935,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 72848,
+    "dn": 70336,
+    "p_up": 0.47,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787239367935,
+      "h": 8,
+      "up": 72848,
+      "dn": 70336,
+      "p_up": 0.47,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-20 15:22 cash-open read: Move1 tag/fail 72501; 72848 is squeeze after accept; SCORE silent"
+    }
   }
 ]
