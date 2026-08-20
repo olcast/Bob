@@ -38,7 +38,31 @@
     "p_base": 0.5,
     "by": "Claude",
     "move1_dir": "down",
-    "move1_zone": [62499, 62730],
+    "move1_zone": [
+      62499,
+      62730
+    ],
     "note": "current_call.json (2026-08-17 10:49 UTC)"
+  },
+  {
+    "ts": 1787218430738,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 72200,
+    "dn": 70531,
+    "p_up": 0.45,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787218430738,
+      "h": 8,
+      "up": 72200,
+      "dn": 70531,
+      "p_up": 0.45,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-20 09:32 full read: Move1 tag/fail 72055; SCORE silent"
+    }
   }
 ]
