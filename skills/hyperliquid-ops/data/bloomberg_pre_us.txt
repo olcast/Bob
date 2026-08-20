@@ -1,11 +1,11 @@
 BLOOMBERG MACRO GATE [pre_us] · 10 newsletters last 8h (backward-looking — grain of salt)
-  ★[—                 ] Fund managers are acting like summer will never end
-   [—                 ] Nvidia stokes the AI boom
-   [policy/risk       ] Supply Lines: Delaying tariffs on Canadian goods
-   [—                 ] Economics Daily: A homebuyer’s market
-   [policy/risk       ] Trump delays Canada tariffs
-   [rates/bonds       ] Markets Daily: Everyone loves a short-dated bond
-   [policy/risk       ] A new wartime challenge
-   [equities          ] Tech rally at risk
-   [—                 ] The London Rush: Bills bite back
-   [equities          ] Chip Selloff
+  ★[rates/bonds       ] Bessent’s big move wasn’t the bond-burner he hoped
+   [—                 ] Social media pitches GLP-1s to teens
+   [—                 ] Supply Lines: Importer data demands
+   [rates/bonds       ] Economics Daily: ‘Bond Vigilant’ Bessent
+   [—                 ] Economic D-Day
+   [—                 ] Markets Daily: Bessent’s buyback gambit
+   [—                 ] Riding the Trump backlash
+   [policy/risk       ] Economic warfare
+   [rates/bonds       ] The London Rush: Hays resets strategy
+   [rates/bonds       ] Bond relief
