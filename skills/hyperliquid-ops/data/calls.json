@@ -156,7 +156,7 @@
     "dn": 75152,
     "p_up": 0.47,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "RESOLVED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787293742806,
@@ -167,6 +167,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 06:25 full read: Move1 fail 75441/75816; 76155 is squeeze AFTER 1h accept; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787305340199,
+      "how": "up-won: 1h close 79317 @ 08:00 accepted through death-price 75816; mark ~77940 vs 75816",
+      "winner": "up"
+    }
+  },
+  {
+    "ts": 1787305340199,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 79584,
+    "dn": 77598,
+    "p_up": 0.48,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787305340199,
+      "h": 8,
+      "up": 79584,
+      "dn": 77598,
+      "p_up": 0.48,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 09:40 full read: Move1 retrace 78067/77598; 80055 squeeze AFTER 4h accept of 79584; SCORE silent"
     }
   }
 ]
