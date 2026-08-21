@@ -338,7 +338,7 @@
     "dn": 76292,
     "p_up": 0.42,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787338344883,
@@ -349,6 +349,11 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 18:51 full stack: 1h flipped DOWN 77894->76620; 15m accepted <76798; Move1 SHORT fail 77069->76292/75853; Move2 LONG reclaim 76292->77069; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787344155546,
+      "how": "superseded by 20:24 independent stack; rails shifted 77069/77407 -> 76620/78803; 15m already accepted >77677 (old short death) without tagging 77986",
+      "winner": null
     }
   },
   {
@@ -359,7 +364,7 @@
     "dn": 76292,
     "p_up": 0.46,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787339563857,
@@ -370,6 +375,11 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 19:11 full stack after collector refresh 19:07. Continuity 18:51: LONG death was premature (forming 18:45 15m, closed 77136). Rails 76292/77069 unchanged. Bounce to 77069 FADING. p_up=0.46 hit 78020 before 76292."
+    },
+    "resolved": {
+      "at": 1787344155546,
+      "how": "superseded by 20:24 independent stack; rails shifted 77069/77407 -> 76620/78803; 15m already accepted >77677 (old short death) without tagging 77986",
+      "winner": null
     }
   },
   {
@@ -380,7 +390,7 @@
     "dn": 76292,
     "p_up": 0.56,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read-independent",
     "SCORE": {
       "ts": 1787341122488,
@@ -391,6 +401,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 19:36 independent full stack. Collector 19:25. Rails from THIS wave+liqmap+pulse: 77069/77407. Not inherited from 19:11."
+    },
+    "resolved": {
+      "at": 1787344155546,
+      "how": "superseded by 20:24 independent stack; rails shifted 77069/77407 -> 76620/78803; 15m already accepted >77677 (old short death) without tagging 77986",
+      "winner": null
+    }
+  },
+  {
+    "ts": 1787344155546,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78803,
+    "dn": 76620,
+    "p_up": 0.52,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read-independent",
+    "SCORE": {
+      "ts": 1787344155546,
+      "h": 8,
+      "up": 78803,
+      "dn": 76620,
+      "p_up": 0.52,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 20:24 independent full stack. Collector 20:18. Rails from THIS wave+liqmap+pulse: 76620/78803. Not inherited from 19:36."
     }
   }
 ]
