@@ -1,50 +1,43 @@
-# Current Call — 2026-08-20 04:55 UTC (full run, co-deepseek)
+# Current Call — 2026-08-21 06:25 UTC (full run, co-deepseek)
 
-## Macro gate: CLEAR (was VOID)
-One-story coherent, not crypto-only. Named + dated for every ≥2% mover:
-- **US Treasury doubled longer-dated bond buybacks** (Wed 08-19) → yields down → duration + real-assets bid.
-- **Gold +3.20%** → BullionVault/SeekingAlpha: "gold leaps $100 on Treasury buybacks". Named.
-- **Silver +6.73%** → yields-down beta to gold. Named.
-- **Korea 200 +5.87%** → Treasury buybacks + idiosyncratic **SK hynix $29B buyback** (Kospi +6% at one point, SK hynix +12%). Named.
-- **BTC +8.17% / ETH +18.09% / SOL +10.54% / HYPE +20.76%** → high-beta risk-on expression + crypto-native short squeeze (~$1.4B shorts) + White House BTC-reserve summit / SEC rules / ETF inflows. Named.
-- **Divergence flag (honest):** SPX only +0.51% while gold/silver/crypto rip → this is a DURATION + REAL-ASSETS trade, not broad equity re-rating. Crypto is leveraged beta to a macro bid + its own squeeze.
+## Macro gate: VOID → CLEAR
+Named + dated for every ≥2% mover (19 Aug cluster, overnight = continuation):
+- **Treasury doubled longer-dated buybacks** (Wed 08-19, $2B → ≥$4B, ops 9 Sep–4 Nov) → duration + real-assets.
+- **BTC +8.65% / ETH +5.44% / SOL +7.09% / HYPE +2.63%** → same cluster + ETF +$517M (19 Aug) + squeeze + White House/CLARITY. Multiple candidates — do not assert one cause.
+- **Silver +2.76%** → buybacks / debasement. Gold +1.40% same story (under 2%).
+- **Divergence:** SPX −0.90% / NDX −0.93% = **Walmart 20 Aug** (~−9–10% on weak US comps) + **Bessent Iran measures** (more 24 Aug). Crypto did not follow equities.
+
+Inbox 0c not re-run this firing. Search was the timely pass. xyz:VIX / xyz:DXY stubs — not quoted.
+
+## Continuity vs 15:22 (08-20)
+Death-price **72501 1h accept FIRED**. Last closed 1h 75463 (05:00) and 4h 74516 (00:00) both ABOVE 72501. Tag/fail-72501 is **DEAD**. ~15h, mark ~75.3k vs 72.5k.
 
 ## Structure
-- 4h: down-leg 70,224 → 64,437 is +88% retraced past .786 (68,858). Mark ~69,508. Down-structure negated.
-- 1h: last UP A 68,966 → B 69,874; px ~+40% into zone (.382 69,527 / .5 69,420 / .618 69,313 / .786 69,180).
-- **The line = 70,224** (4h swing high = short invalidation = liq 70,215.59).
+- 4h last DOWN 75816 → 73001; +85% thru .786 **75152** = down-leg BREAK.
+- 1h last DOWN 75816 → 74227; +73%; .786 **75441** is the line.
+- 75816 not accepted (1h 75463 / 4h 74516 both BELOW). Wick ≠ accept.
+- Fib-time 1h: 5b=08:00 · 8b=11:00. 4h 5b=20:00.
 
-## Pulse / orderflow
-- 5m: CONFIRMING continuation (vol +48%, CVD +343) — momentum still up.
-- 1h: FADING fake risk (vol −36%, CVD −554) — larger frame not backed by fresh flow into highs.
-- OI: BTC dOI +1.2% with price = NEW length chasing (flip from −5.2% cover). Turn 2.38, prem −0.9bp, 3d −4.7bp.
-- Basis +7.3bp (pctile 0.79), funding +1.25e-05 (pctile 1.0 = maxed).
-- BTC options: ATM 32.7%, RR25d −5.83pp PUT SKEW, P/C 0.664 (downside protection bid even as spot rips) — divergence.
-- Analog n≈14 → unusual-state flag, not a base rate.
+## Pulse / fuel
+- 5m+1h PULSE FADING (vol −36% / −33%) = fake-risk at highs.
+- 90s tape 06:25: 446 prints, Δ +36% buy. Sample, not regime.
+- BTC dOI −4.5% + px up = **shorts covering**. Prem −2.0bp NEUTRAL. Turn 2.59 tape-real. Excess APR 0.
+- Magnet: short-liq **76155 +1.0% $9.3M**. Downside near-mark thin (74270 $50k); real pool 72762 $283k / 69746 $919k.
+- Analog n=36: P(up first) 38.9% / dn 61.1%; leg2 reverse 75%. Markov REFUSE n=7.
+- 0DTE Deribit 21AUG26 in ~1.7h. 04–10 UTC distrust. xyz DARK (crypto no-op).
 
-## Position (reporting only)
-Tiny 40x short probe: size 0.07704, entry 69,575.7, mark 69,489, liq 70,215.59 (1.05%). Acct $123.59, margin $133.84. Old short 0.78169 @ 63,618 is gone.
+## Two next-most-probable moves
+**Move 1 — FAIL 75441/75816 (fade first).**
+- Trigger: rejection under 75816 without 1h accept, or 1h close < 75441.
+- Target: 75152 → 74741 → 74270.
+- Invalidation: 1h close > 75816.
+- p ≈ 0.50–0.53.
 
-## Two next-most-probable moves (commit)
-**Move 1 — UP probe of 70,224 (squeeze re-armed).**
-- Trigger: in motion (5m confirming, +88% retrace).
-- Target: 70,224 (4h swing high); stretch = break → 71.5k projection.
-- Invalidation: 15m close < 69,180 (.786 1h).
-- p_up ≈ 0.55.
+**Move 2 — SQUEEZE after accept (contingent).**
+- Trigger: 1h close > 75441, then tag 75816.
+- Target: 75778 ($158k) → **76155 $9.3M**. Stretch 76532 $1.4M.
+- Invalidation: 1h close < 75152.
+- p ≈ 0.42–0.47, only after accept.
 
-**Move 2 — FADE after a printed top (contingent, not now).**
-- Trigger: 15m close < 69,180 AND/OR failed test of 70,224 (rejection candle + OI confirmation).
-- Target: 68,858 (.786 4h) → 68,013 (.618) → 67,330 (.5).
-- Invalidation: 15m close > 70,224 (flush thesis dead).
-- p ≈ 0.40–0.45, only after a top forms.
-
-## Continuity vs 22:39 UTC
-- Same 70,224 line, same "fade needs a printed top" verdict. Squeeze still re-armed.
-- Composition changed: new length chasing (OI +1.2%, basis +7.3bp, funding maxed) = late-stage fingerprints, not pure covering.
-- Fade has still NOT fired — no printed top, 5m still confirming up.
-- Short cut to a stub; no longer the 0.78169 underwater position.
-
-## Doctrine gaps (disclosed)
-- Gmail 0c inbox pass FAILED (IMAP AUTHENTICATIONFAILED — invalid creds in .secrets/gmail.env). 0c was NOT run.
-- DXY/VIX are stubs in preflight — not quoted as live markets.
-- Analog sample too small (~14) for a base rate.
+Death-price: **1h accept > 75816** (fade dead) XOR **1h accept < 75152** (squeeze dead).
+SCORE silent: up 75816 / dn 75152 / p_up 0.47 / h 8.
