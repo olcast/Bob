@@ -260,7 +260,7 @@
     "dn": 75837,
     "p_up": 0.55,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787327603333,
@@ -271,6 +271,11 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 15:52 fresh read: Move1 LONG reclaim 77069->magnet 78546; Move2 SHORT tag-reject 78546->75837; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787336198399,
+      "how": "superseded by 16:24 then 18:14; neither 78546 nor 75837 tagged",
+      "winner": null
     }
   },
   {
@@ -281,7 +286,7 @@
     "dn": 76090,
     "p_up": 0.52,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787329534720,
@@ -292,6 +297,58 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 16:24 fresh read: 1h swing flipped 76256->77894 then rejecting; Move1 LONG reclaim 77069->magnet 78407; Move2 SHORT tag-reject 78407->76090; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787336198399,
+      "how": "level-shifted ~1h50m later: neither rail tagged; 1h retrace shallowed 47%->29%; covering ended dOI -1.1% -> +0.6% chase; mark ~77350 still between 77069 and 78407",
+      "winner": null
+    }
+  },
+  {
+    "ts": 1787336198399,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78407,
+    "dn": 76090,
+    "p_up": 0.51,
+    "p_base": 0.5,
+    "status": "RESOLVED",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787336198399,
+      "h": 8,
+      "up": 78407,
+      "dn": 76090,
+      "p_up": 0.51,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 18:14 fresh read: coil mid 77069-78407; covering ended, chase on; Move1 LONG reclaim 77069->magnet 78407; Move2 SHORT tag-reject 78407->76090; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787338344883,
+      "how": "dn-won: 15m close 76720 @ 18:45 accepted below death-price 76798; tagged 77069 and wicked 76620; 1h swing flipped 77894->76620; magnet 78407 untagged",
+      "winner": "down"
+    }
+  },
+  {
+    "ts": 1787338344883,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 77069,
+    "dn": 76292,
+    "p_up": 0.42,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787338344883,
+      "h": 8,
+      "up": 77069,
+      "dn": 76292,
+      "p_up": 0.42,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 18:51 full stack: 1h flipped DOWN 77894->76620; 15m accepted <76798; Move1 SHORT fail 77069->76292/75853; Move2 LONG reclaim 76292->77069; SCORE silent"
     }
   }
 ]
