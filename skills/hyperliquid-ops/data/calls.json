@@ -208,7 +208,7 @@
     "dn": 77069,
     "p_up": 0.47,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "RESOLVED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787308789565,
@@ -219,6 +219,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 10:37 full read: Move1 tag/fail 78658; 77069 flush-reclaim is Move2; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787312508526,
+      "how": "dn-won: tagged 77069 and wicked 76444 without tagging 78658; last closed 1h still 77838, forming 11:00 low 76444 close~77023",
+      "winner": "down"
+    }
+  },
+  {
+    "ts": 1787312508526,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78585,
+    "dn": 76251,
+    "p_up": 0.43,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787312508526,
+      "h": 8,
+      "up": 78585,
+      "dn": 76251,
+      "p_up": 0.43,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 11:40 full read: Move1 1h accept<76711 continuation; 77069 reclaim is Move2; SCORE silent"
     }
   }
 ]
