@@ -182,7 +182,7 @@
     "dn": 77598,
     "p_up": 0.48,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787305340199,
@@ -193,6 +193,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 09:40 full read: Move1 retrace 78067/77598; 80055 squeeze AFTER 4h accept of 79584; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787308789565,
+      "how": "level-shifted ~1h later: 1h swing flipped UP->DOWN 79584->77302; magnet 80055->$7.2M 78658; neither death-price fired (1h close 77936 still >77598; 4h never accepted 79584)",
+      "winner": null
+    }
+  },
+  {
+    "ts": 1787308789565,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78658,
+    "dn": 77069,
+    "p_up": 0.47,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787308789565,
+      "h": 8,
+      "up": 78658,
+      "dn": 77069,
+      "p_up": 0.47,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 10:37 full read: Move1 tag/fail 78658; 77069 flush-reclaim is Move2; SCORE silent"
     }
   }
 ]
