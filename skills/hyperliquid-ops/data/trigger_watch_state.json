@@ -1,15 +1,23 @@
 {
-  "updated_utc": "2026-08-21T12:46:01Z",
-  "mark": 77423.5,
-  "last_15m_t": 1787315400000,
-  "last_15m_close": 77455.0,
-  "last_1h_t": 1787310000000,
-  "last_1h_close": 76768.0,
+  "updated_utc": "2026-08-21T13:46:01Z",
+  "mark": 77348.5,
+  "last_15m_t": 1787319000000,
+  "last_15m_close": 77330.0,
+  "last_1h_t": 1787313600000,
+  "last_1h_close": 77230.0,
   "fired": [
-    "LONG_ENTRY:1787315400000"
+    "LONG_ENTRY:1787315400000",
+    "LONG_ENTRY:1787316300000",
+    "LONG_ENTRY:1787317200000",
+    "LONG_ENTRY:1787318100000",
+    "LONG_ENTRY:1787319000000",
+    "SHORT_DEAD:1787313600000",
+    "SHORT_DEAD_15M:1787318100000",
+    "SHORT_DEAD_15M:1787319000000"
   ],
   "last_events": [
-    "LONG_ENTRY:1787315400000"
+    "LONG_ENTRY:1787319000000",
+    "SHORT_DEAD_15M:1787319000000"
   ],
   "pulse": "CONFIRMING"
 }

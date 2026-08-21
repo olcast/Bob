@@ -1,10 +1,10 @@
 {
   "schema": "hlops-armed-triggers-v1",
-  "asof_utc": "2026-08-21T11:40:00Z",
+  "asof_utc": "2026-08-21T13:20:00Z",
   "expires_utc": "2026-08-21T19:40:00Z",
   "coin": "BTC",
-  "source": "current_call.md 11:40 UTC + 15m-entry/1h-kill standing rule",
-  "note": "Wicks do not fire. 5m closes do not fire. Update this file when the standing call changes.",
+  "source": "current_call.md 11:40 UTC + 15m-entry / 15m-kill / 1h-confirm",
+  "note": "Wicks do not fire. 5m closes do not fire. 15m close = entry AND fast kill. 1h close = thesis confirm kill. KILL always pings (Python, no LLM).",
   "levels": {
     "short_entry": {
       "id": "SHORT_ENTRY",
@@ -20,19 +20,33 @@
       "price": 77069,
       "label": "LONG reclaim — 15m close above 77069"
     },
+    "short_dead_15m": {
+      "id": "SHORT_DEAD_15M",
+      "clock": "15m",
+      "op": "gt",
+      "price": 77069,
+      "label": "SHORT KILL — 15m close above 77069"
+    },
+    "long_dead_15m": {
+      "id": "LONG_DEAD_15M",
+      "clock": "15m",
+      "op": "lt",
+      "price": 76711,
+      "label": "LONG KILL — 15m close below 76711"
+    },
     "short_dead": {
       "id": "SHORT_DEAD",
       "clock": "1h",
       "op": "gt",
       "price": 77069,
-      "label": "SHORT thesis KILL — 1h close above 77069"
+      "label": "SHORT KILL confirm — 1h close above 77069"
     },
     "long_dead": {
       "id": "LONG_DEAD",
       "clock": "1h",
       "op": "lt",
       "price": 76711,
-      "label": "LONG thesis KILL — 1h close below 76711"
+      "label": "LONG KILL confirm — 1h close below 76711"
     }
   },
   "stops": {
