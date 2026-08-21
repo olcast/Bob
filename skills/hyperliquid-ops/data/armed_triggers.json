@@ -1,0 +1,42 @@
+{
+  "schema": "hlops-armed-triggers-v1",
+  "asof_utc": "2026-08-21T11:40:00Z",
+  "expires_utc": "2026-08-21T19:40:00Z",
+  "coin": "BTC",
+  "source": "current_call.md 11:40 UTC + 15m-entry/1h-kill standing rule",
+  "note": "Wicks do not fire. 5m closes do not fire. Update this file when the standing call changes.",
+  "levels": {
+    "short_entry": {
+      "id": "SHORT_ENTRY",
+      "clock": "15m",
+      "op": "lt",
+      "price": 76711,
+      "label": "SHORT entry — 15m close below 76711"
+    },
+    "long_entry": {
+      "id": "LONG_ENTRY",
+      "clock": "15m",
+      "op": "gt",
+      "price": 77069,
+      "label": "LONG reclaim — 15m close above 77069"
+    },
+    "short_dead": {
+      "id": "SHORT_DEAD",
+      "clock": "1h",
+      "op": "gt",
+      "price": 77069,
+      "label": "SHORT thesis KILL — 1h close above 77069"
+    },
+    "long_dead": {
+      "id": "LONG_DEAD",
+      "clock": "1h",
+      "op": "lt",
+      "price": 76711,
+      "label": "LONG thesis KILL — 1h close below 76711"
+    }
+  },
+  "stops": {
+    "engine_pct": 0.006,
+    "liq_pct": 0.025
+  }
+}

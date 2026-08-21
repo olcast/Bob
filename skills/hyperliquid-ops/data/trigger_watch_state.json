@@ -1,0 +1,15 @@
+{
+  "updated_utc": "2026-08-21T12:46:01Z",
+  "mark": 77423.5,
+  "last_15m_t": 1787315400000,
+  "last_15m_close": 77455.0,
+  "last_1h_t": 1787310000000,
+  "last_1h_close": 76768.0,
+  "fired": [
+    "LONG_ENTRY:1787315400000"
+  ],
+  "last_events": [
+    "LONG_ENTRY:1787315400000"
+  ],
+  "pulse": "CONFIRMING"
+}
