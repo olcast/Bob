@@ -272,5 +272,26 @@
       "coin": "BTC",
       "note": "2026-08-21 15:52 fresh read: Move1 LONG reclaim 77069->magnet 78546; Move2 SHORT tag-reject 78546->75837; SCORE silent"
     }
+  },
+  {
+    "ts": 1787329534720,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78407,
+    "dn": 76090,
+    "p_up": 0.52,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787329534720,
+      "h": 8,
+      "up": 78407,
+      "dn": 76090,
+      "p_up": 0.52,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 16:24 fresh read: 1h swing flipped 76256->77894 then rejecting; Move1 LONG reclaim 77069->magnet 78407; Move2 SHORT tag-reject 78407->76090; SCORE silent"
+    }
   }
 ]
