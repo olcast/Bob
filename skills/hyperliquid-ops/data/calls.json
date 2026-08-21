@@ -350,5 +350,47 @@
       "coin": "BTC",
       "note": "2026-08-21 18:51 full stack: 1h flipped DOWN 77894->76620; 15m accepted <76798; Move1 SHORT fail 77069->76292/75853; Move2 LONG reclaim 76292->77069; SCORE silent"
     }
+  },
+  {
+    "ts": 1787339563857,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78020,
+    "dn": 76292,
+    "p_up": 0.46,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787339563857,
+      "h": 8,
+      "up": 78020,
+      "dn": 76292,
+      "p_up": 0.46,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 19:11 full stack after collector refresh 19:07. Continuity 18:51: LONG death was premature (forming 18:45 15m, closed 77136). Rails 76292/77069 unchanged. Bounce to 77069 FADING. p_up=0.46 hit 78020 before 76292."
+    }
+  },
+  {
+    "ts": 1787341122488,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 77986,
+    "dn": 76292,
+    "p_up": 0.56,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read-independent",
+    "SCORE": {
+      "ts": 1787341122488,
+      "h": 8,
+      "up": 77986,
+      "dn": 76292,
+      "p_up": 0.56,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 19:36 independent full stack. Collector 19:25. Rails from THIS wave+liqmap+pulse: 77069/77407. Not inherited from 19:11."
+    }
   }
 ]
