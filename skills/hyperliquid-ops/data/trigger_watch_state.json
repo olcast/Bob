@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-08-21T21:46:03Z",
-  "mark": 78437.5,
-  "last_15m_t": 1787347800000,
-  "last_15m_close": 78267.0,
-  "last_1h_t": 1787342400000,
-  "last_1h_close": 77510.0,
+  "updated_utc": "2026-08-21T22:46:05Z",
+  "mark": 78405.5,
+  "last_15m_t": 1787351400000,
+  "last_15m_close": 78547.0,
+  "last_1h_t": 1787346000000,
+  "last_1h_close": 78556.0,
   "fired": [
     "LONG_ENTRY:1787315400000",
     "LONG_ENTRY:1787316300000",
@@ -29,8 +29,14 @@
     "SHORT_DEAD_15M:1787323500000",
     "SHORT_DEAD_15M:1787324400000",
     "SHORT_DEAD_15M:1787325300000",
-    "SHORT_DEAD_15M:1787326200000"
+    "SHORT_DEAD_15M:1787326200000",
+    "WATCH_LID:1787348700000",
+    "WATCH_LID:1787349600000",
+    "WATCH_LID:1787350500000",
+    "WATCH_LID:1787351400000"
   ],
-  "last_events": [],
+  "last_events": [
+    "WATCH_LID:1787351400000"
+  ],
   "pulse": "FADING"
 }
