@@ -416,7 +416,7 @@
     "dn": 76620,
     "p_up": 0.52,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read-independent",
     "SCORE": {
       "ts": 1787344155546,
@@ -427,6 +427,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 20:24 independent full stack. Collector 20:18. Rails from THIS wave+liqmap+pulse: 76620/78803. Not inherited from 19:36."
+    },
+    "resolved": {
+      "at": 1787348685539,
+      "how": "superseded by 21:43 independent stack; rails 76620/78803 -> 76807/79584; magnet 78803 spent; neither 20:24 death-price fired",
+      "winner": null
+    }
+  },
+  {
+    "ts": 1787348685539,
+    "coin": "BTC",
+    "horizon_h": 12,
+    "up": 79584,
+    "dn": 76807,
+    "p_up": 0.47,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read-independent",
+    "SCORE": {
+      "ts": 1787348685539,
+      "h": 12,
+      "up": 79584,
+      "dn": 76807,
+      "p_up": 0.47,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 21:43 full read: Grok 47% vs Qwen 51% |dP|=4pp NOT CONTESTED; WAIT mid; rails 76807/79584"
     }
   }
 ]
