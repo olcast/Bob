@@ -234,7 +234,7 @@
     "dn": 76251,
     "p_up": 0.43,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "RESOLVED",
     "src": "interactive-full-read",
     "SCORE": {
       "ts": 1787312508526,
@@ -245,6 +245,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 11:40 full read: Move1 1h accept<76711 continuation; 77069 reclaim is Move2; SCORE silent"
+    },
+    "resolved": {
+      "at": 1787328076622,
+      "how": "level-shifted: 1h close 77413 @ 14:00 accepted >77069 (Move1 C dead); tagged 76256 wick; Move2 LONG reclaim armed and playing",
+      "winner": "alt_path_live"
+    }
+  },
+  {
+    "ts": 1787327603333,
+    "coin": "BTC",
+    "horizon_h": 8,
+    "up": 78546,
+    "dn": 75837,
+    "p_up": 0.55,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read",
+    "SCORE": {
+      "ts": 1787327603333,
+      "h": 8,
+      "up": 78546,
+      "dn": 75837,
+      "p_up": 0.55,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-21 15:52 fresh read: Move1 LONG reclaim 77069->magnet 78546; Move2 SHORT tag-reject 78546->75837; SCORE silent"
     }
   }
 ]
