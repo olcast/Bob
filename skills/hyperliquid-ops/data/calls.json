@@ -442,7 +442,7 @@
     "dn": 76807,
     "p_up": 0.47,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "RESOLVED",
     "src": "interactive-full-read-independent",
     "SCORE": {
       "ts": 1787348685539,
@@ -453,6 +453,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-21 21:43 full read: Grok 47% vs Qwen 51% |dP|=4pp NOT CONTESTED; WAIT mid; rails 76807/79584"
+    },
+    "resolved": {
+      "at": 1787382865346,
+      "how": "dn-won: tagged 76807 and wicked 76256 without revisiting 79584 after 21:43; last 1h close 77528 still >76807 so 1h confirm-kill never printed",
+      "winner": "down"
+    }
+  },
+  {
+    "ts": 1787382865346,
+    "coin": "BTC",
+    "horizon_h": 12,
+    "up": 78313,
+    "dn": 76314,
+    "p_up": 0.44,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read-independent",
+    "SCORE": {
+      "ts": 1787382865346,
+      "h": 12,
+      "up": 78313,
+      "dn": 76314,
+      "p_up": 0.44,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-22 07:14 full read: Grok 44% vs Qwen ~42% |dP|=2pp NOT CONTESTED; WAIT mid; rails 76314/78313"
     }
   }
 ]
