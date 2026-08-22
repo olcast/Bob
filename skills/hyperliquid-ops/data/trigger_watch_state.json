@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-08-22T18:46:02Z",
-  "mark": 77239.5,
-  "last_15m_t": 1787423400000,
-  "last_15m_close": 77272.0,
-  "last_1h_t": 1787418000000,
-  "last_1h_close": 77322.0,
+  "updated_utc": "2026-08-22T19:46:03Z",
+  "mark": 77468.5,
+  "last_15m_t": 1787427000000,
+  "last_15m_close": 77485.0,
+  "last_1h_t": 1787421600000,
+  "last_1h_close": 77312.0,
   "fired": [
     "LONG_ENTRY:1787315400000",
     "LONG_ENTRY:1787316300000",
@@ -47,5 +47,5 @@
     "WATCH_LID:1787382000000"
   ],
   "last_events": [],
-  "pulse": "FADING"
+  "pulse": "CONFIRMING"
 }
