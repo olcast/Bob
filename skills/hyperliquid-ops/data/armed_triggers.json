@@ -1,49 +1,49 @@
 {
   "schema": "hlops-armed-triggers-v1",
-  "asof_utc": "2026-08-22T07:14:00Z",
-  "expires_utc": "2026-08-22T19:00:00Z",
+  "asof_utc": "2026-08-22T10:48:00Z",
+  "expires_utc": "2026-08-22T22:48:00Z",
   "coin": "BTC",
-  "source": "current_call.md 07:14 UTC + Grok/Qwen pin-gate",
-  "note": "Wicks do not fire. 5m closes do not fire. 15m close = entry AND fast kill. 1h close = thesis confirm kill. KILL always pings. LONG_ENTRY omitted while mark is already above 76314 (would spam). Arm the poke-reclaim only after a poke. Do not arm 77527 — mark is already through it.",
+  "source": "current_call.md 10:48 UTC + Grok/Qwen pin-gate",
+  "note": "Wicks do not fire. 5m closes do not fire. 15m close = entry AND fast kill. 1h close = thesis confirm kill. KILL always pings. LONG_ENTRY omitted while mark is already above 76863 (would spam). Arm the poke-reclaim only after a poke. Do not arm 77084 — mark is already through mid-box.",
   "levels": {
     "short_entry": {
       "id": "SHORT_ENTRY",
       "clock": "15m",
       "op": "gt",
-      "price": 78313,
-      "label": "SHORT tag — 15m close above 78313 (TAKE only if 5m confirms down / reject)"
+      "price": 77289,
+      "label": "SHORT tag — 15m close above 77289 (TAKE only if 5m confirms down / reject)"
     },
     "short_dead_15m": {
       "id": "SHORT_DEAD_15M",
       "clock": "15m",
       "op": "gt",
-      "price": 78799,
-      "label": "SHORT KILL — 15m close above 78799"
+      "price": 77559,
+      "label": "SHORT KILL — 15m close above 77559"
     },
     "long_dead_15m": {
       "id": "LONG_DEAD_15M",
       "clock": "15m",
       "op": "lt",
-      "price": 76314,
-      "label": "LONG KILL / poke — 15m close below 76314 (reclaim is the long; 1h accept = Move 1 continuation)"
+      "price": 76863,
+      "label": "LONG KILL / poke — 15m close below 76863 (reclaim is the long; 1h accept = Move 2 continuation)"
     },
     "short_dead": {
       "id": "SHORT_DEAD",
       "clock": "1h",
       "op": "gt",
-      "price": 78346,
-      "label": "SHORT KILL confirm — 1h close above 78346"
+      "price": 77559,
+      "label": "SHORT KILL confirm — 1h close above 77559"
     },
     "long_dead": {
       "id": "LONG_DEAD",
       "clock": "1h",
       "op": "lt",
-      "price": 76314,
-      "label": "LONG KILL confirm — 1h close below 76314"
+      "price": 76593,
+      "label": "LONG KILL confirm — 1h close below 76593"
     }
   },
   "stops": {
-    "engine_pct": 0.006,
+    "engine_pct": 0.005,
     "liq_pct": 0.025
   }
 }

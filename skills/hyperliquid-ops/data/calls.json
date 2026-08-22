@@ -468,7 +468,7 @@
     "dn": 76314,
     "p_up": 0.44,
     "p_base": 0.5,
-    "status": "OPEN",
+    "status": "SUPERSEDED",
     "src": "interactive-full-read-independent",
     "SCORE": {
       "ts": 1787382865346,
@@ -479,6 +479,32 @@
       "p_base": 0.5,
       "coin": "BTC",
       "note": "2026-08-22 07:14 full read: Grok 44% vs Qwen ~42% |dP|=2pp NOT CONTESTED; WAIT mid; rails 76314/78313"
+    },
+    "resolved": {
+      "at": 1787395846495,
+      "how": "superseded by 10:48 independent stack; rails 76314/78313 -> 76863/77289; neither 07:14 rail printed (78313 untagged, 76314 never 1h-accepted)",
+      "winner": null
+    }
+  },
+  {
+    "ts": 1787395846495,
+    "coin": "BTC",
+    "horizon_h": 12,
+    "up": 77289,
+    "dn": 76863,
+    "p_up": 0.46,
+    "p_base": 0.5,
+    "status": "OPEN",
+    "src": "interactive-full-read-independent",
+    "SCORE": {
+      "ts": 1787395846495,
+      "h": 12,
+      "up": 77289,
+      "dn": 76863,
+      "p_up": 0.46,
+      "p_base": 0.5,
+      "coin": "BTC",
+      "note": "2026-08-22 10:48 full read: Grok 46% vs Qwen 42% |dP|=4pp NOT CONTESTED; WAIT mid; rails 76863/77289"
     }
   }
 ]
